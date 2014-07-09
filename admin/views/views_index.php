@@ -48,14 +48,14 @@
               items:[
                 {id:'index',text:'后台首页',href:'<?php echo site_url("test") ?>',closeable : false},
                 {id:'main-menu',text:'站点设置',href:'main/menu.html'},
-                {id:'second-menu',text:'安全设置',href:'main/second-menu.html'},
-                {id:'dyna-menu',text:'缓存设置',href:'main/dyna-menu.html'}
+                {id:'main-menu',text:'修改密码',href:'main/menu.html'}                
+        
               ]
             },{
               text:'权限设置',
               items:[
                 {id:'operation',text:'用户管理',href:'main/operation.html'},
-                {id:'quick',text:'权限设置',href:'main/quick.html'}  
+                {id:'quick',text:'角色管理',href:'main/quick.html'}  
               ]
             },{
               text:'日志管理',
@@ -69,7 +69,7 @@
             menu:[{
                 text:'设备分析',
                 items:[
-                  {id:'introduc2',text:'概况',href:'form/introduce.html'}, 
+                  {id:'introduc2',text:'设备概况',href:'form/introduce.html'}, 
                   {id:'introduc2',text:'新增数量',href:'form/introduce.html'}, 
                   {id:'introduc1e',text:'分布情况',href:'form/introduce.html'},                            
                   {id:'introduce',text:'运行时间',href:'form/introduce.html'},
@@ -105,17 +105,13 @@
             menu:[{
                 text:'留言反馈',
                 items:[
-                  {id:'feedback',text:'留言管理',href:'detail/example.html'},                    
-                  {id:'feedcat',text:'留言分类',href:'detail/code.html'},
-                  {id:'feedsetting',text:'留言设置',href:'detail/introduce.html'}
+                  {id:'feedback',text:'留言反馈',href:'detail/example.html'}
                 ]
               },
               {
               text : '消息推送',
               items:[
-                  {id:'message',text:'消息管理',href:'chart/code.html'},
-                  {id:'msgcat',text:'消息分类',href:'chart/line.html'},
-                  {id:'msgset',text:'消息设置',href:'chart/line.html'}                 
+                  {id:'message',text:'消息管理',href:'chart/code.html'}              
               ]
             }
             ]

@@ -15,6 +15,14 @@ if (! defined('BASEPATH')) {
  */
 class Login extends CI_Controller
 {
+    
+    
+        public function __construct()
+        {
+                parent::__construct();
+                $this->load->database();
+                $this->load->library('session');
+        }
     /**
      * 默认入口
      *
