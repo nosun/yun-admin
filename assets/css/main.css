@@ -451,3 +451,31 @@ iframe {
 .dl-inner-tab .tab-content-container{
 	background-color: #fff;
 }
+
+/* 
+nosun:login page
+*/
+
+html{height:100%}
+*{margin:0px;padding:0px;}
+body#login {
+    background-position: 0 36px;
+    height:100%;
+}
+body#login{
+    background: #ededed;
+}
+body#login .wrapper{height:100%;margin: 0 auto -4em;}
+#header_bg{width:100%;background:#0062ad;}
+#login #header {height:100px;padding-top:60px;width:1000px;margin:0px auto;}
+#login_logo {background: url("../img/login_logo.jpg") -18px 0px;height:60px;width:300px;margin:0px auto}
+#login_main {margin:0px auto;width:1000px;height:50%}
+#login_box{
+    width:400px;margin:75px auto;padding:30px;text-align: center;background:#fff;
+    box-shadow:-8px 8px 5px #999;color:#7c7c7c;
+}
+#login_box h2{font-size:20px;height:30px;line-height:30px;color:#7c7c7c;font-family: "微软雅黑";font-weight: normal;
+            margin-bottom:20px;
+}
+#login #footer {width:100%;background:#0062ad;height:50px;}
+#login #footer p{text-align: center;width:1000px;margin:0px auto;padding-top:1em;color:#ffffff}

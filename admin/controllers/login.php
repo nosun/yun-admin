@@ -22,6 +22,8 @@ class Login extends CI_Controller
                 parent::__construct();
                 $this->load->database();
                 $this->load->library('session');
+                //$this->load->library('code');
+                $this->config->load('admin.setting');
         }
     /**
      * 默认入口
@@ -31,7 +33,14 @@ class Login extends CI_Controller
      */	
 	public function index()
 	{
-		$this->load->view("/views_login");	
+            	if ($this->session->userdata('uid'))
+		{
+                        redirect('/admin');
+		}
+		else
+		{       
+			$this->load->view('/views_login');	
+		}
 	}
 	
 	// ------------------------------------------------------------------------
@@ -44,96 +53,54 @@ class Login extends CI_Controller
      */	
 	public function quit()
 	{
-		//$this->session->sess_destroy();
-		redirect(setting('backend_access_point') . '/login');
+		$this->session->sess_destroy();
+		redirect('/login');
 	}
-	
+        
 	// ------------------------------------------------------------------------
-
     /**
      * 用户登录验证
      *
      * @access  public
      * @return  void
      */	
-	public function _do_post()
+	public function do_post()
 	{
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
+                
+                if ($username AND $password)
+                {}
 		
-		if ($username AND $password)
-		{
-			$admin = $this->user_mdl->get_full_user_by_username($username);
-			if ($admin)
-			{
-                $throttle = $this->db->where('created_at >', date('Y-m-d H:i:s', time() - 7200))
-                    ->where('user_id', $admin->uid)
-                    ->limit(1)
-                    ->get('throttles')
-                    ->row();
-
-                if ($throttle) {
-
-                    $this->session->set_flashdata('error', "密码输入次数过多，账号被禁用2小时，将在".date('Y-m-d H:i:s', strtotime($throttle->created_at) + 7200).'解禁.');
-
-                    redirect(setting('backend_access_point') . '/login');
-
-                }
-
-				if ($admin->password == sha1($password.$admin->salt))
-				{
-					if ($admin->role == 1 AND ! setting('backend_root_access'))
-					{
-						$this->session->set_flashdata('error', "系统限制了ROOT用户登录,请联系管理员!");
-					}
-					else
-					{
-						if ($admin->status == 1)
-						{
-							$this->session->set_userdata('uid', $admin->uid);
-							redirect(setting('backend_access_point') . '/system/home');
-						}
-						else
-						{
-							$this->session->set_flashdata('error', "此帐号已被冻结,请联系管理员!");
-						}
-						
-					}
-				}
-				else
-				{
-                    if (! $throttles = $this->session->userdata('throttles_'.$username)) {
-                        $this->session->set_userdata('throttles_'.$username, 1);
-                    } else {
-                        $throttles ++;
-                        $this->session->set_userdata('throttles_'.$username,  $throttles);
-                        if ($throttles > 3) {
-                            $throttle_data['user_id'] = $admin->uid;
-                            $throttle_data['type'] = 'attempt_login';
-                            $throttle_data['ip'] = $this->input->ip_address();
-                            $throttle_data['created_at'] =  $throttle_data['updated_at'] = date('Y-m-d H:i:s');
-                            $this->db->insert('throttles', $throttle_data);
-                            $this->session->set_userdata('throttles_'.$username, 0);
-                        }
-                    }
-
-					$this->session->set_flashdata('error', "密码不正确!");
-				}
-			}
-			else
-			{
-				$this->session->set_flashdata('error', '不存在的用户!');
-			}
-		}
-		else
-		{
-			$this->session->set_flashdata('error', '用户名和密码不能为空!');
-		}
-		redirect(setting('backend_access_point') . '/login');
 	}
 
-	// ------------------------------------------------------------------------
-	
+	//生成验证码
+	function code(){
+		$vals = array(
+                'word' => '1213313131231',
+                'img_path' => './',
+                'img_url' => 'http://localhost/yun-admin/123.jpg',
+                'font_path' => './fonts/font.ttf',
+                'img_width' => '150',
+                'img_height' => 30,
+                'expiration' => 7200
+                );
+                $cap = create_captcha($vals);
+                var_dump($cap);die;
+                echo $cap['image'];	
+	}
+        
+	//校验验证码
+	function check_code(){
+                @ob_clean() ;
+                @session_start() ;
+		$yzm = daddslashes(html_escape(strip_tags($this->input->get_post("code"))));//code
+		if(strtolower($_SESSION['code']) != strtolower($yzm) ){
+			//showmessage("验证码错误","login",3,0);
+			exit('验证码不正确');
+		}
+		exit('success');
+	}
 }
 
 /* End of file login.php */
