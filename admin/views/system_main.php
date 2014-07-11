@@ -3,9 +3,9 @@
  <head>
   <title>思佳维云平台——管理中心</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <link href="<?php echo base_url() ?>assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo base_url() ?>assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-   <link href="<?php echo base_url() ?>assets/css/main.css" rel="stylesheet" type="text/css" />
+   <link href="<?php echo base_url() ?>views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo base_url() ?>views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="<?php echo base_url() ?>views/assets/css/main.css" rel="stylesheet" type="text/css" />
  </head>
  <body>
 
@@ -18,7 +18,7 @@
       </div>
 
     <div class="dl-log">欢迎您，<span class="dl-log-user">nosun</span>
-        <a href="###" title="退出系统" class="dl-log-quit">[退出]</a>
+        <a href="<?php echo site_url()?>/login/quit" title="退出系统" class="dl-log-quit">[退出]</a>
     </div>
   </div>
    <div class="content">
@@ -34,9 +34,9 @@
 
     </ul>
    </div>
-  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery-1.8.1.min.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/bui.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/config.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/bui.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/config.js"></script>
 
   <script>
     BUI.use('common/main',function(){
@@ -46,22 +46,22 @@
           menu:[{
               text:'系统设置',
               items:[
-                {id:'index',text:'后台首页',href:'<?php echo site_url("test") ?>',closeable : false},
-                {id:'main-menu',text:'站点设置',href:'main/menu.html'},
-                {id:'main-menu',text:'修改密码',href:'main/menu.html'}                
+                {id:'index',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
+                {id:'main-menu',text:'站点设置',href:'<?php echo site_url("system/setting") ?>'},
+                {id:'main-menu',text:'修改密码',href:'<?php echo site_url("system/passwd") ?>'}                
         
               ]
             },{
               text:'权限设置',
               items:[
-                {id:'operation',text:'用户管理',href:'main/operation.html'},
-                {id:'quick',text:'角色管理',href:'main/quick.html'}  
+                {id:'operation',text:'用户管理',href:'<?php echo site_url("system/members") ?>'},
+                {id:'quick',text:'角色管理',href:'<?php echo site_url("system/roles") ?>'}  
               ]
             },{
               text:'日志管理',
               items:[
-                {id:'operation',text:'登陆日志',href:'main/operation.html'},
-                {id:'quick',text:'操作日志',href:'main/quick.html'}  
+                {id:'operation',text:'登陆日志',href:'<?php echo site_url("system/logs/login") ?>'},
+                {id:'quick',text:'操作日志',href:'<?php echo site_url("system/logs/action") ?>'}  
               ]
             }]
           },{

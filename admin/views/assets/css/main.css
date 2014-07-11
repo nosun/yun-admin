@@ -479,3 +479,5 @@ body#login .wrapper{height:100%;margin: 0 auto -4em;}
 }
 #login #footer {width:100%;background:#0062ad;height:50px;}
 #login #footer p{text-align: center;width:1000px;margin:0px auto;padding-top:1em;color:#ffffff}
+#login #captcha {margin-bottom:15px}
+#login #clickyzm{padding-left:10px;}

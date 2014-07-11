@@ -37,8 +37,5 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
-
-
-define('SKYLINK_VERSION', 'V1.0');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
