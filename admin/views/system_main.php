@@ -69,17 +69,17 @@
             menu:[{
                 text:'设备分析',
                 items:[
-                  {id:'introduc2',text:'设备概况',href:'form/introduce.html'}, 
-                  {id:'introduc2',text:'新增数量',href:'form/introduce.html'}, 
-                  {id:'introduc1e',text:'分布情况',href:'form/introduce.html'},                            
-                  {id:'introduce',text:'运行时间',href:'form/introduce.html'},
-                  {id:'valid',text:'运行状态',href:'form/basicValid.html'}
+                  {id:'introduc2',text:'设备概况',href:'<?php echo site_url("equipments/index") ?>'}, 
+                  {id:'introduc2',text:'新增数量',href:'<?php echo site_url("equipments/index") ?>'}, 
+                  {id:'introduc1e',text:'分布情况',href:'<?php echo site_url("equipments/index") ?>'},                            
+                  {id:'introduce',text:'运行时间',href:'<?php echo site_url("equipments/index") ?>'},
+                  {id:'valid',text:'运行状态',href:'<?php echo site_url("equipments/index") ?>'}
                 ]
               },{
                 text:'设备管理',
                 items:[
-                  {id:'eqinfo',text:'设备分类',href:'form/code.html'},
-                  {id:'example',text:'设备列表',href:'form/example.html'}
+                  {id:'eqinfo',text:'设备分类',href:'<?php echo site_url("equipments/index") ?>'},
+                  {id:'example',text:'设备列表',href:'<?php echo site_url("equipments/list") ?>'}
                 ]
               }]
             },{

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-abstract class Admin_Controller extends CI_Controller
+abstract class Yun_Controller extends CI_Controller
 {
 	/**
      * _admin
@@ -22,38 +22,11 @@ abstract class Admin_Controller extends CI_Controller
 		parent::__construct();
                 $this->load->database();
 		$this->load->library('session');
-		$this->settings->load('backend');
-		$this->load->switch_theme(setting('backend_theme'));
-                $this->_check_http_auth();
+                $this->config->load('setting');
 		$this->_check_login();
 		$this->load->library('acl');
-		$this->load->library('plugin_manager');
 	}
 
-    // ------------------------------------------------------------------------
-
-    /**
-     * 检查http auth
-     *
-     * @access  protected
-     * @return  void
-     */
-    protected function _check_http_auth()
-    {
-        if (setting('backend_http_auth_on'))
-        {
-            $user = $this->input->server('PHP_AUTH_USER');
-            $passwword = $this->input->server('PHP_AUTH_PW');
-            if (! $user or ! $passwword or $user != setting('backend_http_auth_user') or $passwword != setting('backend_http_auth_password')) {
-                header('WWW-Authenticate: Basic realm="Welcome to this Private DiliCMS Realm!"');
-                header('HTTP/1.0 401 Unauthorized');
-                echo '您没有权限访问这里.';
-                exit;
-            }
-        }
-    }
-		
-	// ------------------------------------------------------------------------
 
     /**
      * 检查用户是否登录
@@ -65,7 +38,7 @@ abstract class Admin_Controller extends CI_Controller
 	{
 		if ( ! $this->session->userdata('uid'))
 		{   
-			redirect(setting('backend_access_point') . '/login');
+			redirect(config_item('backend_access') . '/login');
 		}
 		else
 		{
@@ -73,7 +46,7 @@ abstract class Admin_Controller extends CI_Controller
 			if ($this->_admin->status != 1)
 			{
 				$this->session->set_flashdata('error', "此帐号已被冻结,请联系管理员!");
-				redirect(setting('backend_access_point') . '/login');
+				redirect(config_item('backend_access') . '/login');
 			}
 		}
 	}
