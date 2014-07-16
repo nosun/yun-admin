@@ -11,41 +11,42 @@
 <div class="container">
     <?php
     $json_eq= json_encode($eqlist);
-    //var_dump($json_eq);
-
+    $start_date=  !empty($start_date) ? date("Y-m-d",$start_date):'2014-05-01';
+    $end_date=  !empty($end_date) ? date("Y-m-d",$end_date): date("Y-m-d", now());
     ?>
 <div class="detail-section">
     <form id="searchForm" method="get" class="form-horizontal" action="<?php echo site_url()?>/equipments/index">
     <div class="row">
         <div class="control-group span4">
             <div class="controls" >
-                <select name="product_id" id="product_id">
-                    <option value="0">选择产品类型</option>
-                    <option value="1">产品一</option>
-                    <option value="2">产品二</option>
+                <select name="product_id" id="product_id" selected="">
+                    <option value="0" <?=$product_id=="0"?' selected':''?>>请选择产品型号</option>
+                    <option value="1" <?=$product_id=="1"?' selected':''?>>产品一</option>
+                    <option value="2" <?=$product_id=="2"?' selected':''?>>产品二</option>
                 </select>
             </div>
         </div>
         <div class="control-group span4">
             <div class="controls">
                 <select name="s_key">
-                    <option value="device_location">按地区</option>
-                    <option value="device_sn">按序列号</option>  
-                    <option value="device_mac">按MAC</option>  
+                    <option value="" <?=$s_key=="" ? ' selected':''?> >请选择查询方式</option>                    
+                    <option value="device_location" <?=$s_key=="device_location"?' selected':''?> >按地区</option>
+                    <option value="device_sn"  <?=$s_key=="device_sn"?' selected':''?>>按序列号</option>  
+                    <option value="device_mac"  <?=$s_key=="device_mac"?' selected':''?>>按MAC</option>  
                 </select>
             </div>
         </div>
         <div class="control-group span4">
             <div class="controls">
-                <input type="text" class="control-text" name="s_value">
+                <input type="text" class="control-text" name="s_value" placeholder="请输入关键字" value="<?=!empty($s_value)?$s_value:''?>">
             </div>
         </div>
 
         <div class="control-group span9">
             <div class="controls">
                 <label class="control-label">启用时间：</label>
-                <input type="text" class="calendar" name="start_date"><span> - </span>
-                <input name="start_date" type="text" class="calendar">
+                <input type="text" class="calendar" name="start_date" value="<?=$start_date?>"><span> - </span>
+                <input name="end_date" type="text" class="calendar" value="<?=$end_date?>">
             </div>
         </div>
         <div class="span2 offset2">
@@ -60,7 +61,7 @@
     </div>
 </div>
     
-<div class="pages_bar pagination"><?php echo $pagination; ?></div>  
+<div class="pages_bar"><?php echo $pagination; ?></div>  
     
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
@@ -84,12 +85,12 @@
     render : '#grid', //显示Grid到此处
     width : 950, //设置宽度
     columns : [
-    {title:'序列号',dataIndex:'device_sn',width:100},
-    {title:'型号',dataIndex:'device_cat',width:100},    
-    {title:'MAC',dataIndex:'device_mac',width:100},
-    {title:'地区',dataIndex:'device_location',width:100},
-    {title:'状态',dataIndex:'device_desc1',width:100},    
-    {title:'累计时长',dataIndex:'device_desc2',width:100}   
+    {title:'设备序列号',dataIndex:'device_sn',width:100},
+    {title:'设备型号',dataIndex:'device_cat',width:100},    
+    {title:'设备MAC',dataIndex:'device_mac',width:100},
+    {title:'所在地区',dataIndex:'device_location',width:100},
+    {title:'设备状态',dataIndex:'device_desc1',width:100},    
+    {title:'运行时长',dataIndex:'device_desc2',width:100}   
     ]
     });
     grid.render();

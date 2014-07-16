@@ -340,7 +340,7 @@ class Securimage
      * The length of the captcha code
      * @var int
      */
-    public $code_length    = 6;
+    public $code_length    = 4;
 
     /**
      * Whether the captcha should be case sensitive or not.

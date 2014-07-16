@@ -24,7 +24,6 @@ class Equip_Model extends CI_Model{
             $table= $this->db->dbprefix('devices');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
-                $where=$where. 'product_id='.$product_id;
             }
             if($start_date){
                 $this->db->where("$table.active_time >",$start_date);
@@ -44,7 +43,7 @@ class Equip_Model extends CI_Model{
                 $this->db->offset($offset);
             }
             $res=$this->db->from($table)->get()->result();
-            
+            //echo $this->db->last_query();
             return($res);
     }
     
@@ -55,7 +54,6 @@ class Equip_Model extends CI_Model{
             
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
-                $where=$where. 'product_id='.$product_id;
             }
             if($start_date){
                 $this->db->where("$table.active_time >",$start_date);
