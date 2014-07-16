@@ -10,20 +10,17 @@
 <body>
 <div class="container">
     <?php
-        echo "cating";
+        $json_eq= json_encode($cat_list);
     ?>
-   
+      <div class="row detail-row">
+          <div class="span24">
+            <div id="grid"></div>
+        </div>
+    </div> 
+</div>    
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/config-min.js"></script>
- <script type="text/javascript">
-    BUI.use('bui/calendar',function(Calendar){
-    var datepicker = new Calendar.DatePicker({
-    trigger:'.calendar',
-    autoRender : true
-    });
-    });
-</script>
 <script type="text/javascript">
     BUI.use('common/page');
 </script>
@@ -35,12 +32,12 @@
     render : '#grid', //显示Grid到此处
     width : 950, //设置宽度
     columns : [
-    {title:'设备序列号',dataIndex:'device_sn',width:100},
-    {title:'设备型号',dataIndex:'device_cat',width:100},    
-    {title:'设备MAC',dataIndex:'device_mac',width:100},
-    {title:'所在地区',dataIndex:'device_location',width:100},
-    {title:'设备状态',dataIndex:'device_desc1',width:100},    
-    {title:'运行时长',dataIndex:'device_desc2',width:100}   
+    {title:'设备序列号',dataIndex:'id',width:100},
+    {title:'设备型号',dataIndex:'model',width:100},    
+    {title:'设备MAC',dataIndex:'name',width:100},
+    {title:'所在地区',dataIndex:'show_time',width:100},
+    {title:'设备状态',dataIndex:'info',width:100},
+    
     ]
     });
     grid.render();

@@ -2,12 +2,7 @@
 
 class Equip_Model extends CI_Model{
     
-    function get_eqlist($where='',$limit=0,$offset=0){
-                
-
-    
-    }
-    
+    //this is a common function for deal a result object to a array.
     function querylist($sql){
         $result =array();
         $query = $this->db->query($sql);
@@ -19,6 +14,7 @@ class Equip_Model extends CI_Model{
         return $result ;
     }
     
+    //equipment list many condition search
     function search($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0,$limit=0,$offset=0){
         
             $table= $this->db->dbprefix('devices');
@@ -47,7 +43,7 @@ class Equip_Model extends CI_Model{
             return($res);
     }
     
-    //查询返回的结果
+    //search result affected rows for paganation
     function query_count($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0){
         
             $table= $this->db->dbprefix('devices');
@@ -70,6 +66,16 @@ class Equip_Model extends CI_Model{
 
     }
     
-    
+    function get_eq_cat(){
+        $table  =   $this->db->dbprefix('device_class');
+        $res    =   $this->db->get($table)->result();
+        return($res);
+        
+        
+        
+        
+        
+        
+    }
     
 }

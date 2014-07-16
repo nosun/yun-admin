@@ -15,7 +15,7 @@
     $end_date=  !empty($end_date) ? date("Y-m-d",$end_date): date("Y-m-d", now());
     ?>
 <div class="detail-section">
-    <form id="searchForm" method="get" class="form-horizontal" action="<?php echo site_url()?>/equipments/index">
+    <form id="searchForm" method="get" class="form-horizontal" action="<?php echo site_url()?>/equipments/eq_index">
     <div class="row">
         <div class="control-group span4">
             <div class="controls" >

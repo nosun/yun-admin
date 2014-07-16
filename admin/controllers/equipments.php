@@ -9,12 +9,24 @@ class Equipments extends CI_Controller{
         }
        
         function eq_cat_list(){
-            $this->load->view('equip_cat_list');
+            $data['cat_list']=$this->equip_model->get_eq_cat();
+            $this->load->view('equip_cat_list',$data);
         }
                 
+        function eq_cat_add(){
+            $data['cat_list']=$this->equip_model->add_eq_cat();
+            $this->load->view('equip_cat_list',$data);
+        }        
         
+        function eq_cat_update(){
+            $data['cat_list']=$this->equip_model->update_eq_cat();
+            $this->load->view('equip_cat_list',$data);
+        }
         
-        
+        function eq_cat_delete(){
+            $data['cat_list']=$this->equip_model->delete_eq_cat();
+            $this->load->view('equip_cat_list',$data);
+        }
         
 	function eq_list(){
             $this->load->library('pagination');
@@ -30,8 +42,8 @@ class Equipments extends CI_Controller{
                 $end_date  =$this->uri->segment(7);     
             }else{
                 $product_id =$this->input->get('product_id')?$this->input->get('product_id'):0;
-                $s_key      =$this->input->get('s_key')?$this->input->get('s_key'):'';
-                $s_value    =$this->input->get('s_value')?$this->input->get('s_value'):'';
+                $s_key      =$this->input->get('s_key')?$this->input->get('s_key'):0;
+                $s_value    =$this->input->get('s_value')?$this->input->get('s_value'):0;
                 $start_date =$this->input->get('start_date')?strtotime($this->input->get('start_date')):'1399154400';
                 $end_date   =$this->input->get('end_date')?strtotime($this->input->get('end_date')):  time();
             }
@@ -46,7 +58,7 @@ class Equipments extends CI_Controller{
             $query_count=$this->equip_model->query_count($product_id,$start_date,$end_date,$s_key,$s_value);
             
             // page setting
-            $config['base_url'] = site_url('equipments/index').'/'.$segments;
+            $config['base_url'] = site_url('equipments/eq_list').'/'.$segments;
             $config['total_rows'] = $query_count;
             $this->pagination->initialize($config);
             $data['pagination'] = $this->pagination->create_links();

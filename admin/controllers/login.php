@@ -62,10 +62,10 @@ class Login extends CI_Controller
      */	
 	public function do_post()
 	{
-                $this->check_code();
+                //$this->check_code();
                 $username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
-
+                //redirect(config_item('backend_access') . '/system');
 		if ($username AND $password)
 		{
 			$admin = $this->user_mdl->get_full_user_by_username($username);
