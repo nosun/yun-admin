@@ -29,8 +29,6 @@ class System extends CI_Controller {
         
         function setting(){
             $this->load->view('/system_setting');
-            
-            
         }
         
         function passwd(){
