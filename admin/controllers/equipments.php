@@ -9,23 +9,39 @@ class Equipments extends CI_Controller{
         }
        
         function eq_cat_list(){
-            $data['cat_list']=$this->equip_model->get_eq_cat();
-            $this->load->view('equip_cat_list',$data);
+            $this->load->view('equip_cat_list');
         }
-                
-        function eq_cat_add(){
-            $data['cat_list']=$this->equip_model->add_eq_cat();
-            $this->load->view('equip_cat_list',$data);
-        }        
         
         function eq_cat_update(){
-            $data['cat_list']=$this->equip_model->update_eq_cat();
-            $this->load->view('equip_cat_list',$data);
+            $id=  $this->input->post('id');
+            $data= array(
+                "model"=> $this->input->post('model'),
+                "name"=> $this->input->post('name'),
+                "show_time"=> $this->input->post('show_time'),
+                "info"=> $this->input->post('info'),
+            );
+            $this->equip_model->update_eq_cat($id,$data);
+        } 
+        
+        function eq_cat_insert(){
+            $data= array(
+                "model"=> $this->input->post('model'),
+                "name"=> $this->input->post('name'),
+                "show_time"=> $this->input->post('show_time'),
+                "info"=> $this->input->post('info'),
+            );
+            $this->equip_model->insert_eq_cat($data);
         }
         
         function eq_cat_delete(){
-            $data['cat_list']=$this->equip_model->delete_eq_cat();
-            $this->load->view('equip_cat_list',$data);
+            $my_ids='';
+            $ids=  $this->input->post('ids');
+            foreach ($ids as $id){
+                $my_ids=$my_ids.','.$id;
+            }
+            $my_ids=trim($my_ids,',');
+            $sql='delete from yun_device_class where id in ('.$my_ids.')';
+            $this->db->query($sql);
         }
         
 	function eq_list(){
@@ -71,10 +87,14 @@ class Equipments extends CI_Controller{
             $data['end_date']   = $end_date;           
             
             $this->load->view('equip_list',$data);
-	}	     
+	}
         
-    
-    
-    
-    
+        function index(){
+            $data['title']  = '设备概况';
+            $this->load->view('equip_index',$data);    
+            
+        }
+        
+        
+        
 }

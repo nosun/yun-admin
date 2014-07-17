@@ -14236,10 +14236,10 @@ define('bui/data/store',['bui/data/proxy','bui/data/abstractstore','bui/data/sor
       var _self = this,
          hasErrorField = _self.get('hasErrorProperty');
 
-      if(data[hasErrorField] || data.exception){ //\u5982\u679c\u5931\u8d25
-        _self.onException(data);
-        return;
-      }
+      //if(data.exception){ //\u5982\u679c\u5931\u8d25
+       // _self.onException(data);
+      //  return;
+     // }
       _self._clearDirty(type,saveData);
 
       _self.fire('saved',{type : type,saveData : saveData,data : data});

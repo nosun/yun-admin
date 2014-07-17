@@ -71,11 +71,29 @@ class Equip_Model extends CI_Model{
         $res    =   $this->db->get($table)->result();
         return($res);
         
+    }     
+    
+    function update_eq_cat($id=0,$data=array()) {
         
+        $table  =   $this->db->dbprefix('device_class');
+        $this->db->where('id',$id);
+        $this->db->update($table,$data);
         
+    }   
         
+    function insert_eq_cat($data=array()) {
         
+        $table=$this->db->dbprefix('device_class');
+        $this->db->insert($table,$data);
         
     }
+    
+    function delete_eq_cat($data=array()) {
+        $table=$this->db->dbprefix('device_class');
+        $this->db->delete($table,$data);
+       
+    }      
+        
+
     
 }
