@@ -62,7 +62,7 @@
         triggerCls : 'btn-edit'
       }),
       columns = [
-          {title:'id',dataIndex:'id',width:80,visible:false},
+          {title:'id',dataIndex:'id',width:80,visible:true},
           {title:'型号',dataIndex:'model',width:100},
           {title:'名称',dataIndex:'name',width:100},
           {title:'上市时间',dataIndex:'show_time',width:100,renderer:BUI.Grid.Format.dateRenderer},
@@ -74,6 +74,10 @@
           }}
         ],
       store = Search.createStore('../data/eq_cat',{
+      //sortInfo : {
+      //      field : 'id',
+      //      direction : 'ASC'
+      //      },
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那个路径提交数据，同时附加参数saveType
             addUrl : './eq_cat_insert',
@@ -83,7 +87,7 @@
           method : 'POST'
         },
         autoSync : true, //保存数据后，自动更新
-        pageSize:100
+        pageSize:12
       }),
       gridCfg = Search.createGridCfg(columns,{
         tbar : {

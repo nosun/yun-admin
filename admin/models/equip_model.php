@@ -15,7 +15,7 @@ class Equip_Model extends CI_Model{
     }
     
     //equipment list many condition search
-    function search($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0,$limit=0,$offset=0){
+    function get_eq_list($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0,$limit=0,$offset=0){
         
             $table= $this->db->dbprefix('devices');
             if($product_id){
@@ -44,7 +44,7 @@ class Equip_Model extends CI_Model{
     }
     
     //search result affected rows for paganation
-    function query_count($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0){
+    function get_eq_num($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0){
         
             $table= $this->db->dbprefix('devices');
             
@@ -60,17 +60,35 @@ class Equip_Model extends CI_Model{
             if($s_key && $s_value){
                 $this->db->where("$table.$s_key",$s_value);
             }
+            
             $this->db->from($table)->get()->result();
             
             return $this->db->affected_rows() ;
 
     }
     
-    function get_eq_cat(){
+    function get_eq_cat($limit='',$offset=0){
         $table  =   $this->db->dbprefix('device_class');
-        $res    =   $this->db->get($table)->result();
-        return($res);
+        if ($limit)
+        {
+            $this->db->limit($limit);
+        }
+        if ($offset)
+        {
+            $this->db->offset($offset);
+        }
+        $this->db->from($table);
+        $this->db->order_by("id asc");
+        $res=$this->db->get()->result();
         
+        return($res);
+    }   
+    
+     function get_eq_cat_num(){
+        $table  =   $this->db->dbprefix('device_class');
+        $this->db->get($table)->result();
+        $num=$this->db->affected_rows();
+        return($num);
     }     
     
     function update_eq_cat($id=0,$data=array()) {
