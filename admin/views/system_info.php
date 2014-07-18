@@ -23,7 +23,7 @@
         <hr />
         <div class="detail-section" id="user_info">
             <h2>基本信息</h2>
-            <p>登陆者：nosun  用户组：管理员</p>
+            <p>登陆者：<?php echo $this->_admin->username; ?>  用户组：管理员</p>
             <p>这是您第100次登录本站，上次登录时间为：2014年5月7日 11:21:29，登录IP为<?php echo $this->input->ip_address(); ?></p>
         </div>
         <hr />
