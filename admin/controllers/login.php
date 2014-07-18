@@ -15,12 +15,12 @@ if (! defined('BASEPATH')) {
  */
 class Login extends CI_Controller
 {
-        public function __construct()
-        {
-                parent::__construct();
-                $this->config->load('setting');
-                $this->load->model('user_mdl');
-        }
+    public function __construct()
+    {
+        parent::__construct();
+        $this->config->load('setting');
+        $this->load->model('admin_model');
+    }
     /**
      * 默认入口
      *
@@ -29,9 +29,9 @@ class Login extends CI_Controller
      */	
 	public function index()
 	{
-            	if ($this->session->userdata('uid'))
+        if ($this->session->userdata('uid'))
 		{
-                        redirect(config_item('backend_access').'/system');
+            redirect(config_item('backend_access').'/system');
 		}
 		else
 		{       
@@ -62,63 +62,64 @@ class Login extends CI_Controller
      */	
 	public function do_post()
 	{
-                //$this->check_code();
-                $username = $this->input->post('username', TRUE);
+        $this->check_captcha();
+        $username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
                 //redirect(config_item('backend_access') . '/system');
 		if ($username AND $password)
 		{
-			$admin = $this->user_mdl->get_full_user_by_username($username);
+			$admin = $this->admin_model->get_full_admin($username);
+            
 			if ($admin)
 			{
-                            $throttle = $this->db->where('created_at >', date('Y-m-d H:i:s', time() - 7200))
-                            ->where('user_id', $admin->uid)
-                            ->limit(1)
-                            ->get('throttles')
-                            ->row();
+                $throttle = $this->db->where('created_at >', date('Y-m-d H:i:s', time() - 7200))
+                ->where('user_id', $admin->uid)
+                ->limit(1)
+                ->get('throttles')
+                ->row();
 
-                            if ($throttle) 
-                            {
-                            $this->session->set_flashdata('error', "密码输入次数过多，账号被禁用2小时，将在".date('Y-m-d H:i:s', strtotime($throttle->created_at) + 7200).'解禁.');
-                            redirect(config_item('backend_access') . '/login');
-                            }
-                            if ($admin->password == sha1($password.$admin->salt))
-                            {
-                                if ($admin->status == 1)
-                                {
-                                        $this->session->set_userdata('uid', $admin->uid);
-                                        redirect(config_item('backend_access') . '/system');
-                                }
-                                else
-                                {
-                                        $this->session->set_flashdata('error', "此帐号已经停用,请联系管理员!");
-                                }
-                            }
-                            else
-                            {
-                                if (! $throttles = $this->session->userdata('throttles_'.$username)) {
-                                    $this->session->set_userdata('throttles_'.$username, 1);
-                                } 
-                                else
-                                {
-                                    $throttles ++;
-                                    $this->session->set_userdata('throttles_'.$username,  $throttles);
-                                    if ($throttles > 3) {
-                                        $throttle_data['user_id'] = $admin->uid;
-                                        $throttle_data['type'] = 'attempt_login';
-                                        $throttle_data['ip'] = $this->input->ip_address();
-                                        $throttle_data['created_at'] =  $throttle_data['updated_at'] = date('Y-m-d H:i:s');
-                                        $this->db->insert('throttles', $throttle_data);
-                                        $this->session->set_userdata('throttles_'.$username, 0);
-                                    }
-                                }
-                                $this->session->set_flashdata('error', "密码不正确!");
-                            }
+                if ($throttle) 
+                {
+                    $this->session->set_flashdata('error', "密码输入次数过多，账号被禁用2小时，将在".date('Y-m-d H:i:s', strtotime($throttle->created_at) + 7200).'解禁.');
+                    redirect(config_item('backend_access') . '/login');
+                }
+                if ($admin->password == sha1($password.$admin->salt))
+                {
+                    if ($admin->status == 1)
+                    {
+                            $this->session->set_userdata('uid', $admin->uid);
+                            redirect(config_item('backend_access') . '/system');
+                    }
+                    else
+                    {
+                            $this->session->set_flashdata('error', "此帐号已经停用,请联系管理员!");
+                    }
+                }
+                else
+                {
+                    if (! $throttles = $this->session->userdata('throttles_'.$username)) {
+                        $this->session->set_userdata('throttles_'.$username, 1);
+                    } 
+                    else
+                    {
+                        $throttles ++;
+                        $this->session->set_userdata('throttles_'.$username,  $throttles);
+                        if ($throttles > 3) {
+                            $throttle_data['user_id'] = $admin->uid;
+                            $throttle_data['type'] = 'attempt_login';
+                            $throttle_data['ip'] = $this->input->ip_address();
+                            $throttle_data['created_at'] =  $throttle_data['updated_at'] = date('Y-m-d H:i:s');
+                            $this->db->insert('throttles', $throttle_data);
+                            $this->session->set_userdata('throttles_'.$username, 0);
                         }
-                        else
-                        {
-                                $this->session->set_flashdata('error', '不存在的用户!');
-                        }
+                    }
+                    $this->session->set_flashdata('error', "密码不正确!");
+                }
+            }
+            else
+            {
+                    $this->session->set_flashdata('error', '不存在的用户!');
+            }
 		}
 		else
 		{
@@ -128,16 +129,16 @@ class Login extends CI_Controller
 	}
         
 	//校验验证码
-	function check_code(){
-                @session_start() ;
-                include_once '/securimage/securimage.php';
-                $securimage = new Securimage();
-                if ($securimage->check($_POST['captcha']) == false)
-                {
-                    echo "error";
-                    echo "<a href='javascript:history.go(-1)'>back</a> and try again.";
-                    exit;
-                }
+	function check_captcha(){
+        @session_start() ;
+        include_once '/securimage/securimage.php';
+        $securimage = new Securimage();
+        if ($securimage->check($_POST['captcha']) == false)
+        {
+            echo "error";
+            echo "<a href='javascript:history.go(-1)'>back</a> and try again.";
+            exit;
+        }
 	}
 }
 
