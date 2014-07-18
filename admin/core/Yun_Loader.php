@@ -26,7 +26,7 @@
  * @author      Jeongee
  * @link        http://www.dilicms.com
  */		
-class Dili_Loader extends CI_Loader
+class Yun_Loader extends CI_Loader
 {
 	/**
      * 构造函数

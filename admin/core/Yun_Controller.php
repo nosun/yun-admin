@@ -20,11 +20,12 @@ abstract class Yun_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-                $this->load->database();
+        $this->load->database();
 		$this->load->library('session');
-                $this->config->load('setting');
+        $this->load->model('admin_model');
+        $this->config->load('setting');
 		$this->_check_login();
-		$this->load->library('acl');
+		//$this->load->library('acl');
 	}
 
 
@@ -42,7 +43,7 @@ abstract class Yun_Controller extends CI_Controller
 		}
 		else
 		{
-			$this->_admin = $this->user_mdl->get_full_user_by_username($this->session->userdata('uid'), 'uid');
+			$this->_admin = $this->admin_model->get_full_admin($this->session->userdata('uid'), 'uid');
 			if ($this->_admin->status != 1)
 			{
 				$this->session->set_flashdata('error', "此帐号已被冻结,请联系管理员!");
@@ -61,11 +62,11 @@ abstract class Yun_Controller extends CI_Controller
      * @param   array
      * @return  void
      */
-	protected function _template($template, $data = array())
+/*	protected function _template($template, $data = array())
 	{
 		$data['tpl'] = $template;
 		$this->load->view('sys_entry', $data);
-	}
+	}*/
 	
 	// ------------------------------------------------------------------------
 
@@ -77,13 +78,13 @@ abstract class Yun_Controller extends CI_Controller
      * @param string $folder
      * @return  void
      */
-	protected function _check_permit($action = '', $folder = '')
+/*	protected function _check_permit($action = '', $folder = '')
 	{
 		if ( ! $this->acl->permit($action, $folder))
 		{
 			$this->_message('对不起，你没有访问这里的权限！', '', FALSE);
 		}
-	}
+	}*/
 	
 	// ------------------------------------------------------------------------
 
@@ -109,12 +110,12 @@ abstract class Yun_Controller extends CI_Controller
 			$goto = strpos($goto, 'http') !== false ? $goto : backend_url($goto);	
 		}
 		$goto .= $fix;
-		$this->_template('sys_message', array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause));
+		//$this->_template('sys_message', array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause));
+		$data = array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause);
+        $this->load->view('system_message', $data);
 		echo $this->output->get_output();
 		exit();
 	}
-
-	// ------------------------------------------------------------------------
 
 }
 
