@@ -13,7 +13,7 @@
       <div id="grid"></div>
     </div>
     <div id="content" class="hide">
-      <form id="J_Form" class="form-horizontal" method="post" action="<?php echo site_url() ?>/equipments/eq_cat_update">
+      <form id="J_Form" class="form-horizontal" method="post" action="<?php echo site_url() ?>/equipment/eq_cat_update">
         <input type="hidden" name="a" value="3">
         <div class="row">
           <div class="control-group span8">

@@ -11,25 +11,14 @@
 <div class="container">
 <div class="detail-section">
     <div class="row">
-        <form id="searchForm" method="post" class="form-horizontal">
-        <input type="hidden" name="a" value="3">
+        <form id="searchForm" class="form-horizontal">
         <div class="row">
-            <div class="control-group span4">
-                <div class="controls" >
-                    <select name="product_id" id="product_id" selected="">
-                        <option value="0">请选择产品型号</option>
-                        <option value="1">产品一</option>
-                        <option value="2">产品二</option>
-                    </select>
-                </div>
-            </div>
             <div class="control-group span4">
                 <div class="controls">
                     <select name="s_key">
                         <option value="">请选择查询方式</option>                    
-                        <option value="device_location">按地区</option>
-                        <option value="device_sn">按序列号</option>  
-                        <option value="device_mac">按MAC</option>  
+                        <option value="login_name">按用户名</option>
+                        <option value="address">按地区</option>
                     </select>
                 </div>
             </div>
@@ -41,7 +30,7 @@
 
             <div class="control-group span9">
                 <div class="controls">
-                    <label class="control-label">启用时间：</label>
+                    <label class="control-label">注册时间时间：</label>
                     <input type="text" class="calendar" name="start_date" value=""><span> - </span>
                     <input name="end_date" type="text" class="calendar" value="">
                 </div>
@@ -65,10 +54,10 @@
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/config-min.js"></script>
  <script type="text/javascript">
     BUI.use('bui/calendar',function(Calendar){
-    var datepicker = new Calendar.DatePicker({
-    trigger:'.calendar',
-    autoRender : true
-    });
+        var datepicker = new Calendar.DatePicker({
+        trigger:'.calendar',
+        autoRender : true
+        });
     });
 </script>
 <script type="text/javascript">
@@ -78,24 +67,31 @@
   BUI.use('common/search',function (Search) {
     
       editing = new BUI.Grid.Plugins.DialogEditing({
-        triggerCls : 'btn-edit'
+        triggerCls : 'btn-view'
       }),
     columns = [
-        {title:'设备序列号',dataIndex:'device_sn',width:100},
-        {title:'设备型号',dataIndex:'device_cat',width:100},    
-        {title:'设备MAC',dataIndex:'device_mac',width:150},
-        {title:'所在地区',dataIndex:'device_location',width:100},
-        {title:'设备状态',dataIndex:'device_desc1',width:100},    
-        {title:'运行时长',dataIndex:'device_desc2',width:100}   
+        {title:'用户名',dataIndex:'login_name',width:100},
+        {title:'注册时间',dataIndex:'user_regtime',width:100},
+        {title:'省份',dataIndex:'province',width:100},
+        {title:'城市',dataIndex:'city',width:100},
+        {title:'地区',dataIndex:'district',width:100},        
+        {title:'设备数量',dataIndex:'eq_num',width:100},
+        {title:'操作',dataIndex:'id',width:80,renderer:function(v){
+            return Search.createLink({
+            id : 'detail' + v,
+            text : '查看详情',
+            href : 'user/user_detail/'+ v
+            });
+            }},
         ],
-      store = Search.createStore('../data/eq_list',{
+      store = Search.createStore('../data/user_list',{
         proxy : {
           method : 'POST'
         },
-        pageSize:5
+        pageSize:15
       }),
       gridCfg = Search.createGridCfg(columns,{
-        plugins : [editing,BUI.Grid.Plugins.CheckSelection,BUI.Grid.Plugins.AutoFit] // 插件形式引入多选表格
+        plugins : [editing,BUI.Grid.Plugins.AutoFit] // 插件形式引入多选表格
       });
 
     var  search = new Search({

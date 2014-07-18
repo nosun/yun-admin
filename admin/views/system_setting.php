@@ -31,7 +31,7 @@
                           <div class="controls">
                               <input id="new_pass2" name="new_pass2" type="password" class="input-middle" data-rules="{equalTo:'#new_pass'}">
                           </div>
-                        </div>       
+                        </div>
                         
                         <div class="control-group">       
                            <button type="submit" class="button button-warning">保 存</button>
