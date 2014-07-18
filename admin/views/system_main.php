@@ -46,7 +46,7 @@
           menu:[{
               text:'系统设置',
               items:[
-                {id:'info',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
+                {id:'index',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
                 {id:'setting',text:'站点设置',href:'<?php echo site_url("system/setting") ?>'},
                 {id:'passwd',text:'修改密码',href:'<?php echo site_url("system/passwd") ?>'}                
         
@@ -60,48 +60,50 @@
             },{
               text:'日志管理',
               items:[
-                {id:'log_login',text:'登陆日志',href:'<?php echo site_url("system/logs/login") ?>'},
-                {id:'action_actions',text:'操作日志',href:'<?php echo site_url("system/logs/action") ?>'}  
+                {id:'loginlog',text:'登陆日志',href:'<?php echo site_url("system/logs/login") ?>'},
+                {id:'actionlog',text:'操作日志',href:'<?php echo site_url("system/logs/action") ?>'}  
               ]
             }]
           },{
             id:'equip',
+            homePage : 'eq_index',
             menu:[{
                 text:'设备分析',
                 items:[
-                  {id:'introduc2',text:'设备概况',href:'<?php echo site_url("equipments/index") ?>'}, 
-                  {id:'introduc2',text:'新增数量',href:'<?php echo site_url("equipments/index") ?>'}, 
-                  {id:'introduc1e',text:'分布情况',href:'<?php echo site_url("equipments/index") ?>'},                            
-                  {id:'introduce',text:'运行时间',href:'<?php echo site_url("equipments/index") ?>'},
-                  {id:'valid',text:'运行状态',href:'<?php echo site_url("equipments/index") ?>'}
+                  {id:'eq_index',text:'设备概况',href:'<?php echo site_url("equipment/index") ?>'}, 
+                  {id:'eq_aera',text:'分布情况',href:'<?php echo site_url("equipment/aera") ?>'}, 
+                  {id:'eq_regment',text:'注册情况',href:'<?php echo site_url("equipment/regment") ?>'},                            
+                  {id:'eq_runtime',text:'运行时间',href:'<?php echo site_url("equipment/runtime") ?>'},
+                  {id:'eq_filter',text:'滤网情况',href:'<?php echo site_url("equipment/filter") ?>'}
                 ]
               },{
                 text:'设备管理',
                 items:[
-                  {id:'eq_cat',text:'设备分类',href:'<?php echo site_url("equipments/eq_cat_list") ?>'},
-                  {id:'eq_list',text:'设备列表',href:'<?php echo site_url("equipments/eq_list") ?>'}
+                  {id:'eq_cat',text:'设备分类',href:'<?php echo site_url("equipment/eq_cat_list") ?>'},
+                  {id:'eq_list',text:'设备列表',href:'<?php echo site_url("equipment/eq_list") ?>'}
                 ]
               }]
             },{
             id:'users',
+            homePage : 'user_index',            
             menu:[{
                 text : '用户分析',
                 items : [
-                  {id:'users_info',text:'用户概况',href:'search/code.html'},
-                  {id:'example-dialog',text:'用户分布',href:'search/example-dialog.html'},
-                  {id:'introduce',text:'新增用户',href:'search/introduce.html'}, 
-                  {id:'config',text:'在线时长',href:'search/config.html'},                 
-                  {id : 'tab',text : '行为分析',href : 'search/tab.html'}
+                  {id:'user_index',text:'用户概况',href:'<?php echo site_url("user/index") ?>'},
+                  {id:'user_aera',text:'地域分析',href:'<?php echo site_url("user/aera") ?>'},
+                  {id:'user_reg',text:'注册分析',href:'<?php echo site_url("user/reg") ?>'}, 
+                  {id:'user_agent',text:'客户端分析',href:'<?php echo site_url("user/agent") ?>'}                 
                 ]
               }, {
                 text:'用户管理', 
                 items:[
-                  {id:'example',text:'用户列表',href:'search/example.html'}
+                  {id:'user_list',text:'用户列表',href:'<?php echo site_url("user/user_list") ?>'}
                 ]
               }
               ]
           },{
             id:'plugin',
+            homePage : 'feedback',
             menu:[{
                 text:'留言反馈',
                 items:[

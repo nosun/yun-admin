@@ -113,5 +113,11 @@ class Equip_Model extends CI_Model{
     }      
         
 
-    
+    function  get_user_eq_list($uid=''){
+        $table_u=$this->db->dbprefix('users');
+        $table_d=$this->db->dbprefix('devices');
+        $table_r=$this->db->dbprefix('dictionarys');
+        $sql='SELECT * FROM '.$table_d.' where id in ( select dic_to from '.$table_r.' where dic_from= '.$uid.') ORDER BY id desc';
+        return($this->db->query($sql)->result());
+    }
 }

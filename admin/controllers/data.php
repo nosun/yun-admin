@@ -42,4 +42,30 @@
             $this->_output_json($data);
             
         }
+        
+        function user_list(){
+            $this->load->model('user_model');
+            $s_key      =$this->input->post('s_key');
+            $s_value    =$this->input->post('s_value');
+            $start_date =strtotime($this->input->post('start_date'));
+            $end_date   =strtotime($this->input->post('end_date'));
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            
+            $user_list=$this->user_model->get_user_list($start_date,$end_date,$s_key,$s_value,$limit,$start);
+            $num=$this->user_model->get_user_num($start_date,$end_date,$s_key,$s_value);
+            
+            $data=json_encode($user_list);
+            $data='{"rows":'.$data.', "results":'.$num.'}';
+            $this->_output_json($data);
+            
+        }
+        
+        function user_eq_list(){
+            $this->load->model('equip_model');
+            $uid=$this->uri->segment('3');
+            $list=$this->equip_model->get_user_eq_list($uid);
+            $data=json_encode($list);
+            $this->_output_json($data);
+        }
     }

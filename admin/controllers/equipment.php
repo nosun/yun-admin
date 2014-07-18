@@ -1,6 +1,6 @@
 <?php
 
-class Equipments extends CI_Controller{
+class Equipment extends CI_Controller{
         public function __construct()
         {
                 parent::__construct();
@@ -54,6 +54,23 @@ class Equipments extends CI_Controller{
             
         }
         
+        //show aera analysis
+        function aera(){
+            $data['title']='设备分布';
+            $this->load->view('equip_aera',$data);   
+        }
+
+        //show aera analysis
+        function regment(){
+            $data['title']='设备注册';
+            $this->load->view('equip_regment',$data);   
+        }   
+
+         //show aera analysis
+        function runtime(){
+            $data['title']='设备注册';
+            $this->load->view('equip_regment',$data);   
+        }        
         
         
 }
