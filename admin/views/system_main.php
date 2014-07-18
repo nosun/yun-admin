@@ -46,22 +46,22 @@
           menu:[{
               text:'系统设置',
               items:[
-                {id:'index',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
-                {id:'main-menu',text:'站点设置',href:'<?php echo site_url("system/setting") ?>'},
-                {id:'main-menu',text:'修改密码',href:'<?php echo site_url("system/passwd") ?>'}                
+                {id:'info',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
+                {id:'setting',text:'站点设置',href:'<?php echo site_url("system/setting") ?>'},
+                {id:'passwd',text:'修改密码',href:'<?php echo site_url("system/passwd") ?>'}                
         
               ]
             },{
               text:'权限设置',
               items:[
-                {id:'operation',text:'用户管理',href:'<?php echo site_url("system/members") ?>'},
-                {id:'quick',text:'角色管理',href:'<?php echo site_url("system/roles") ?>'}  
+                {id:'members',text:'用户管理',href:'<?php echo site_url("system/members") ?>'},
+                {id:'roles',text:'角色管理',href:'<?php echo site_url("system/roles") ?>'}  
               ]
             },{
               text:'日志管理',
               items:[
-                {id:'operation',text:'登陆日志',href:'<?php echo site_url("system/logs/login") ?>'},
-                {id:'quick',text:'操作日志',href:'<?php echo site_url("system/logs/action") ?>'}  
+                {id:'log_login',text:'登陆日志',href:'<?php echo site_url("system/logs/login") ?>'},
+                {id:'action_actions',text:'操作日志',href:'<?php echo site_url("system/logs/action") ?>'}  
               ]
             }]
           },{

@@ -22,7 +22,8 @@ class System extends Yun_Controller {
     }
     
     function setting(){
-        $this->load->view('/system_setting');
+        $data['settings'] = $this->db->get($this->db->dbprefix('settings'))->row();
+        $this->load->view('/system_setting', $data);
     }
     
     function passwd(){
@@ -69,6 +70,21 @@ class System extends Yun_Controller {
         else
         {
             $this->_message("密码验证失败!", '', TRUE);
+        }
+    }
+    
+    
+    public function change_site_settings()
+    {
+        $update_data = $this->input->post();
+        $update_data['not_oper_time'] = json_encode($this->input->post('not_oper_time'));;
+
+        $ret = $this->db->update($this->db->dbprefix('settings'), $update_data);
+        //update_cache('backend');
+        if ($ret == TRUE) {
+            $this->_message("更新成功", '', TRUE);
+        } else {
+            $this->_message("更新失败", '', TRUE);
         }
     }
 
