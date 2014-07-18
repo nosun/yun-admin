@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-abstract class Admin_Controller extends CI_Controller
+abstract class Yun_Controller extends CI_Controller
 {
 	/**
      * _admin
@@ -20,40 +20,14 @@ abstract class Admin_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-                $this->load->database();
+        $this->load->database();
 		$this->load->library('session');
-		$this->settings->load('backend');
-		$this->load->switch_theme(setting('backend_theme'));
-                $this->_check_http_auth();
+        $this->load->model('admin_model');
+        $this->config->load('setting');
 		$this->_check_login();
-		$this->load->library('acl');
-		$this->load->library('plugin_manager');
+		//$this->load->library('acl');
 	}
 
-    // ------------------------------------------------------------------------
-
-    /**
-     * 检查http auth
-     *
-     * @access  protected
-     * @return  void
-     */
-    protected function _check_http_auth()
-    {
-        if (setting('backend_http_auth_on'))
-        {
-            $user = $this->input->server('PHP_AUTH_USER');
-            $passwword = $this->input->server('PHP_AUTH_PW');
-            if (! $user or ! $passwword or $user != setting('backend_http_auth_user') or $passwword != setting('backend_http_auth_password')) {
-                header('WWW-Authenticate: Basic realm="Welcome to this Private DiliCMS Realm!"');
-                header('HTTP/1.0 401 Unauthorized');
-                echo '您没有权限访问这里.';
-                exit;
-            }
-        }
-    }
-		
-	// ------------------------------------------------------------------------
 
     /**
      * 检查用户是否登录
@@ -65,15 +39,15 @@ abstract class Admin_Controller extends CI_Controller
 	{
 		if ( ! $this->session->userdata('uid'))
 		{   
-			redirect(setting('backend_access_point') . '/login');
+			redirect(config_item('backend_access') . '/login');
 		}
 		else
 		{
-			$this->_admin = $this->user_mdl->get_full_user_by_username($this->session->userdata('uid'), 'uid');
+			$this->_admin = $this->admin_model->get_full_admin($this->session->userdata('uid'), 'uid');
 			if ($this->_admin->status != 1)
 			{
 				$this->session->set_flashdata('error', "此帐号已被冻结,请联系管理员!");
-				redirect(setting('backend_access_point') . '/login');
+				redirect(config_item('backend_access') . '/login');
 			}
 		}
 	}
@@ -88,11 +62,11 @@ abstract class Admin_Controller extends CI_Controller
      * @param   array
      * @return  void
      */
-	protected function _template($template, $data = array())
+/*	protected function _template($template, $data = array())
 	{
 		$data['tpl'] = $template;
 		$this->load->view('sys_entry', $data);
-	}
+	}*/
 	
 	// ------------------------------------------------------------------------
 
@@ -104,13 +78,13 @@ abstract class Admin_Controller extends CI_Controller
      * @param string $folder
      * @return  void
      */
-	protected function _check_permit($action = '', $folder = '')
+/*	protected function _check_permit($action = '', $folder = '')
 	{
 		if ( ! $this->acl->permit($action, $folder))
 		{
 			$this->_message('对不起，你没有访问这里的权限！', '', FALSE);
 		}
-	}
+	}*/
 	
 	// ------------------------------------------------------------------------
 
@@ -136,12 +110,12 @@ abstract class Admin_Controller extends CI_Controller
 			$goto = strpos($goto, 'http') !== false ? $goto : backend_url($goto);	
 		}
 		$goto .= $fix;
-		$this->_template('sys_message', array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause));
+		//$this->_template('sys_message', array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause));
+		$data = array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause);
+        $this->load->view('system_message', $data);
 		echo $this->output->get_output();
 		exit();
 	}
-
-	// ------------------------------------------------------------------------
 
 }
 
