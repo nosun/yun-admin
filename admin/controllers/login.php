@@ -21,7 +21,6 @@ class Login extends CI_Controller
         $this->config->load('setting');
         $this->load->model('admin_model');
     }
-    
     /**
      * 默认入口
      *
@@ -66,7 +65,7 @@ class Login extends CI_Controller
         $this->check_captcha();
         $username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
-
+                //redirect(config_item('backend_access') . '/system');
 		if ($username AND $password)
 		{
 			$admin = $this->admin_model->get_full_admin($username);

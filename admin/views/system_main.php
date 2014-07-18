@@ -78,8 +78,8 @@
               },{
                 text:'设备管理',
                 items:[
-                  {id:'eqinfo',text:'设备分类',href:'<?php echo site_url("equipments/index") ?>'},
-                  {id:'example',text:'设备列表',href:'<?php echo site_url("equipments/list") ?>'}
+                  {id:'eq_cat',text:'设备分类',href:'<?php echo site_url("equipments/eq_cat_list") ?>'},
+                  {id:'eq_list',text:'设备列表',href:'<?php echo site_url("equipments/eq_list") ?>'}
                 ]
               }]
             },{

@@ -1,1 +1,7 @@
 .container{margin-left:0;margin-top:0;width:auto;padding:20px 20px 0 20px;}.detail-page,.form-page,.search-page{padding:0;}
+
+.page {border-top:1px solid #dfdfdf; padding-top: 10px; text-align: left; margin-bottom: 10px; font-size: 14px;}
+.page a {margin: 0 5px 0 0; padding: 3px 6px; border: 1px solid #D1D1D1;}
+.page .current{margin: 0 5px 0 0; padding: 3px 6px; border: 1px solid #A4A4A4; background:#EBEBEB; }
+.page a { color:#333; text-decoration:none;}
+.page a:hover {border-color:#AAA !important; background:#FAFAFA; color: #000 !important; text-decoration:underline;}
