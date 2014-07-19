@@ -54,8 +54,8 @@
             },{
               text:'权限设置',
               items:[
-                {id:'operation',text:'用户管理',href:'<?php echo site_url("system/members") ?>'},
-                {id:'quick',text:'角色管理',href:'<?php echo site_url("system/roles") ?>'}  
+                {id:'admin-index',text:'用户管理',href:'<?php echo site_url("admin/index") ?>'},
+                {id:'admin-role',text:'角色管理',href:'<?php echo site_url("admin/group") ?>'}  
               ]
             },{
               text:'日志管理',
