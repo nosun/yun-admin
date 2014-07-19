@@ -13,7 +13,7 @@
         <div id="change_pwd">
                 <h2>修改密码</h2>
                 <div class="login_cont">
-                    <form id="J_Form" action="<?php echo site_url()?>/system/change_passwd" class="form-horizontal" method="post" accept-charset="utf-8"> 
+                    <form id="J_Form" action="<?php echo site_url()?>/system/change_passwd" class="form-horizontal well" method="post" accept-charset="utf-8"> 
                         <div class="control-group">
                           <label class="control-label">旧密码：</label>
                           <div class="controls">
@@ -33,8 +33,9 @@
                           </div>
                         </div>       
                         
-                        <div class="control-group">       
-                           <button type="submit" class="button button-warning">保 存</button>
+                        <div class="control-group offset3">       
+                           <button type="submit" class="button button-primary">保 存</button>
+                           <button type="reset" class="button">重 置</button>
                         </div> 
                     </form>
                 </div>
