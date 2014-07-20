@@ -19,8 +19,8 @@
             <input type="password" name="password" value=""/>
         </p>
         <p>
-            <label for="roleid">用户组：</label>
-            <select name="roleid">
+            <label for="role">用户组：</label>
+            <select name="role">
                 <?php
                 foreach ($roles as $rl):
                     ?>
@@ -33,6 +33,28 @@
                                 <?php echo $rl['name'] ?>
                     </option>
                 <?php endforeach; ?>
+            </select>
+        </p>
+        <p>
+            <label for="status">状态：</label>
+            <select name="status">
+                
+                    <option value="0" 
+                    <?php
+                    if ($admin['status'] == 0) {
+                        echo 'selected="selected"';
+                    }
+                    ?>>
+                               冻结
+                    </option>
+                    <option value="1" 
+                    <?php
+                    if ($admin['status'] == 1) {
+                        echo 'selected="selected"';
+                    }
+                    ?>>
+                               正常
+                    </option>
             </select>
         </p>
 
