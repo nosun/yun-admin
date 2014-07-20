@@ -71,9 +71,9 @@
                 text:'设备分析',
                 items:[
                   {id:'eq_index',text:'设备概况',href:'<?php echo site_url("equipment/index") ?>'}, 
-                  {id:'eq_aera',text:'分布情况',href:'<?php echo site_url("equipment/aera") ?>'}, 
                   {id:'eq_regment',text:'注册情况',href:'<?php echo site_url("equipment/regment") ?>'},                            
-                  {id:'eq_runtime',text:'运行时间',href:'<?php echo site_url("equipment/runtime") ?>'},
+                  {id:'eq_runtime',text:'运行时间',href:'<?php echo site_url("equipment/online") ?>'},
+                  {id:'eq_aera',text:'分布情况',href:'<?php echo site_url("equipment/aera") ?>'}, 
                   {id:'eq_filter',text:'滤网情况',href:'<?php echo site_url("equipment/filter") ?>'}
                 ]
               },{
@@ -107,13 +107,13 @@
             menu:[{
                 text:'留言反馈',
                 items:[
-                  {id:'feedback',text:'留言反馈',href:'detail/example.html'}
+                  {id:'feedback',text:'留言反馈',href:'<?php echo site_url("feedback/index") ?>'}
                 ]
               },
               {
               text : '消息推送',
               items:[
-                  {id:'message',text:'消息管理',href:'chart/code.html'}              
+                  {id:'message',text:'消息管理',href:'<?php echo site_url("message/index") ?>'}              
               ]
             }
             ]

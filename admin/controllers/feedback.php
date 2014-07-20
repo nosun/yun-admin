@@ -1,0 +1,14 @@
+<?php
+
+class Feedback extends CI_Controller {
+    
+    function index(){
+        $this->load->view('feedback_index');
+
+    }
+    
+    
+    
+    
+    
+}

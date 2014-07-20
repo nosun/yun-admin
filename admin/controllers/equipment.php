@@ -67,10 +67,14 @@ class Equipment extends CI_Controller{
         }   
 
          //show aera analysis
-        function runtime(){
-            $data['title']='设备注册';
-            $this->load->view('equip_regment',$data);   
-        }        
+        function online(){
+            $data['title']='设备在线';
+            $this->load->view('equip_online',$data);   
+        }
+        function filter(){
+            $data['title']='滤网到期';
+            $this->load->view('equip_filter',$data);   
+        }                
         
         
 }

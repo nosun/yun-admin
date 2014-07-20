@@ -29,42 +29,35 @@ Store = Data.Store,
 columns = [{
 title : '',
 dataIndex :'a',
-width:'16%'
+width:'20%'
 },{
-title : '在线设备',
+title : '90日到期',
 dataIndex : 'b',
 summary : true,
-width:'16%'
+width:'18%'
 },
 {
-title : '离线设备',
+title : '30日到期',
 dataIndex : 'c',
 summary : true,
-width:'16%'
+width:'18%'
 },
 {
-title : '报警设备',
+title : '7日到期',
 dataIndex :'d',
 summary : true,
-width:'16%'
+width:'18%'
 },
 {
-title : '新增设备',
+title : '已到期',
 dataIndex :'e',
 summary : true,
-width:'16%'
-},
-{
-title : '滤网到期',
-dataIndex :'f',
-summary : true,
-width:'16%'
+width:'18%'
 }
-
 ];
 
 var store = new Store({
-url : '../../data/1.json',
+url : '../../data/3.json',
 pageSize : 10,
 autoLoad:true
 }),
