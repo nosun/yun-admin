@@ -104,19 +104,6 @@ class Admin_model extends CI_Model {
                         ->update($this->db->dbprefix('admins'), $data);
     }
 
-    // ------------------------------------------------------------------------
-    /**
-     * 删除管理员
-     *
-     * @access public
-     * @param uid
-     * @return bool
-     */
-//    public function del_admin($uid) {
-//        return $this->db->where('uid', $uid)->delete($this->db->dbprefix('admins'));
-//    }
-    // ------------------------------------------------------------------------
-
     public function validate() {
         $this->db->where('username', $this->input->post('username'));
         $this->db->where('password', md5($this->input->post('password')));
@@ -172,9 +159,7 @@ class Admin_model extends CI_Model {
     public function del_admin($ids) {
         $table_admins = $this->db->dbprefix('admins');
         $ids = implode(',',$ids);
-        
         $strSql = 'delete from ' . $table_admins . ' where uid in (' . $ids . ')';
-        
         $this->db->query($strSql);
         return;
     }
