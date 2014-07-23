@@ -9,7 +9,6 @@ class Admin extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
-        $this->load->library('yun_check');
     }
 
     function index() {
@@ -33,25 +32,46 @@ class Admin extends CI_Controller {
     }
 
     function admin_data() {
-        $offset = $this->input->post('start');
-        $limit = $this->input->post('limit');
-        $data = array();
-        $num = $this->admin_model->get_num('admins');
-        $admins = $this->admin_model->get_admin();   
-        $str_json = json_encode($admins);
-        $data['str_json']='{"rows":'.$str_json.', "results":'.$num.'}';
+        $data['admins'] = $this->admin_model->get_admin();
         $this->load->view('admin/admin_data', $data);
     }
 
     public function create() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+//        $data['id'] = $id;
+//        $data['title'] = '添加管理员';
+//        $data['base_url'] = $this->config->item('base_url');
+//        $data['link_url'] = $data['base_url'] . 'index.php/admin/';
+//        $data['admin'] = null;
+//        $data['submitvalue'] = '添加';
+//        $data['url'] = 'admin/create';
+//
+//        if ($this->form_validation->run() == FALSE) {
+//            if ($id) {
+//                $data['url'].='/' . $id;
+//                $data['submitvalue'] = '修改';
+//                $data['title'] = '管理员修改';
+//                $data['admin'] = $this->admin_model->get_admin($id);
+//            } else {
+//                $this->form_validation->set_rules('username', 'username', 'required');
+//                $this->form_validation->set_rules('password', 'password', 'required');
+//            }
+//            $data['roles'] = $this->admin_model->get_roles();
+//            $this->load->view('template/head', $data);
+//            $this->load->view('admin/create');
+//        } else {
+//        }
+//        $this->load->view('template/head', $data);
         $id = $this->input->post('uid');
+
         $this->admin_model->set_admin($id);
-        if($id){
-            $this->yun_check->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
-        }else{
-            $this->yun_check->set_log('admins','添加用户'.$this->input->post('username'));
-            
-        }
+//        $ames = array(
+//            'str' => '添加成功！',
+//            'url' => $data['link_url'] . 'index'
+//        );
+//        $this->load->view('template/message', $ames);
+//        $this->load->view('template/foot');
     }
 
     public function del() {
