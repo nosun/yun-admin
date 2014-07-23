@@ -15,6 +15,7 @@ class Admin_model extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        
     }
 
     /**
@@ -104,6 +105,19 @@ class Admin_model extends CI_Model {
                         ->update($this->db->dbprefix('admins'), $data);
     }
 
+    // ------------------------------------------------------------------------
+    /**
+     * 删除管理员
+     *
+     * @access public
+     * @param uid
+     * @return bool
+     */
+//    public function del_admin($uid) {
+//        return $this->db->where('uid', $uid)->delete($this->db->dbprefix('admins'));
+//    }
+    // ------------------------------------------------------------------------
+
     public function validate() {
         $this->db->where('username', $this->input->post('username'));
         $this->db->where('password', md5($this->input->post('password')));
@@ -116,9 +130,15 @@ class Admin_model extends CI_Model {
         }
     }
 
-    public function get_admin($id = FALSE) {
+    public function get_admin($id = FALSE, $limit = 0, $offset = 0) {
         $table_admins = $this->db->dbprefix('admins');
         if ($id === FALSE) {
+            if ($limit) {
+                $this->db->limit($limit);
+            }
+            if ($offset) {
+                $this->db->offset($offset);
+            }
             $query = $this->db->select('*')
                     ->from($table_admins)
                     ->order_by('uid', 'asc')
@@ -128,6 +148,11 @@ class Admin_model extends CI_Model {
 
         $query = $this->db->get_where($table_admins, array('uid' => $id));
         return $query->row_array();
+    }
+
+    public function get_num($tablename) {
+        $table = $this->db->dbprefix($tablename);
+        return $this->db->count_all($table);
     }
 
     public function set_admin($id) {
@@ -142,24 +167,26 @@ class Admin_model extends CI_Model {
         if ($id) {
             $arr_ainfo = $this->get_admin($id);
             if ($arr_ainfo['password'] != $this->input->post('password')) {
+                $data['salt'] = substr(sha1(time()), -10);
                 $password = $this->input->post('password');
-                $password = md5($password);
-                $data['password'] = $password;
+                $data['password'] = sha1($password . $data['salt']);
             }
             $where = array('uid' => $id);
             return $this->db->update($table_admins, $data, $where);
         } else {
             $password = $this->input->post('password');
-            $password = md5($password);
-            $data['password'] = $password;
+            $data['salt'] = substr(sha1(time()), -10);
+            $data['password'] = sha1($password . $data['salt']);
             return $this->db->insert($table_admins, $data);
         }
     }
 
     public function del_admin($ids) {
         $table_admins = $this->db->dbprefix('admins');
-        $ids = implode(',',$ids);
+        $ids = implode(',', $ids);
+
         $strSql = 'delete from ' . $table_admins . ' where uid in (' . $ids . ')';
+
         $this->db->query($strSql);
         return;
     }
@@ -180,10 +207,10 @@ class Admin_model extends CI_Model {
 
     public function set_roles($models = NULL, $id = FALSE) {
         $table_roles = $this->db->dbprefix('roles');
-        $data = array(
-            'name' => $this->input->post('name'),
-            'models' => $models,
-        );
+        $data['models'] = $models;
+        if ($this->input->post('name')) {
+            $data['name'] = $this->input->post('name');
+        }
         if ($id) {
             $where = array('id' => $id);
             return $this->db->update($table_roles, $data, $where);
@@ -194,7 +221,8 @@ class Admin_model extends CI_Model {
 
     public function del_roles($ids) {
         $table_roles = $this->db->dbprefix('roles');
-        $strSql = 'delete from ' . $table_roles . ' where uid in (' . $ids . ')';
+        $ids = implode(',', $ids);
+        $strSql = 'delete from ' . $table_roles . ' where id in (' . $ids . ')';
         $this->db->query($strSql);
         return;
     }
@@ -228,7 +256,7 @@ class Admin_model extends CI_Model {
             return $this->db->update($table_power, $data, $where);
         } else {
             $this->db->insert($table_power, $data);
-            $id->mysql_insert_id();
+            $id = mysql_insert_id();
             $this->change_power($id, 1);
             return;
         }
@@ -236,16 +264,17 @@ class Admin_model extends CI_Model {
 
     public function del_power($ids) {
         $table_power = $this->db->dbprefix('power');
-        $strSql = 'delete from ' . $table_power . ' where uid in (' . $ids . ')';
+        $str_ids = implode(',', $ids);
+        $strSql = 'delete from ' . $table_power . ' where id in (' . $str_ids . ')';
         $this->db->query($strSql);
-        $arr_id = explode(',', $ids);
-        foreach ($arr_id as $id) {
+        foreach ($ids as $id) {
             $this->change_power($id, 0);
         }
         return;
     }
 
-    public function change_power($id, $tpe) {
+    public function change_power($id, $type) {
+        $table_roles = $this->db->dbprefix('roles');
         $roles = $this->get_roles();
         foreach ($roles as $rl) {
             $models = $rl['models'];
@@ -259,12 +288,13 @@ class Admin_model extends CI_Model {
             $data = array(
                 'models' => $models
             );
-            $where = array('id' => $id);
-            return $this->db->update($table_roles, $data, $where);
+            $where = array('id' => $rl['id']);
+            $this->db->update($table_roles, $data, $where);
         }
+        return;
     }
 
-    public function get_jsonstr_power($id) {
+    public function get_jsonstr_power($id = FALSE) {
         if ($id) {
             $arrs = $this->get_roles($id);
             return $arrs['models'];
