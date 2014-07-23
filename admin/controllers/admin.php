@@ -9,6 +9,7 @@ class Admin extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
+        $this->load->library('yun_check');
     }
 
     function index() {
@@ -32,15 +33,25 @@ class Admin extends CI_Controller {
     }
 
     function admin_data() {
-        $data['admins'] = $this->admin_model->get_admin();
+        $offset = $this->input->post('start');
+        $limit = $this->input->post('limit');
+        $data = array();
+        $num = $this->admin_model->get_num('admins');
+        $admins = $this->admin_model->get_admin();   
+        $str_json = json_encode($admins);
+        $data['str_json']='{"rows":'.$str_json.', "results":'.$num.'}';
         $this->load->view('admin/admin_data', $data);
     }
 
     public function create() {
-        $this->load->helper('form');
-        $this->load->library('form_validation');
         $id = $this->input->post('uid');
         $this->admin_model->set_admin($id);
+        if($id){
+            $this->yun_check->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
+        }else{
+            $this->yun_check->set_log('admins','添加用户'.$this->input->post('username'));
+            
+        }
     }
 
     public function del() {
