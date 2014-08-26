@@ -35,7 +35,7 @@ class Login extends CI_Controller
 		}
 		else
 		{       
-			$this->load->view('/system_login');	
+			$this->load->view('system/system_login');	
 		}
 	}
 	

@@ -1,11 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>设备列表页</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="<?php echo base_url() ?>/views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/page-min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="container">
@@ -102,6 +94,3 @@
 
   });
 </script>
-
-<body>
-</html>  

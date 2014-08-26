@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-
+          <h2><?php echo $title ?></h2>
         <div class="search-grid-container">
             <div id="grid"></div>
         </div>

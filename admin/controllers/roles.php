@@ -14,9 +14,9 @@ class Roles extends CI_Controller {
         $data['base_url'] = $this->config->item('base_url');
         $data['link_url'] = $data['base_url'] . 'index.php/roles/';
         $data['roles'] = $this->admin_model->get_roles();
-        $this->load->view('template/head', $data);
+        $this->load->view('common/header', $data);
         $this->load->view('roles/index');
-        $this->load->view('template/foot');
+        $this->load->view('common/footer');
     }
 
     function roles_data() {
@@ -54,7 +54,7 @@ class Roles extends CI_Controller {
             $data['roles'] = $this->admin_model->get_roles($id);
             $str_models = $data['roles']['models'];
             $data['models'] = json_decode($str_models, TRUE);
-            $this->load->view('template/head', $data);
+            $this->load->view('common/header', $data);
             $this->load->view('roles/setpower');
         } else {
             $models = $this->input->post('models');
@@ -70,7 +70,7 @@ class Roles extends CI_Controller {
 
             $this->admin_model->set_roles($str, $id);
         }
-        $this->load->view('template/foot');
+        $this->load->view('common/footer');
     }
 
 }

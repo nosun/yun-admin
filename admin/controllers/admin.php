@@ -4,12 +4,13 @@ if (!defined('BASEPATH')) {
     exit('Access Denied');
 }
 
-class Admin extends CI_Controller {
+class Admin extends Yun_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
         $this->load->library('yun_check');
+        $this->load->helper('msg');        
 
     }
 
@@ -23,16 +24,24 @@ class Admin extends CI_Controller {
                 'str' => '没有数据，请添加！',
                 'url' => $data['link_url'] . 'create'
             );
-            $this->load->view('template/head', $ames);
-            $this->load->view('template/message');
-            $this->load->view('template/foot');
+            $this->load->view('common/header', $ames);
+            $this->load->view('common/message');
+            $this->load->view('common/footer');
         }
         $data['roles'] = $this->admin_model->get_roles();
-        $this->load->view('template/head', $data);
+        $this->load->view('common/header', $data);
         $this->load->view('admin/index');
-        $this->load->view('template/foot');
+        $this->load->view('common/footer');
     }
 
+    function passwd(){
+        $data['title'] = '修改密码';        
+        $this->load->view('common/header',$data);
+        $this->load->view('admin/passwd');
+        $this->load->view('common/footer');        
+    }
+    
+    
     function admin_data() {
         $offset = $this->input->post('start');
         $limit = $this->input->post('limit');
@@ -63,5 +72,36 @@ class Admin extends CI_Controller {
         $id = $this->input->post('ids');
         $this->admin_model->del_admin($id);
     }
+    
 
+    public function register($username, $password, $email = '', $role ='1', $state = '1')
+    {
+        echo $this->admin_model->add_admin(array(   'username'  =>  $username, 
+                                                    'password'  =>  $password, 
+                                                    'email'     =>  $email,
+                                                    'role'      =>  $role,
+                                                    'state'     =>  $state ));
+    }
+    
+    
+    public function change_passwd()
+    {
+        $uid = $this->session->userdata('uid');
+        $stored = $this->admin_model->get_admin_by_uid($uid);
+        $old_pass = sha1($this->input->post('old_pass', TRUE).$stored->salt);
+        $new_pass = trim($this->input->post('new_pass', TRUE));
+        if ($stored AND $old_pass == $stored->password)
+        {
+            $this->admin_model->edit_admin($uid, array('password' => $new_pass));
+            $this->session->set_flashdata( 'message', array( 'title' => '密码更新成功', 'content' => '您的密码已经修改成功', 'type' => 'message' )); 
+            //helper message function, display by jquery, find it at admin/helpers/msg_helper.php
+            redirect('admin/passwd');  
+        }
+        else
+        {
+            $this->session->set_flashdata( 'message', array( 'title' => '更新密码失败', 'content' => '旧密码输入不正确，请重试', 'type' => 'message' )); 
+            redirect('admin/passwd');
+        }
+    }
+    
 }

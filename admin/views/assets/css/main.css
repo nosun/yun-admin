@@ -79,27 +79,28 @@ iframe {
   padding: none;
 }
 .header,.dl-main-nav{
-  background: url('../img/main-nav-bg.png') repeat-x 0 0 #204077;
+  background: #444;
+  border-top: 1px solid #333
 }
 .header {
-  background-color: #1B3160;
-  height: 30px;
+  background-color: #000;
+  height: 60px;
   width: 100%;
   overflow: hidden;
 }
 .dl-title {
   float: left;
-  color: #c1d5ec;
+  color: #fff;
   font-family: "Microsoft YaHei";
-  margin-left: 12px;
-  font-size: 18px;
-  line-height: 36px;
+  margin-left: 25px;
+  font-size: 20px;
+  line-height: 60px;
 }
 .dl-title a{
   color:#c1d5ec;
 }
 .dl-log {
-  color: #C1D5EC;
+  color: #fff;
   float: right;
   padding: 10px 16px 0 0;
 }
@@ -107,7 +108,7 @@ iframe {
   font-style: bold;
 }
 .dl-log-quit {
-  color: #c1d5ec;
+  color: #fff;
   padding-left: 8px;
 }
 .content {
@@ -135,7 +136,7 @@ iframe {
 }
 .nav-list .nav-item {
   float: left;
-  color: #D4D4D4;
+  color: #eee;
 }
 
 .nav-item-inner,.dl4-hide-list  .dl-hover{
@@ -235,8 +236,8 @@ iframe {
   -moz-border-radius: 2px 2px 0 0;
   border-radius: 2px 2px 0 0;
   border:1px solid #FFF;
-  background-color:#E8E9EE;
-  color:#43478e;
+  background-color:#eee;
+  color:#000;
   font-weight:bold;
   height:30px;
 }
@@ -383,15 +384,15 @@ iframe {
   height: 100%;
 }
 .dl-second-tree {
-  width: 150px;
+  width: 180px;
   float: left;
 }
 .dl-second-nav {
   float: left;
-  width: 150px;
+  width: 180px;
   position:relative;
   padding-top: 5px;
-  background-color:#E8E9EE;
+  background-color:#ededed;
 }
 .dl-inner-tab .dl-tab-nav {
   background-color: #E8E9EE;
@@ -410,7 +411,7 @@ iframe {
   display: none;
 }
 .dl-inner-tab {
-  margin-left: 150px;
+  margin-left: 180px;
   
 }
 .dl-collapse .dl-inner-tab {
@@ -445,7 +446,7 @@ iframe {
   padding-top:3px;
 }
 .dl-inner-tab .bui-nav-tab,.dl-inner-tab .tab-nav-inner{
-  background-color: #E8E9EE;
+  background-color: #ededed;
 }
 
 .dl-inner-tab .tab-content-container{

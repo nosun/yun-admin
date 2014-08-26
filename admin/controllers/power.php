@@ -18,9 +18,9 @@ class Power extends CI_Controller {
         $data['base_url'] = $this->config->item('base_url');
         $data['link_url'] = $data['base_url'] . 'index.php/power/';
         $data['power'] = $this->admin_model->get_power($id, $pid);
-        $this->load->view('template/head', $data);
+        $this->load->view('common/header', $data);
         $this->load->view('power/index');
-        $this->load->view('template/foot');
+        $this->load->view('common/footer');
     }
 
     function power_data() {

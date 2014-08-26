@@ -4386,3 +4386,10 @@ form h3 {
 .centered {
   text-align: center;
 }
+
+/*nosun write*/
+.oneline .checkbox{width:80px;height:30px;float:left;display: block}
+#mtime_select{height:100px;}
+.container h2 {font-size: 18px;font-family: "微软雅黑";padding-bottom: 5px;margin-bottom:20px;
+               border-bottom: 2px solid #eee;
+  }

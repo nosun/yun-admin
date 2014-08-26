@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-
+          <h2><?php echo $title ?></h2>
         <div class="search-grid-container">
             <div id="grid"></div>
         </div>
@@ -77,13 +77,6 @@
             gridCfg = Search.createGridCfg(columns,{
                 tbar : {
                     items : [
-                        {
-                            text : '返回角色管理',
-                            btnCls : 'button button-primary',
-                            handler:function(event){
-                               location.href='../roles/index';
-                            }
-                        },
                         {
                             text : '<i class="icon-plus"></i>新建',
                             btnCls : 'button button-small',

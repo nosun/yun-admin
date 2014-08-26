@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html>
  <head>
-  <title>思佳维云平台——管理中心</title>
+  <title>SkyLink 云平台</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link href="<?php echo base_url() ?>views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo base_url() ?>views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo base_url() ?>views/assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
    <link href="<?php echo base_url() ?>views/assets/css/main.css" rel="stylesheet" type="text/css" />
  </head>
  <body>
@@ -12,9 +12,7 @@
   <div class="header">
     
       <div class="dl-title">
-        <a href="#" title="logo" target="_blank">
-            <img src="#" alt="logo" />
-        </a>
+           <strong>SkyLink</strong> 云平台
       </div>
 
     <div class="dl-log">欢迎您，<span class="dl-log-user"><?php echo $this->_admin->username; ?></span>
@@ -48,7 +46,7 @@
               items:[
                 {id:'index',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
                 {id:'setting',text:'站点设置',href:'<?php echo site_url("system/setting") ?>'},
-                {id:'passwd',text:'修改密码',href:'<?php echo site_url("system/passwd") ?>'}                
+                {id:'passwd',text:'修改密码',href:'<?php echo site_url("admin/passwd") ?>'}                
         
               ]
             },{

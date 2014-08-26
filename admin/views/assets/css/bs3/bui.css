@@ -16,7 +16,7 @@
 .bui-side-menu .bui-menu-title s,
 .bui-side-menu .menu-leaf a,
 .bui-side-menu .menu-leaf em {
-  background: url("../../img/menu-500-188.png") -9999px -9999px no-repeat;
+  background: url("../../img/menu-500-188-1.png") -9999px -9999px no-repeat;
 }
 .bui-side-menu a {
   color: #5c637b;
@@ -24,11 +24,11 @@
   outline: none;
 }
 .bui-side-menu a:hover {
-  color: #414da7;
+  color: #428bca;
   text-decoration: none;
 }
 .bui-side-menu a:active {
-  color: #5c637b;
+
 }
 .bui-side-menu .bui-menu-item-collapsed .bui-menu {
   display: none;
@@ -41,7 +41,7 @@
   line-height: 20px;
 }
 .bui-side-menu .menu-leaf a {
-  height: 20px;
+  height: 24px;
   text-indent: 24px;
   overflow: hidden;
   margin-bottom: 5px;
@@ -53,16 +53,16 @@
   font-style: normal;
   text-align: left;
   overflow: hidden;
-  height: 19px;
-  line-height: 22px;
-  _line-height: 20px;
+  height: 24px;
+  line-height: 24px;
+  _line-height: 24px;
 }
 .bui-side-menu .bui-menu-item-selected a {
   color: #ffffff;
-  background-position: 0 -130px;
+  background-position: 0 -150px;
 }
 .bui-side-menu .bui-menu-item-selected a em {
-  background-position: right -100px;
+  background-position: right -105px;
 }
 .bui-side-menu .menu-second {
   padding-top: 1px;
@@ -84,7 +84,7 @@
   margin: 0 1px;
   background-position: 0 15px;
   height: 17px;
-  color: #636775;
+  color: #333;
   font-weight: bold;
   overflow: hidden;
   line-height: 25px;

@@ -1,12 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>提示信息页</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="<?php echo base_url() ?>/views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
-<link href="<?php echo base_url() ?>/views/assets/css/prettify.css" rel="stylesheet" type="text/css" />
 </head>
 <body> 
 <div style="margin:100px auto; width:500px;">
@@ -19,10 +10,6 @@
             <td>
                 <div align="center"><br />
                     <div style="color:red;font-weight:bold"><?php echo $msg; ?></div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                     <?php if($auto): ?>
                         <script>
                             function redirect($url)
@@ -32,10 +19,6 @@
                             setTimeout("redirect('<?php echo $goto; ?>');", <?php echo $pause; ?>);
                         </script>
                         <a href="<?php echo $goto; ?>" style="text-decoration:underline"><?php echo "页面正在自动转向，你也可以点此直接跳转！"; ?></a>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
                     <?php endif; ?>
                 </div>
             </td>

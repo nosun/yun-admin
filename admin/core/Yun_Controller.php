@@ -115,7 +115,7 @@ abstract class Yun_Controller extends CI_Controller
 		$goto .= $fix;
 		//$this->_template('sys_message', array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause));
 		$data = array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause);
-        $this->load->view('system_message', $data);
+                $this->load->view('common/message', $data);
 		echo $this->output->get_output();
 		exit();
 	}

@@ -1,19 +1,38 @@
-<!DOCTYPE HTML>
-<html>
- <head>
-  <title>修改密码页</title>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-       <link href="<?php echo base_url() ?>/views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url() ?>/views/assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
-   <link href="<?php echo base_url() ?>/views/assets/css/prettify.css" rel="stylesheet" type="text/css" />
- </head>
- <body id="passwd">
+
+</head>
+<script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+        $("#flashmessage").animate({top: "20%"},1000).show('fast').fadeIn(100).fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50);
+        $("#closemessage").click(function(){
+            $("#flashmessage").hide();            
+        });
+    });
+</script>
+
+<style>
+.message{   
+    border:1px solid #CCCCCC;   
+    width:300px;   
+    border:1px solid #c93;   
+    background:#ffc;   
+    padding:5px;   
+    color: #333333;   
+    margin-bottom:10px;
+    position: absolute;
+    top:30%;
+    left:30%;
+    z-index: 10;
+}  
+    
+</style>
+<?= @flash_message() ?>
+<body id="passwd">
     <div class="container">
         <div id="change_pwd">
-                <h2>修改密码</h2>
+                <h2><?php echo $title ?></h2>
                 <div class="login_cont">
-                    <form id="J_Form" action="<?php echo site_url()?>/system/change_passwd" class="form-horizontal well" method="post" accept-charset="utf-8"> 
+                    <form id="J_Form" action="<?php echo site_url()?>/admin/change_passwd" class="form-horizontal" method="post" accept-charset="utf-8"> 
                         <div class="control-group">
                           <label class="control-label">旧密码：</label>
                           <div class="controls">
@@ -41,19 +60,3 @@
                 </div>
             </div>
     </div>
-    
-    <script src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
-    <script src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
-    
-   <!-- script start-->  
-   <script type="text/javascript">
-      BUI.use('bui/form',function  (Form) {
-        new Form.Form({
-          srcNode : '#J_Form'
-        }).render();
-      });
-    </script>
-    <!-- script end -->
-
- </body>
-</html>  
