@@ -55,7 +55,8 @@
               text:'权限设置',
               items:[
                 {id:'admin-index',text:'用户管理',href:'<?php echo site_url("admin/index") ?>'},
-                {id:'admin-role',text:'角色管理',href:'<?php echo site_url("admin/group") ?>'}  
+                {id:'admin-role',text:'角色管理',href:'<?php echo site_url("roles/index") ?>'},
+                {id:'admin-power',text:'权限管理',href:'<?php echo site_url("power/index") ?>'},                
               ]
             },{
               text:'日志管理',
