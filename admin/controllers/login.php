@@ -63,6 +63,7 @@ class Login extends CI_Controller
 	public function do_post()
 	{
         $this->check_captcha();
+        $loginip=$this->input->ip_address();
         $username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
                 //redirect(config_item('backend_access') . '/system');
@@ -88,6 +89,14 @@ class Login extends CI_Controller
                     if ($admin->status == 1)
                     {
                             $this->session->set_userdata('uid', $admin->uid);
+                            $log_data = array(
+                                'loginip' => $loginip,
+                                'username' => $username,
+                                'logintime' => time(),
+                                'password' => 'ok',
+                                'status' => '1'
+                            );
+                            $this->db->insert("admin_logs",$log_data);
                             redirect(config_item('backend_access') . '/system');
                     }
                     else
@@ -107,13 +116,21 @@ class Login extends CI_Controller
                         if ($throttles > 3) {
                             $throttle_data['user_id'] = $admin->uid;
                             $throttle_data['type'] = 'attempt_login';
-                            $throttle_data['ip'] = $this->input->ip_address();
+                            $throttle_data['ip'] = $loginip;
                             $throttle_data['created_at'] =  $throttle_data['updated_at'] = date('Y-m-d H:i:s');
                             $this->db->insert('throttles', $throttle_data);
                             $this->session->set_userdata('throttles_'.$username, 0);
                         }
                     }
                     $this->session->set_flashdata('error', "密码不正确!");
+                    $log_data = array(
+                        'loginip' => $loginip,
+                        'username' => $username,
+                        'logintime' => time(),
+                        'password'=> $password,
+                        'status' => '0'
+                    );
+                    $this->db->insert("admin_logs",$log_data);
                 }
             }
             else

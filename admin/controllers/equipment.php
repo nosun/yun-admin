@@ -8,10 +8,6 @@ class Equipment extends CI_Controller{
                 $this->load->library('pagination');
         }
        
-        function eq_cat_list(){
-            $this->load->view('equip_cat_list');
-        }
-        
         function eq_cat_update(){
             $id=  $this->input->post('id');
             $data= array(
@@ -43,37 +39,41 @@ class Equipment extends CI_Controller{
             $sql='delete from yun_device_class where id in ('.$my_ids.')';
             $this->db->query($sql);
         }
+
+        function eq_cat_list(){
+            $this->load->view('equip/cat_list');
+        }
         
 	function eq_list(){
-            $this->load->view('equip_list');
+            $this->load->view('equip/list');
 	}
         
         function index(){
             $data['title']  = '设备概况';
-            $this->load->view('equip_index',$data);    
+            $this->load->view('equip/index',$data);    
             
         }
         
         //show aera analysis
         function aera(){
             $data['title']='设备分布';
-            $this->load->view('equip_aera',$data);   
+            $this->load->view('equip/aera',$data);   
         }
 
         //show aera analysis
         function regment(){
             $data['title']='设备注册';
-            $this->load->view('equip_regment',$data);   
+            $this->load->view('equip/regment',$data);   
         }   
 
          //show aera analysis
         function online(){
             $data['title']='设备在线';
-            $this->load->view('equip_online',$data);   
+            $this->load->view('equip/online',$data);   
         }
         function filter(){
             $data['title']='滤网到期';
-            $this->load->view('equip_filter',$data);   
+            $this->load->view('equip/filter',$data);   
         }                
         
         

@@ -59,8 +59,8 @@
             },{
               text:'日志管理',
               items:[
-                {id:'loginlog',text:'登陆日志',href:'<?php echo site_url("system/logs/login") ?>'},
-                {id:'actionlog',text:'操作日志',href:'<?php echo site_url("system/logs/action") ?>'}  
+                {id:'loginlog',text:'登陆日志',href:'<?php echo site_url("system/logs_login") ?>'},
+                {id:'actionlog',text:'操作日志',href:'<?php echo site_url("system/logs_action") ?>'}  
               ]
             }]
           },{

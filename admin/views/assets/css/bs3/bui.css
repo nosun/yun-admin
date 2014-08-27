@@ -908,6 +908,7 @@ td.bui-grid-cell-empty {
   font-weight: bold;
   background-position: 0 0;
   position: relative;
+  text-align: center;
 }
 .bui-grid-table .bui-grid-db-hd .bui-grid-hd-inner {
   padding: 32px 0 33px;

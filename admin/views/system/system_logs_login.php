@@ -6,29 +6,20 @@
                 <div class="row">
                     <form id="searchForm" class="form-horizontal">
                     <div class="row">
-                        <div class="control-group span4">
+                        <div class="control-group span8">
                             <div class="controls">
-                                <select name="s_key">
-                                    <option value="">请选择查询方式</option>                    
-                                    <option value="login_name">按用户名</option>
-                                    <option value="address">按地区</option>
-                                </select>
+                                <label class="control-label">按用户名查询：</label>
+                                    <input type="text" class="control-text" name="s_value" placeholder="请输入用户名" value="">
                             </div>
-                        </div>
-                        <div class="control-group span4">
-                            <div class="controls">
-                                <input type="text" class="control-text" name="s_value" placeholder="请输入关键字" value="">
-                            </div>
-                        </div>
-
-                        <div class="control-group span9">
+                        </div>                        
+                        <div class="control-group span10">
                             <div class="controls">
                                 <label class="control-label">注册时间时间：</label>
                                 <input type="text" class="calendar" name="start_date" value=""><span> - </span>
                                 <input name="end_date" type="text" class="calendar" value="">
                             </div>
                         </div>
-                        <div class="span2 offset2">
+                        <div class="span1 offset1">
                             <button type="submit" id="btnSearch" class="button button-primary">查询</button>
                         </div>
                     </div>
@@ -63,21 +54,13 @@
         triggerCls : 'btn-view'
       }),
     columns = [
-        {title:'用户名',dataIndex:'login_name',width:100},
-        {title:'注册时间',dataIndex:'user_regtime',width:100},
-        {title:'省份',dataIndex:'province',width:100},
-        {title:'城市',dataIndex:'city',width:100},
-        {title:'地区',dataIndex:'district',width:100},        
-        {title:'设备数量',dataIndex:'eq_num',width:100},
-        {title:'操作',dataIndex:'id',width:80,renderer:function(v){
-            return Search.createLink({
-            id : 'detail' + v,
-            text : '查看详情',
-            href : 'system/log_detail/'+ v
-            });
-            }},
+        {title:'ID',dataIndex:'logid',width:180},
+        {title:'用户名',dataIndex:'username',width:180},
+        {title:'登录状态',dataIndex:'status',width:180},
+        {title:'登录IP',dataIndex:'loginip',width:180},
+        {title:'登录时间',dataIndex:'logintime',width:180},        
         ],
-      store = Search.createStore('../data/log_list',{
+      store = Search.createStore('../data/logs_login',{
         proxy : {
           method : 'POST'
         },

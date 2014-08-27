@@ -63,7 +63,6 @@ class Admin extends Yun_Controller {
             $this->yun_check->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
         }else{
             $this->yun_check->set_log('admins','添加用户'.$this->input->post('username'));
-            
         }
     }
 

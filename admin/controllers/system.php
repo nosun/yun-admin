@@ -31,20 +31,20 @@ class System extends Yun_Controller {
         $this->load->view('common/footer');
     }
     
-    function logs(){
-        $type=$this->uri->segment(3);
-        if($type=='action'){
-            $data['title'] = '操作日志';   
-        }elseif($type=='login'){
-            $data['title']  ='登陆日志';
-        }else{
-            echo 'error';exit();
-        }
+    function logs_login(){
+        $data['title'] = '登陆日志';   
         $this->load->view('common/header',$data);
-        $this->load->view('system/system_logs');
+        $this->load->view('system/system_logs_login');
         $this->load->view('common/footer');
     }    
-
+    
+    function logs_action(){
+        $data['title'] = '操作日志';   
+        $this->load->view('common/header',$data);
+        $this->load->view('system/system_logs_action');
+        $this->load->view('common/footer');
+    }    
+    
     public function change_site_settings()
     {
         $update_data = $this->input->post();

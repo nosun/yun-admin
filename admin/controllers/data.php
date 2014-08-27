@@ -37,8 +37,14 @@
             $eq_list=$this->equip_model->get_eq_list($product_id,$start_date,$end_date,$s_key,$s_value,$limit,$start);
             $num=$this->equip_model->get_eq_num($product_id,$start_date,$end_date,$s_key,$s_value);
             
+            //$array_eqs=$this->_time_format($eq_list,'activetime');
             $data=json_encode($eq_list);
-            $data='{"rows":'.$data.', "results":'.$num.'}';
+            
+            if($data){
+                $data='{"rows":'.$data.', "results":'.$num.'}';
+            }else{
+                $data='{"rows":[],"results":0}';
+            }         
             $this->_output_json($data);
             
         }
@@ -55,8 +61,14 @@
             $user_list=$this->user_model->get_user_list($start_date,$end_date,$s_key,$s_value,$limit,$start);
             $num=$this->user_model->get_user_num($start_date,$end_date,$s_key,$s_value);
             
-            $data=json_encode($user_list);
-            $data='{"rows":'.$data.', "results":'.$num.'}';
+            $array_users=$this->_time_format($user_list,'user_regtime');
+            $data=json_encode($array_users);
+            if($data){
+                $data='{"rows":'.$data.', "results":'.$num.'}';
+            }else{
+                $data='{"rows":[],"results":0}';
+            }            
+            
             $this->_output_json($data);
             
         }
@@ -69,21 +81,59 @@
             $this->_output_json($data);
         }
         
-        function log_list(){
+        function logs_login(){
             $this->load->model('log_model');
-            $s_key      =$this->input->post('s_key');
             $s_value    =$this->input->post('s_value');
             $start_date =strtotime($this->input->post('start_date'));
             $end_date   =strtotime($this->input->post('end_date'));
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $user_list=$this->user_model->get_user_list($start_date,$end_date,$s_key,$s_value,$limit,$start);
-            $num=$this->user_model->get_user_num($start_date,$end_date,$s_key,$s_value);
+            $logs_list=$this->log_model->get_logs_login($start_date,$end_date,$s_value,$limit,$start);
+            $num=$this->log_model->get_logs_login_num($start_date,$end_date,$s_value);
             
-            $data=json_encode($user_list);
-            $data='{"rows":'.$data.', "results":'.$num.'}';
+            $array_logs=$this->_time_format($logs_list,'logintime');
+            $data=json_encode($array_logs);
+            
+            if($data){
+                $data='{"rows":'.$data.', "results":'.$num.'}';
+            }else{
+                $data='{"rows":[],"results":0}';
+            }
+            
             $this->_output_json($data);
             
-        }        
+        }
+        
+        function logs_action(){
+            $this->load->model('log_model');
+            $s_key    =$this->input->post('s_key');            
+            $s_value    =$this->input->post('s_value');
+            $start_date =strtotime($this->input->post('start_date'));
+            $end_date   =strtotime($this->input->post('end_date'));
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            
+            $logs_list=$this->log_model->get_logs_action($start_date,$end_date,$s_key,$s_value,$limit,$start);
+            $num=$this->log_model->get_logs_action_num($start_date,$end_date,$s_key,$s_value);
+
+            $array_logs=$this->_time_format($logs_list,'time');
+            $data=json_encode($array_logs);
+            
+            if($data){
+                $data='{"rows":'.$data.', "results":'.$num.'}';
+            }else{
+                $data='{"rows":[],"results":0}';
+            }
+            
+            $this->_output_json($data);
+            
+        }
+        function _time_format($data,$key){
+            foreach ($data as $array){
+                $array[$key]=date('Y-m-d h:i',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }
     }

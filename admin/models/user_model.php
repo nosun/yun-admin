@@ -30,7 +30,7 @@ class User_Model extends CI_Model{
             {
                 $this->db->offset($offset);
             }
-            $res=$this->db->from($table)->get()->result();
+            $res=$this->db->from($table)->get()->result_array();
             //echo $this->db->last_query();
             return($res);
     }

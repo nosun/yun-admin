@@ -75,7 +75,6 @@ class Yun_Check {
         $CI = & get_instance();
         $uid = $CI->session->userdata('uid');
         $admins = $this->get_admins($uid);
-
         $ip = $CI->input->ip_address();
         $data = array(
             'ip' => $ip,
@@ -85,7 +84,7 @@ class Yun_Check {
             'table' => $table,
             'detail' => $str
         );
-        return $CI->db->insert($CI->db->dbprefix('logs'), $data);
+        return $CI->db->insert($CI->db->dbprefix('admin_dologs'), $data);
     }
 
 }
