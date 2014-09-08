@@ -87,6 +87,3 @@
 
   });
 </script>
-
-<body>
-</html>  

@@ -78,6 +78,3 @@
 
   });
 </script>
-
-<body>
-</html>  

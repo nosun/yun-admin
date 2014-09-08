@@ -25,7 +25,7 @@
         <li class="nav-item"><div class="nav-item-inner nav-setting">系统管理</div></li>
         <li class="nav-item"><div class="nav-item-inner nav-equip">设备管理</div></li>
         <li class="nav-item"><div class="nav-item-inner nav-users">用户管理</div></li>
-        <li class="nav-item"><div class="nav-item-inner nav-plugin">插件管理</div></li>        
+        <li class="nav-item"><div class="nav-item-inner nav-plugin">运营管理</div></li>        
       </ul>
     </div>
     <ul id="J_NavContent" class="dl-tab-conten">
@@ -70,7 +70,8 @@
                 text:'设备分析',
                 items:[
                   {id:'eq_index',text:'设备概况',href:'<?php echo site_url("equipment/index") ?>'}, 
-                  {id:'eq_regment',text:'注册情况',href:'<?php echo site_url("equipment/regment") ?>'},                            
+                  {id:'eq_regment',text:'新增设备',href:'<?php echo site_url("equipment/reg_new") ?>'},
+                  {id:'eq_regment',text:'所有设备',href:'<?php echo site_url("equipment/reg_all") ?>'},             
                   {id:'eq_runtime',text:'运行时间',href:'<?php echo site_url("equipment/online") ?>'},
                   {id:'eq_aera',text:'分布情况',href:'<?php echo site_url("equipment/aera") ?>'}, 
                   {id:'eq_filter',text:'滤网情况',href:'<?php echo site_url("equipment/filter") ?>'}
