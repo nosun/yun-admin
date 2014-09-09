@@ -63,7 +63,7 @@
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/config-min.js"></script>
- <script type="text/javascript">
+<script type="text/javascript">
     BUI.use('bui/calendar',function(Calendar){
     var datepicker = new Calendar.DatePicker({
     trigger:'.calendar',

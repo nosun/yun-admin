@@ -97,7 +97,7 @@ class Login extends CI_Controller
                                 'status' => '1'
                             );
                             $this->db->insert("admin_logs",$log_data);
-                            redirect(config_item('backend_access') . '/system');
+                            redirect(config_item('backend_access') . '/system/index');
                     }
                     else
                     {

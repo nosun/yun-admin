@@ -18,7 +18,7 @@
                     <div class="span10">
                         <div class="panel">
                             <div class="panel-header">
-                                饼图
+                                饼图 <?php $p=strtotime('2014-07-02');echo $p;?>
                             </div>
                             <div id="canvas" class="panel-body">
                             </div>

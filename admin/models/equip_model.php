@@ -120,4 +120,49 @@ class Equip_Model extends CI_Model{
         $sql='SELECT * FROM '.$table_d.' where id in ( select dic_to from '.$table_r.' where dic_from= '.$uid.') ORDER BY id desc';
         return($this->db->query($sql)->result());
     }
+    
+    //device_new_num for chart
+    function get_eq_new_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
+        
+            $table= $this->db->dbprefix('device_count');
+            if($product_id){
+                $this->db->where("$table.product_id",$product_id);
+            }
+            if($start_date){
+                $this->db->where("$table.date >",$start_date);
+            }
+            if($end_date){
+                $this->db->where("$table.date <",$end_date);
+            }
+            if ($limit)
+            {
+                $this->db->limit($limit);
+            }
+            if ($offset)
+            {
+                $this->db->offset($offset);
+            }
+            $res=$this->db->from($table)->get()->result_array();
+            //echo $this->db->last_query();
+            return($res);
+    }
+    
+    //search result affected rows for paganation
+    function get_eq_new_num($product_id=0,$start_date=0,$end_date=0){
+        
+            $table= $this->db->dbprefix('device_count');
+            
+            if($product_id){
+                $this->db->where("$table.product_id",$product_id);
+            }
+            if($start_date){
+                $this->db->where("$table.date >",$start_date);
+            }
+            if($end_date){
+                $this->db->where("$table.date <",$end_date);
+            }
+            $this->db->from($table)->get()->result();
+            return $this->db->affected_rows() ;
+
+    }
 }
