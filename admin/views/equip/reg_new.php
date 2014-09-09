@@ -46,45 +46,22 @@
         <script type="text/javascript">
             BUI.use('common/page');
         </script>
-        <script>
-            BUI.use('common/search',function (Search) {
-                editing = new BUI.Grid.Plugins.DialogEditing({
-                triggerCls : 'btn-edit'
-      }),
-    columns = [
-        {title:'设备序列号',dataIndex:'device_sn',width:100},
-        {title:'设备型号',dataIndex:'device_cat',width:100},    
-        {title:'设备MAC',dataIndex:'device_mac',width:150},
-        {title:'所在地区',dataIndex:'device_location',width:100},
-        {title:'设备状态',dataIndex:'device_desc1',width:100},    
-        {title:'运行时长',dataIndex:'device_desc2',width:100}   
-        ],
-      store = Search.createStore('../data/eq_list',{
-        proxy : {
-          method : 'POST'
-        },
-        pageSize:5
-      }),
-      gridCfg = Search.createGridCfg(columns,{
-        plugins : [editing,BUI.Grid.Plugins.CheckSelection,BUI.Grid.Plugins.AutoFit] // 插件形式引入多选表格
-      });
-
-    var  search = new Search({
-        store : store,
-        gridCfg : gridCfg
-      }),
-      grid = search.get('grid');
-
-  });
-  </script>
   <script type="text/javascript">
         BUI.use(['bui/chart', 'bui/data'], function(Chart, Data) {
         var store = new Data.Store({
-          url : '../data/eq_new_count',
+          url : '../../data/4.json',
           autoLoad : false
         }),
-         categories = ['1','2','3','4','5', '6', '7', '8', '9','10','11','12','13','14','15','16','17','18','19', '20',
-             '21','22','23', '24','25','26','27','28','29','30','31'];
+         categories = ['1',
+                      '2',
+                      '3',
+                      '4',
+                      '5',
+                      '6',
+                      '7',
+                      '8',
+                      '9',
+                      '10'];
 
         var chart =  new Chart.Chart({
           id : 'canvas',
@@ -115,7 +92,7 @@
           seriesOptions: {
             columnCfg : {
               name: '日期',
-              xField : 'day' //指定x坐标轴
+              xField : 'date' //指定x坐标轴
             }
           },
           tooltip : {
@@ -125,7 +102,7 @@
           },
           series : [{
                 name: '设备数量',
-                yField : 'num'
+                yField : 'eq_num_new'
             }]
         });
 

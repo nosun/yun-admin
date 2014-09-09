@@ -1,15 +1,3 @@
-[
-{"day":"0","num":47},
-{"day":"1","num":20},
-{"day":"2","num":22},
-{"day":"3","num":30},
-{"day":"4","num":20},
-{"day":"5","num":17},
-{"day":"6","num":40},
-{"day":"7","num":51},
-{"day":"8","num":11},
-{"day":"9","num":62},
-{"day":"10","num":5},
-{"day":"11","num":16}
-
-]
+[{"date":"01","eq_num_new":168},{"date":"02","eq_num_new":223},{"date":"03","eq_num_new":106},
+    {"date":"04","eq_num_new":128},{"date":"05","eq_num_new":52},{"date":"06","eq_num_new":139},{"date":"07","eq_num_new":269},
+    {"date":"08","eq_num_new":104},{"date":"09","eq_num_new":262},{"date":"10","eq_num_new":168}] 

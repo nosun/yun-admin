@@ -147,16 +147,16 @@
         
         function eq_new_count(){
             $this->load->model('equip_model');
-            $s_value    =$this->input->post('product_id');
+            $product_id    =$this->input->post('product_id');
             $start_date =strtotime($this->input->post('start_date'));
             $end_date   =strtotime($this->input->post('end_date'));
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $eq_new_num=$this->equip_model->get_eq_new_data($start_date,$end_date,$product_id,$limit,$start);
+            $eq_new_num=$this->equip_model->get_eq_new_data($start_date,$end_date,$product_id,30,0);
             $num=$this->equip_model->get_eq_new_num($start_date,$end_date,$product_id);
-
-            $array_logs=$this->_time_format1($logs_list,'date');
+            $num=30;
+            $array_logs=$this->_time_format1($eq_new_num,'date');
             $data=json_encode($array_logs);
             
             if($data){

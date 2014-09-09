@@ -142,7 +142,7 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->offset($offset);
             }
-            $res=$this->db->from($table)->get()->result_array();
+            $res=$this->db->select("date,eq_num_new")->from($table)->get()->result_array();
             //echo $this->db->last_query();
             return($res);
     }
