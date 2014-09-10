@@ -139,30 +139,98 @@
         
         function _time_format1($data,$key){ // out the day number like 7,8,9……
             foreach ($data as $array){
-                $array[$key]=date('d',$array[$key]);
+                $array[$key]=date('j',$array[$key])-1;
                 $array_group[]=$array;
             }        
             return $array_group;            
         }
+
+        function _string2int($data,$key){ // fetch_array the data type default is string,need change
+            foreach ($data as $array){
+                $array[$key]=(int)($array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }        
         
         function eq_new_count(){
             $this->load->model('equip_model');
-            $s_value    =$this->input->post('product_id');
-            $start_date =strtotime($this->input->post('start_date'));
-            $end_date   =strtotime($this->input->post('end_date'));
+            $choise     =$this->input->post('choise');
+            $product_id =$this->input->post('product_id');
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $eq_new_num=$this->equip_model->get_eq_new_data($start_date,$end_date,$product_id,$limit,$start);
-            $num=$this->equip_model->get_eq_new_num($start_date,$end_date,$product_id);
+            $now=time();
+            $year=  date('Y',$now); //2014
+            $month= date('n',$now); //9
+            $day=date('j',$now); //1
+            $last_month=$month-1;
+            $next_month=$month+1;
+            $day7=$now-86400*7;//
+            
+            if($choise==1){ // last month
+                $start_date=strtotime($year.'-'.$last_month);
+                $end_date=strtotime($year.'-'.$month);
+            }elseif($choise==2){ //7 day
+                $start_date=$day7;
+                $end_date=  strtotime($year.'-'.$month.'-'.$day);
+            }else{// this month
+                $start_date=strtotime($year.'-'.$month);
+                $end_date=strtotime($year.'-'.$next_month);
+            }
 
-            $array_logs=$this->_time_format1($logs_list,'date');
-            $data=json_encode($array_logs);
+            $eq_new_num=$this->equip_model->get_eq_new_data($product_id,$start_date,$end_date,$limit,$start);
+
+            $eq_new_num=$this->_time_format1($eq_new_num,'date');
+            $eq_new_num=$this->_string2int($eq_new_num, 'eq_num_new');
+            $data=json_encode($eq_new_num);
             
             if($data){
-                $data='{"rows":'.$data.', "results":'.$num.'}';
+                $data='{"rows":'.$data.'}';
             }else{
-                $data='{"rows":[],"results":0}';
+                $data='{"rows":[]}';
+            }
+            
+            $this->_output_json($data);
+            
+        }
+        
+        function eq_all_count(){
+            $this->load->model('equip_model');
+            $choise     =$this->input->post('choise');
+            $product_id =$this->input->post('product_id');
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            
+            $now=time();
+            $year=  date('Y',$now); //2014
+            $month= date('n',$now); //9
+            $day=date('j',$now); //1
+            $last_month=$month-1;
+            $next_month=$month+1;
+            $day7=$now-86400*7;//
+            
+            if($choise==1){ // last month
+                $start_date=strtotime($year.'-'.$last_month);
+                $end_date=strtotime($year.'-'.$month);
+            }elseif($choise==2){ //7 day
+                $start_date=$day7;
+                $end_date=  strtotime($year.'-'.$month.'-'.$day);
+            }else{// this month
+                $start_date=strtotime($year.'-'.$month);
+                $end_date=strtotime($year.'-'.$next_month);
+            }
+
+            $eq_num=$this->equip_model->get_eq_all_data($product_id,$start_date,$end_date,$limit,$start);
+
+            $eq_num=$this->_time_format1($eq_num,'date');
+            $eq_num=$this->_string2int($eq_num, 'eq_num_all');
+            $data=json_encode($eq_num);
+            
+            if($data){
+                $data='{"rows":'.$data.'}';
+            }else{
+                $data='{"rows":[]}';
             }
             
             $this->_output_json($data);

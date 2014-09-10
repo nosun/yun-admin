@@ -7,15 +7,6 @@
         <div id="grid"></div>
         </div>
     </div>
-    <div class="row" id="eq_link">
-        
-        <a href="#" title="查看新增设备">新增设备图</a> | 
-        <a href="#" title="查看新增设备">设备运行图</a> | 
-        <a href="#" title="查看新增设备">设备在线图</a> | 
-        <a href="#" title="查看新增设备">异常设备清单</a> | 
-        <a href="#" title="查看新增设备">滤网更换清单</a> | 
-    </div>
-    
 </div>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>

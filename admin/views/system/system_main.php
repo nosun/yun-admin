@@ -71,10 +71,12 @@
                 items:[
                   {id:'eq_index',text:'设备概况',href:'<?php echo site_url("equipment/index") ?>'}, 
                   {id:'eq_regment',text:'新增设备',href:'<?php echo site_url("equipment/reg_new") ?>'},
-                  {id:'eq_regment',text:'所有设备',href:'<?php echo site_url("equipment/reg_all") ?>'},             
-                  {id:'eq_runtime',text:'运行时间',href:'<?php echo site_url("equipment/online") ?>'},
-                  {id:'eq_aera',text:'分布情况',href:'<?php echo site_url("equipment/aera") ?>'}, 
-                  {id:'eq_filter',text:'滤网情况',href:'<?php echo site_url("equipment/filter") ?>'}
+                  {id:'eq_regment',text:'所有设备',href:'<?php echo site_url("equipment/reg_all") ?>'},
+                  {id:'eq_aera',text:'设备分布',href:'<?php echo site_url("equipment/aera") ?>'},                   
+                  {id:'eq_online',text:'设备在线',href:'<?php echo site_url("equipment/online") ?>'},
+                  {id:'eq_run',text:'设备运行',href:'<?php echo site_url("equipment/run") ?>'},
+                  {id:'eq_filter',text:'滤网到期设备',href:'<?php echo site_url("equipment/filter") ?>'},
+                  {id:'eq_filter',text:'报警设备',href:'<?php echo site_url("equipment/alarm") ?>'}          
                 ]
               },{
                 text:'设备管理',

@@ -123,13 +123,12 @@ class Equip_Model extends CI_Model{
     
     //device_new_num for chart
     function get_eq_new_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
-        
             $table= $this->db->dbprefix('device_count');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
             }
             if($start_date){
-                $this->db->where("$table.date >",$start_date);
+                $this->db->where("$table.date >=",$start_date);
             }
             if($end_date){
                 $this->db->where("$table.date <",$end_date);
@@ -142,27 +141,35 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->offset($offset);
             }
-            $res=$this->db->from($table)->get()->result_array();
+            $res=$this->db->select("date,eq_num_new")->from($table)->get()->result_array();
+            //var_dump($res);
             //echo $this->db->last_query();
             return($res);
     }
     
-    //search result affected rows for paganation
-    function get_eq_new_num($product_id=0,$start_date=0,$end_date=0){
-        
+    //device_new_num for chart
+    function get_eq_all_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
             $table= $this->db->dbprefix('device_count');
-            
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
             }
             if($start_date){
-                $this->db->where("$table.date >",$start_date);
+                $this->db->where("$table.date >=",$start_date);
             }
             if($end_date){
                 $this->db->where("$table.date <",$end_date);
             }
-            $this->db->from($table)->get()->result();
-            return $this->db->affected_rows() ;
-
+            if ($limit)
+            {
+                $this->db->limit($limit);
+            }
+            if ($offset)
+            {
+                $this->db->offset($offset);
+            }
+            $res=$this->db->select("date,eq_num_all")->from($table)->get()->result_array();
+            //var_dump($res);
+            //echo $this->db->last_query();
+            return($res);
     }
 }
