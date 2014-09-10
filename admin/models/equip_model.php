@@ -142,8 +142,6 @@ class Equip_Model extends CI_Model{
                 $this->db->offset($offset);
             }
             $res=$this->db->select("date,eq_num_new")->from($table)->get()->result_array();
-            //var_dump($res);
-            //echo $this->db->last_query();
             return($res);
     }
     

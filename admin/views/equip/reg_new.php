@@ -44,13 +44,13 @@
         var datepicker = new Calendar.DatePicker({
         trigger:'.calendar',
         autoRender : true
-        });
-    });
-</script>
-<script type="text/javascript">
-    BUI.use('common/page');
-</script>
-<script type="text/javascript">
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            BUI.use('common/page');
+        </script>
+  <script type="text/javascript">
     BUI.use(['bui/form','bui/chart','common/search'], function(Form,Chart,Search) {
         store = Search.createStore('../data/eq_new_count',{
           proxy : {
