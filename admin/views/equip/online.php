@@ -1,6 +1,27 @@
 </head>
     <body>
+        
         <div class="container">
+            <div class="row">
+                    <div class="control-group span4">
+                        <div class="controls" >
+                              <a href="" >今天</a> |
+                              <a href="" >昨天</a> |
+                              <a href="" >前天</a>                              
+                        </div>
+                    </div>
+                <form id="searchForm" method="post" class="form-horizontal">
+                    <div class="control-group span8">
+                        <div class="controls">
+                            <label class="control-label">选择时间：</label>
+                            <input type="text" class="calendar" name="date" value="">
+                        </div>
+                    </div>
+                    <div class="span4 offset2">
+                        <button type="button" id="btnSearch" class="button button-primary">查询</button>
+                    </div>
+                </form>
+            </div>
             <div class="row">
                 <h2><?= $title ?></h2>
                 <div class="span24" id="canvas"></div>

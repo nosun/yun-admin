@@ -37,13 +37,36 @@
             $eq_list=$this->equip_model->get_eq_list($product_id,$start_date,$end_date,$s_key,$s_value,$limit,$start);
             $num=$this->equip_model->get_eq_num($product_id,$start_date,$end_date,$s_key,$s_value);
             
-            //$array_eqs=$this->_time_format($eq_list,'activetime');
+            $eq_list=$this->_time_format2($eq_list,'active_time');
             $data=json_encode($eq_list);
             
             if($data){
                 $data='{"rows":'.$data.', "results":'.$num.'}';
             }else{
                 $data='{"rows":[],"results":0}';
+            }         
+            $this->_output_json($data);
+            
+        }
+        
+        function eq_aera(){
+            $this->load->model('equip_model');
+            $res=$this->db->query("SELECT province ,COUNT(province) as num  FROM `yun_devices` GROUP BY province");
+            $num_all=$this->db->query("select id from `yun_devices`")->num_rows();
+            $i=0;
+            foreach ($res->result() as $row)
+            {
+               $data[$i]['name']= $row->province;
+               $data[$i]['y']=round(($row->num/$num_all)*100);
+               $data[$i]['z']= (int)$row->num;
+               $i++;
+            }
+            $data=json_encode($data);
+            
+            if($data){
+                $data=$data;
+            }else{
+                $data='[]';
             }         
             $this->_output_json($data);
             
@@ -129,7 +152,7 @@
             $this->_output_json($data);
             
         }
-        function _time_format($data,$key){
+        function _time_format($data,$key){//out the date time like 2014-07-01 14:00
             foreach ($data as $array){
                 $array[$key]=date('Y-m-d h:i',$array[$key]);
                 $array_group[]=$array;
@@ -144,7 +167,15 @@
             }        
             return $array_group;            
         }
-
+        
+        function _time_format2($data,$key){ //out the date like 2014-07-01
+            foreach ($data as $array){
+                $array[$key]=date('Y-m-d',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }
+        
         function _string2int($data,$key){ // fetch_array the data type default is string,need change
             foreach ($data as $array){
                 $array[$key]=(int)($array[$key]);

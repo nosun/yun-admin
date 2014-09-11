@@ -56,6 +56,14 @@ class Equipment extends CI_Controller{
         
         function index(){
             $data['title']  = '设备概况';
+            //查询获取device表中设备的数量统计情况。
+            $today=strtotime(date('Y-m-d',  time()));
+            $data['num_all']=$this->db->query('SELECT id FROM yun_devices')->num_rows();
+            $data['num_new']=$this->db->query('SELECT id FROM yun_devices where active_time>'.$today)->num_rows();
+            $data['num_online']=$this->equip_model->get_eq_num(0,0,0,'device_online',1);
+            $data['num_working']=$this->equip_model->get_eq_num(0,0,0,'device_work',1);            
+            $data['num_alarm']=$this->equip_model->get_eq_num(0,0,0,'device_alarm',1);
+            $data['num_filter']=$this->db->query('SELECT id FROM yun_devices where filter_time<30')->num_rows();
             $this->load->view('common/header',$data);
             $this->load->view('equip/index'); 
             $this->load->view('common/footer');
@@ -94,6 +102,12 @@ class Equipment extends CI_Controller{
         }
         function filter(){
             $data['title']='滤网到期';
+            //查询获取device表中设备的数量统计情况。
+            $data['filter0']=$this->db->query('SELECT id FROM yun_devices where filter_time=0')->num_rows();            
+            $data['filter30']=$this->db->query('SELECT id FROM yun_devices where filter_time<30')->num_rows();
+            $data['filter60']=$this->db->query('SELECT id FROM yun_devices where filter_time<60')->num_rows();            
+            $data['filter90']=$this->db->query('SELECT id FROM yun_devices where filter_time<90')->num_rows(); 
+            $data['filter120']=$this->db->query('SELECT id FROM yun_devices where filter_time<120')->num_rows();             
             $this->load->view('common/header',$data);
             $this->load->view('equip/filter'); 
             $this->load->view('common/footer'); 

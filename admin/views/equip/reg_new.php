@@ -9,8 +9,7 @@
                 <div class="controls" >
                     <select name="product_id" id="product_id" selected="">
                         <option value="0">请选择产品型号</option>
-                        <option value="1">产品一</option>
-                        <option value="2">产品二</option>
+                        <option value="1">skyware001</option>
                     </select>
                 </div>
             </div>

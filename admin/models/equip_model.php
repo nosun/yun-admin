@@ -123,7 +123,7 @@ class Equip_Model extends CI_Model{
     
     //device_new_num for chart
     function get_eq_new_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
-            $table= $this->db->dbprefix('device_count');
+            $table= $this->db->dbprefix('device_count_d');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
             }
@@ -147,7 +147,7 @@ class Equip_Model extends CI_Model{
     
     //device_new_num for chart
     function get_eq_all_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
-            $table= $this->db->dbprefix('device_count');
+            $table= $this->db->dbprefix('device_count_d');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
             }

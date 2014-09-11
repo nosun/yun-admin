@@ -9,46 +9,24 @@
 </head>
 <body>
 <div class="container">
-<div class="detail-section">
     <div class="row">
-        <form id="searchForm" method="post" class="form-horizontal">
-        <input type="hidden" name="a" value="3">
-        <div class="row">
             <div class="control-group span4">
                 <div class="controls" >
-                    <select name="product_id" id="product_id" selected="">
-                        <option value="0">请选择产品型号</option>
-                        <option value="1">skyware001</option>
-                    </select>
+                      <a href="" >今天</a> |
+                      <a href="" >昨天</a> |
+                      <a href="" >前天</a>                              
                 </div>
             </div>
-            <div class="control-group span4">
+        <form id="searchForm" method="post" class="form-horizontal">
+            <div class="control-group span8">
                 <div class="controls">
-                    <select name="s_key">
-                        <option value="">请选择查询方式</option>                    
-                        <option value="device_location">按省份</option>
-                        <option value="device_sn">按序列号</option>  
-                        <option value="device_mac">按mac地址</option>  
-                    </select>
+                    <label class="control-label">选择时间：</label>
+                    <input type="text" class="calendar" name="date" value="">
                 </div>
             </div>
-            <div class="control-group span4">
-                <div class="controls">
-                    <input type="text" class="control-text" name="s_value" placeholder="请输入关键字" value="">
-                </div>
+            <div class="span4 offset2">
+                <button type="button" id="btnSearch" class="button button-primary">查询</button>
             </div>
-
-            <div class="control-group span9">
-                <div class="controls">
-                    <label class="control-label">启用时间：</label>
-                    <input type="text" class="calendar" name="start_date" value=""><span> - </span>
-                    <input name="end_date" type="text" class="calendar" value="">
-                </div>
-            </div>
-            <div class="span2 offset2">
-                <button type="submit" id="btnSearch" class="button button-primary">查询</button>
-            </div>
-        </div>
         </form>
     </div>
     
