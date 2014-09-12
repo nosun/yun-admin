@@ -73,8 +73,8 @@
                   {id:'eq_regment',text:'新增设备',href:'<?php echo site_url("equipment/reg_new") ?>'},
                   {id:'eq_regment',text:'所有设备',href:'<?php echo site_url("equipment/reg_all") ?>'},
                   {id:'eq_aera',text:'设备分布',href:'<?php echo site_url("equipment/aera") ?>'},                   
-                  {id:'eq_online',text:'设备在线',href:'<?php echo site_url("equipment/online") ?>'},
-                  {id:'eq_working',text:'设备运行',href:'<?php echo site_url("equipment/working") ?>'},
+                  {id:'eq_online',text:'设备在线',href:'<?php echo site_url("equipment/eq_state_h/online") ?>'},
+                  {id:'eq_working',text:'设备运行',href:'<?php echo site_url("equipment/eq_state_h/working") ?>'},
                   {id:'eq_filter',text:'滤网到期设备',href:'<?php echo site_url("equipment/filter") ?>'},
                   {id:'eq_filter',text:'报警设备',href:'<?php echo site_url("equipment/list_s/alarm") ?>'}          
                 ]

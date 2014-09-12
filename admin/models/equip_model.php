@@ -170,4 +170,67 @@ class Equip_Model extends CI_Model{
             //echo $this->db->last_query();
             return($res);
     }
+    function get_eq_hour_data($product_id=0,$kpi,$day=0,$limit=0,$offset=0){
+            $table= $this->db->dbprefix('device_count_h');
+            if($product_id){
+                $this->db->where("$table.product_id",$product_id);
+            }
+            if($day){
+                $this->db->where("$table.updatetime >=",$day);
+                $this->db->where("$table.updatetime <",$day+86400);
+            }
+            if ($limit)
+            {
+                $this->db->limit($limit);
+            }
+            if ($offset)
+            {
+                $this->db->offset($offset);
+            }
+            $res=$this->db->select("updatetime,num_{$kpi} as num")->from($table)->get()->result_array();
+            //var_dump($res);
+            //echo $this->db->last_query();
+            return($res);
+    }
+    
+    function get_eq_list_s($product_id,$action,$arg1,$limit,$offset){
+            $table= $this->db->dbprefix('devices');
+            if($product_id){
+                $this->db->where("$table.product_id",$product_id);
+            }
+            if($action=='alarm'){
+                $this->db->where("$table.device_alarm",1);
+            }
+            if($action=='filter'){
+                $this->db->where("$table.filter_time <=",$arg1);
+            }
+            if ($limit)
+            {
+                $this->db->limit($limit);
+            }
+            if ($offset)
+            {
+                $this->db->offset($offset);
+            }
+            $res=$this->db->from($table)->get()->result_array();
+            //echo $this->db->last_query();
+            return($res);
+    }
+    
+    function get_eq_num_s($product_id,$action,$arg1){
+            $table= $this->db->dbprefix('devices');
+            if($product_id){
+                $this->db->where("$table.product_id",$product_id);
+            }
+            if($action=='alarm'){
+                $this->db->where("$table.device_alarm",1);
+            }
+            if($action=='filter'){
+                $this->db->where("$table.filter_time <=",$arg1);
+            }
+            
+            $this->db->from($table)->get()->result();
+            
+            return $this->db->affected_rows() ;
+    }
 }

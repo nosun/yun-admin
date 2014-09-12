@@ -37,14 +37,13 @@
             $eq_list=$this->equip_model->get_eq_list($product_id,$start_date,$end_date,$s_key,$s_value,$limit,$start);
             $num=$this->equip_model->get_eq_num($product_id,$start_date,$end_date,$s_key,$s_value);
             
-            $eq_list=$this->_time_format2($eq_list,'active_time');
-            $data=json_encode($eq_list);
-            
-            if($data){
+            if($eq_list){
+                $data=json_encode($this->_time_format2($eq_list,'active_time'));
                 $data='{"rows":'.$data.', "results":'.$num.'}';
             }else{
                 $data='{"rows":[],"results":0}';
-            }         
+            }
+            
             $this->_output_json($data);
             
         }
@@ -176,6 +175,14 @@
             return $array_group;            
         }
         
+        function _time_format3($data,$key){ // out the hour number like 0~24……
+            foreach ($data as $array){
+                $array[$key]=date('G',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }        
+        
         function _string2int($data,$key){ // fetch_array the data type default is string,need change
             foreach ($data as $array){
                 $array[$key]=(int)($array[$key]);
@@ -253,15 +260,66 @@
             }
 
             $eq_num=$this->equip_model->get_eq_all_data($product_id,$start_date,$end_date,$limit,$start);
-
-            $eq_num=$this->_time_format1($eq_num,'date');
-            $eq_num=$this->_string2int($eq_num, 'eq_num_all');
-            $data=json_encode($eq_num);
             
-            if($data){
-                $data='{"rows":'.$data.'}';
+            if($eq_num){
+                $eq_num=$this->_time_format1($eq_num,'date');
+                $eq_num=$this->_string2int($eq_num, 'eq_num_all');
+                $data=json_encode($eq_num);
+            }
+            else
+            {
+                $data='[{}]';
+            }
+            
+            $this->_output_json($data);
+            
+        }
+        
+        function eq_state_h(){
+            $this->load->model('equip_model');
+            $kpi=  $this->uri->segment('3');           
+            $day=  $this->uri->segment('4');
+            $date=$this->input->post('date');
+
+            if (!empty($date)){
+                $day=  strtotime($date);
+            }
+
+            $product_id =$this->input->post('product_id');
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            
+            $num=$this->equip_model->get_eq_hour_data($product_id,$kpi,$day,$limit,$start);
+            
+            if($num){
+                $num=$this->_time_format3($num,'updatetime');
+                $num=$this->_string2int($num, 'num');
+                $data=json_encode($num);
+            }
+            else{
+                $data='[{"updatetime":"0","num":0}]';
+            }
+            
+            $this->_output_json($data);
+        }  
+        
+        function eq_list_s(){
+            $this->load->model('equip_model');
+            $action=  $this->uri->segment('3');
+            $arg1=  $this->uri->segment('4');
+            
+            $product_id =$this->input->post('product_id');
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+
+            $eq_list=$this->equip_model->get_eq_list_s($product_id,$action,$arg1,$limit,$start);
+            $num=$this->equip_model->get_eq_num_s($product_id,$action,$arg1);
+
+            if($eq_list){
+                $data=json_encode($this->_time_format2($eq_list,'active_time'));
+                $data='{"rows":'.$data.', "results":'.$num.'}';
             }else{
-                $data='{"rows":[]}';
+                $data='{"rows":[],"results":0}';
             }
             
             $this->_output_json($data);

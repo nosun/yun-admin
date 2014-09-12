@@ -5,3 +5,4 @@
 .page .current{margin: 0 5px 0 0; padding: 3px 6px; border: 1px solid #A4A4A4; background:#EBEBEB; }
 .page a { color:#333; text-decoration:none;}
 .page a:hover {border-color:#AAA !important; background:#FAFAFA; color: #000 !important; text-decoration:underline;}
+html { overflow: scroll; }

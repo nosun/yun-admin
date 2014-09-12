@@ -877,6 +877,7 @@ hr {
   margin-left: auto;
   margin-right: auto;
   *zoom: 1;
+  margin:20px auto 40px;
 }
 .container:before,
 .container:after {
@@ -2395,6 +2396,7 @@ table {
 .table-bordered th,
 .table-bordered td {
   border-left: 1px solid #dddddd;
+  text-align: center;
 }
 .table-bordered thead tr:last-child th,
 .table-bordered thead tr:last-child td {

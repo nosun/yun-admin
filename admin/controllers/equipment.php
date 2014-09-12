@@ -93,13 +93,24 @@ class Equipment extends CI_Controller{
             $this->load->view('common/footer');  
         } 
         
-         //show aera analysis
-        function online(){
-            $data['title']='设备在线';
+        //show aera analysis
+        function eq_state_h(){
+            $kpi=$this->uri->segment('3');
+            $day=$this->uri->segment('4');
+            if($day){ //search for someday the time format is unix time;
+                $data['dataurl']='../../../data/eq_state_h/'.$kpi.'/'.$day;
+                $data['date']=date('Y-m-d',$day);
+            }else{ //set the day today
+                $data['date']=date('Y-m-d',time());
+                $data['dataurl']='../../data/eq_state_h/'.$kpi.'/'.strtotime($data['date']);
+            }
+            $data['title']='设备 '.$kpi.' 状态';
+            $data['kpi']=$kpi;
             $this->load->view('common/header',$data);
-            $this->load->view('equip/online'); 
-            $this->load->view('common/footer');   
+            $this->load->view('equip/eq_state_h'); 
+            $this->load->view('common/footer');
         }
+        
         function filter(){
             $data['title']='滤网到期';
             //查询获取device表中设备的数量统计情况。
@@ -111,7 +122,23 @@ class Equipment extends CI_Controller{
             $this->load->view('common/header',$data);
             $this->load->view('equip/filter'); 
             $this->load->view('common/footer'); 
-        }                
+        }   
         
+        function list_s(){ //alarm eq and filter alarm eq
+            $kpi=$this->uri->segment('3'); //type
+            $arg1=$this->uri->segment('4'); //arguments 1
+            if(!empty($arg1) || $arg1==='0'){ 
+                $data['arg1']=$arg1;
+                $data['dataurl']='../../../data/eq_list_s/'.$kpi.'/'.$arg1;
+            }else{
+                $data['dataurl']='../../data/eq_list_s/'.$kpi;
+            }
+
+            $data['title']='设备 '.$kpi.' 列表';
+            $data['kpi']=$kpi;
+            $this->load->view('common/header',$data);
+            $this->load->view('equip/list_s'); 
+            $this->load->view('common/footer');
+        }
         
 }
