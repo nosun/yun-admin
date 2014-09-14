@@ -2,33 +2,33 @@
  <body>
     <div class="container">
             <h2><?=$title?></h2>
-    <div class="row">
-        <form id="searchForm" method="post" class="form-horizontal">
-        <div class="row">
-            <div class="control-group span8">
-                <div class="controls" >
-                    <select name="product_id" id="product_id" selected="">
-                        <option value="0">请选择产品型号</option>
-                        <option value="1">产品一</option>
-                        <option value="2">产品二</option>
-                    </select>
+                <div class="control-group span4">
+                    <div class="controls" >
+                        <?php
+                            $now=time();
+                            $year=  date('Y',$now); //2014
+                            $month= date('n',$now); //9
+                            $day=date('j',$now); //1
+                            $day0=strtotime($year.'-'.$month.'-'.$day);//today
+                            $day1=strtotime($year.'-'.$month.'-'.($day-1));//yestoday
+                            $day2=strtotime($year.'-'.$month.'-'.($day-2));//the day before yestoday
+                        ?>
+                        <a href="<?php echo site_url() ?>/user/count_d/<?=$action?>/<?=$day0?>" >今天</a> |
+                        <a href="<?php echo site_url() ?>/user/count_d/<?=$action?>/<?=$day1?>" >昨天</a> |
+                        <a href="<?php echo site_url() ?>/user/count_d/<?=$action?>/<?=$day2?>" >前天</a>                               
+                    </div>
                 </div>
-            </div>
-            <div class="control-group span8">
-                <div class="controls" >
-                    <select name="choise" id="choise" selected="">
-                        <option value="0">本月</option>
-                        <option value="1">上月</option>
-                        <option value="2">近7天</option>
-                    </select>
-                </div>
-            </div>
-            <div class="span4 offset2">
-                <button type="button" id="btnSearch" class="button button-primary">查询</button>
-            </div>
-        </div>
-        </form>
-    </div>
+                <form id="searchForm" method="post" class="form-horizontal">
+                    <div class="control-group span8">
+                        <div class="controls">
+                            <label class="control-label">选择时间：</label>
+                            <input type="text" class="calendar" name="date" value="<?=$date?>">
+                        </div>
+                    </div>
+                    <div class="span4 offset2">
+                        <button type="button" id="btnSearch" class="button button-primary">查询</button>
+                    </div>
+                </form>
     <?php $x_cate="['1','2','3','4','5', '6', '7', '8', '9','10','11','12','13','14','15','16','17','18','19', '20',
          '21','22','23', '24','25','26','27','28','29','30','31']"?>
     <div class="row detail-row">
@@ -44,15 +44,15 @@
         var datepicker = new Calendar.DatePicker({
         trigger:'.calendar',
         autoRender : true
-        });
-    });
-</script>
-<script type="text/javascript">
-    BUI.use('common/page');
-</script>
-<script type="text/javascript">
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            BUI.use('common/page');
+        </script>
+  <script type="text/javascript">
     BUI.use(['bui/form','bui/chart','common/search'], function(Form,Chart,Search) {
-        store = Search.createStore('../data/eq_all_count',{
+        store = Search.createStore('../data/eq_new_count',{
           proxy : {
             method : 'POST'
           },
@@ -69,11 +69,11 @@
         margin : [50,50,80] //画板的边距
       },
       title : {
-        text : '新增设备图'
+        text : '新增用户'
 
       },
       subTitle : {
-        text : '7月注册设备'
+        text : '本月新增'
       },
       xAxis : {
         type : 'category', //标明分组坐标轴，会通过数据查找分类
@@ -94,18 +94,18 @@
         }
       },  
       seriesOptions: {
-        lineCfg : {
-          name: '设备总量',
+        columnCfg : {
+          name: '用户总量',
           xField : 'date' //指定x坐标轴
         }
       },
       tooltip : {
         valueSuffix : '台',
-        shared : true, //是否多个数据序列共同显示信息
-        crosshairs : true //是否出现基准线
+        //shared : true, //是否多个数据序列共同显示信息
+        //crosshairs : true //是否出现基准线
       },
       series : [{
-            yField : 'eq_num_all'
+            yField : 'eq_num_new'
         }]
     });
 

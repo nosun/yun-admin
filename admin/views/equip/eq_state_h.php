@@ -14,9 +14,9 @@
                                 $day1=strtotime($year.'-'.$month.'-'.($day-1));//yestoday
                                 $day2=strtotime($year.'-'.$month.'-'.($day-2));//the day before yestoday
                             ?>
-                            <a href="<?php echo site_url() ?>/equipment/eq_state_h/<?=$kpi?>/<?=$day0?>" >今天</a> |
-                            <a href="<?php echo site_url() ?>/equipment/eq_state_h/<?=$kpi?>/<?=$day1?>" >昨天</a> |
-                            <a href="<?php echo site_url() ?>/equipment/eq_state_h/<?=$kpi?>/<?=$day2?>" >前天</a>                               
+                            <a href="<?php echo site_url() ?>/equipment/eq_state_h/<?=$action?>/<?=$day0?>" >今天</a> |
+                            <a href="<?php echo site_url() ?>/equipment/eq_state_h/<?=$action?>/<?=$day1?>" >昨天</a> |
+                            <a href="<?php echo site_url() ?>/equipment/eq_state_h/<?=$action?>/<?=$day2?>" >前天</a>                               
                         </div>
                     </div>
                 <form id="searchForm" method="post" class="form-horizontal">

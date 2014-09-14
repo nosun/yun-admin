@@ -58,7 +58,7 @@
           pageSize:31,
           pageIndex:0
         }),        
-        categories = <?echo $x_cate;?>;
+        categories = <?php echo $x_cate;?>;
    
     var chart =  new Chart.Chart({
       id : 'canvas',

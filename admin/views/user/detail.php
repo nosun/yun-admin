@@ -1,11 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title><?php echo $user['login_name'] ?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="<?php echo base_url() ?>/views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/page-min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="container">
@@ -15,7 +7,7 @@
         <hr>
         <div class="row detail-row">
           <div class="span8">
-            <label>用户名：</label><span class="detail-text"><?php echo $user['login_name']?></span>
+            <label>用户名：</label><span class="detail-text"><?php echo $user['user_name']?></span>
           </div>
           <div class="span8">
             <label>电话号码：</label><span class="detail-text"><?php echo $user['user_phone']?></span>
@@ -26,14 +18,14 @@
         </div>
         <div class="row detail-row">
           <div class="span8">
-            <label>所在区域：</label><span class="detail-text"><?php echo $user['user_location']?></span>
-          </div>
-          <div class="span8">
-            <label>注册时间：</label><span class="detail-text"><?php echo $user['user_regtime']?></span>
+            <label>所在省份：</label><span class="detail-text"><?php echo $user['province']?></span>
           </div>
            <div class="span8">
-            <label>用户头像：</label><span class="detail-text"><?php echo $user['user_img']?></span>
+            <label>城市：</label><span class="detail-text"><?php echo $user['city']?></span>
           </div>
+          <div class="span8">
+            <label>注册时间：</label><span class="detail-text"><?php echo date('Y-m-d',$user['user_regtime'])?></span>
+          </div>            
         </div>
       </div>
         <hr>
@@ -63,11 +55,14 @@
       }),
     columns = [
         {title:'设备序列号',dataIndex:'device_sn',width:100},
-        {title:'设备型号',dataIndex:'device_cat',width:100},    
+        {title:'设备型号',dataIndex:'product_id',width:100},    
         {title:'设备MAC',dataIndex:'device_mac',width:150},
-        {title:'所在地区',dataIndex:'device_location',width:300},
-        {title:'设备状态',dataIndex:'device_desc1',width:100},    
-        {title:'运行时长',dataIndex:'device_desc2'}   
+        {title:'所在省份',dataIndex:'province',width:100},
+        {title:'所在城市',dataIndex:'city',width:100},        
+        {title:'设备状态',dataIndex:'device_online',width:80}, 
+        {title:'设备运转',dataIndex:'device_work',width:80},
+         {title:'启用时间',dataIndex:'active_time',width:80},       
+        {title:'运行时长',dataIndex:'work_time',width:80}   
         ],
       store = Search.createStore('../../data/user_eq_list/<?=$user['id']?>',{
         proxy : {
@@ -87,5 +82,3 @@
 
   });
 </script>
-<body>
-</html>  

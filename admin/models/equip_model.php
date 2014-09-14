@@ -15,7 +15,7 @@ class Equip_Model extends CI_Model{
     }
     
     //equipment list many condition search
-    function get_eq_list($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0,$limit=0,$offset=0){
+    function get_eq_list($product_id=0,$start_date=0,$end_date=0,$s_key=0,$s_value=0,$limit=0,$start=0){
         
             $table= $this->db->dbprefix('devices');
             if($product_id){
@@ -34,9 +34,9 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->limit($limit);
             }
-            if ($offset)
+            if ($start)
             {
-                $this->db->offset($offset);
+                $this->db->offset($start);
             }
             $res=$this->db->from($table)->get()->result_array();
             //echo $this->db->last_query();
@@ -67,15 +67,15 @@ class Equip_Model extends CI_Model{
 
     }
     
-    function get_eq_cat($limit='',$offset=0){
+    function get_eq_cat($limit='',$start=0){
         $table  =   $this->db->dbprefix('device_class');
         if ($limit)
         {
             $this->db->limit($limit);
         }
-        if ($offset)
+        if ($start)
         {
-            $this->db->offset($offset);
+            $this->db->offset($start);
         }
         $this->db->from($table);
         $this->db->order_by("id asc");
@@ -120,9 +120,15 @@ class Equip_Model extends CI_Model{
         $sql='SELECT * FROM '.$table_d.' where id in ( select dic_to from '.$table_r.' where dic_from= '.$uid.') ORDER BY id desc';
         return($this->db->query($sql)->result());
     }
-    
+
+    function get_user_eq_num($uid=''){
+        $table_u=$this->db->dbprefix('users');
+        $table_r=$this->db->dbprefix('dictionarys');
+        $sql='select id from '.$table_r.' where dic_from= '.$uid;
+        return($this->db->query($sql)->num_rows());
+    }
     //device_new_num for chart
-    function get_eq_new_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
+    function get_eq_new_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$start=0){
             $table= $this->db->dbprefix('device_count_d');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
@@ -137,16 +143,16 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->limit($limit);
             }
-            if ($offset)
+            if ($start)
             {
-                $this->db->offset($offset);
+                $this->db->offset($start);
             }
             $res=$this->db->select("date,eq_num_new")->from($table)->get()->result_array();
             return($res);
     }
     
     //device_new_num for chart
-    function get_eq_all_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$offset=0){
+    function get_eq_all_data($product_id=0,$start_date=0,$end_date=0,$limit=0,$start=0){
             $table= $this->db->dbprefix('device_count_d');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
@@ -161,16 +167,16 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->limit($limit);
             }
-            if ($offset)
+            if ($start)
             {
-                $this->db->offset($offset);
+                $this->db->offset($start);
             }
             $res=$this->db->select("date,eq_num_all")->from($table)->get()->result_array();
             //var_dump($res);
             //echo $this->db->last_query();
             return($res);
     }
-    function get_eq_hour_data($product_id=0,$kpi,$day=0,$limit=0,$offset=0){
+    function get_eq_hour_data($product_id=0,$action,$day=0,$limit=0,$start=0){
             $table= $this->db->dbprefix('device_count_h');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
@@ -183,17 +189,17 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->limit($limit);
             }
-            if ($offset)
+            if ($start)
             {
-                $this->db->offset($offset);
+                $this->db->offset($start);
             }
-            $res=$this->db->select("updatetime,num_{$kpi} as num")->from($table)->get()->result_array();
+            $res=$this->db->select("updatetime,num_{$action} as num")->from($table)->get()->result_array();
             //var_dump($res);
             //echo $this->db->last_query();
             return($res);
     }
     
-    function get_eq_list_s($product_id,$action,$arg1,$limit,$offset){
+    function get_eq_list_s($product_id,$action,$arg1,$limit,$start){
             $table= $this->db->dbprefix('devices');
             if($product_id){
                 $this->db->where("$table.product_id",$product_id);
@@ -208,9 +214,9 @@ class Equip_Model extends CI_Model{
             {
                 $this->db->limit($limit);
             }
-            if ($offset)
+            if ($start)
             {
-                $this->db->offset($offset);
+                $this->db->offset($start);
             }
             $res=$this->db->from($table)->get()->result_array();
             //echo $this->db->last_query();

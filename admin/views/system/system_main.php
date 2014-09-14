@@ -12,7 +12,7 @@
   <div class="header">
     
       <div class="dl-title">
-           <strong>SkyLink</strong> 云平台
+           <strong>Skyware</strong> 云平台
       </div>
 
     <div class="dl-log">欢迎您，<span class="dl-log-user"><?php echo $this->_admin->username; ?></span>
@@ -87,14 +87,14 @@
               }]
             },{
             id:'users',
-            homePage : 'user_index',            
+            homePage : 'reg_all',            
             menu:[{
                 text : '用户分析',
                 items : [
-                  {id:'user_index',text:'用户概况',href:'<?php echo site_url("user/index") ?>'},
-                  {id:'user_aera',text:'地域分析',href:'<?php echo site_url("user/aera") ?>'},
-                  {id:'user_reg',text:'注册分析',href:'<?php echo site_url("user/reg") ?>'}, 
-                  {id:'user_agent',text:'客户端分析',href:'<?php echo site_url("user/agent") ?>'}                 
+                  {id:'reg_all',text:'用户概况',href:'<?php echo site_url("user/count_d/reg_all") ?>'},
+                  {id:'aera',text:'地域分析',href:'<?php echo site_url("user/aera") ?>'},
+                  {id:'reg_new',text:'注册分析',href:'<?php echo site_url("user/count_d/reg_new") ?>'}, 
+                  {id:'agent',text:'客户端分析',href:'<?php echo site_url("user/agent") ?>'}                 
                 ]
               }, {
                 text:'用户管理', 

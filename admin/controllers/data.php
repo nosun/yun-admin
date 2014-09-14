@@ -8,9 +8,9 @@
         
         function eq_cat() {
             $this->load->model('equip_model');
-            $offset=$this->input->post('start');
+            $start=$this->input->post('start');
             $limit=$this->input->post('limit');
-            $cat_list=$this->equip_model->get_eq_cat($limit,$offset);
+            $cat_list=$this->equip_model->get_eq_cat($limit,$start);
             $num=$this->equip_model->get_eq_cat_num();
             
             $data=json_encode($cat_list);
@@ -71,6 +71,28 @@
             
         }
         
+        function user_aera(){
+            $this->load->model('user_model');
+            $res=$this->db->query("SELECT province ,COUNT(province) as num  FROM `yun_users` GROUP BY province");
+            $num_all=$this->db->query("select id from `yun_users`")->num_rows();
+            $i=0;
+            foreach ($res->result() as $row)
+            {
+               $data[$i]['name']= $row->province;
+               $data[$i]['y']=round(($row->num/$num_all)*100);
+               $data[$i]['z']= (int)$row->num;
+               $i++;
+            }
+            $data=json_encode($data);
+            
+            if($data){
+                $data=$data;
+            }else{
+                $data='[]';
+            }         
+            $this->_output_json($data);
+        }
+        
         function user_list(){
             $this->load->model('user_model');
             $s_key      =$this->input->post('s_key');
@@ -83,9 +105,12 @@
             $user_list=$this->user_model->get_user_list($start_date,$end_date,$s_key,$s_value,$limit,$start);
             $num=$this->user_model->get_user_num($start_date,$end_date,$s_key,$s_value);
             
-            $array_users=$this->_time_format($user_list,'user_regtime');
-            $data=json_encode($array_users);
-            if($data){
+            
+            
+            if($user_list){
+                $user_list=$this->_time_format($user_list,'user_regtime');
+                $user_list=$this->_get_user_eq_num($user_list);
+                $data=json_encode($user_list);
                 $data='{"rows":'.$data.', "results":'.$num.'}';
             }else{
                 $data='{"rows":[],"results":0}';
@@ -151,46 +176,7 @@
             $this->_output_json($data);
             
         }
-        function _time_format($data,$key){//out the date time like 2014-07-01 14:00
-            foreach ($data as $array){
-                $array[$key]=date('Y-m-d h:i',$array[$key]);
-                $array_group[]=$array;
-            }        
-            return $array_group;            
-        }
-        
-        function _time_format1($data,$key){ // out the day number like 7,8,9……
-            foreach ($data as $array){
-                $array[$key]=date('j',$array[$key])-1;
-                $array_group[]=$array;
-            }        
-            return $array_group;            
-        }
-        
-        function _time_format2($data,$key){ //out the date like 2014-07-01
-            foreach ($data as $array){
-                $array[$key]=date('Y-m-d',$array[$key]);
-                $array_group[]=$array;
-            }        
-            return $array_group;            
-        }
-        
-        function _time_format3($data,$key){ // out the hour number like 0~24……
-            foreach ($data as $array){
-                $array[$key]=date('G',$array[$key]);
-                $array_group[]=$array;
-            }        
-            return $array_group;            
-        }        
-        
-        function _string2int($data,$key){ // fetch_array the data type default is string,need change
-            foreach ($data as $array){
-                $array[$key]=(int)($array[$key]);
-                $array_group[]=$array;
-            }        
-            return $array_group;            
-        }        
-        
+     
         function eq_new_count(){
             $this->load->model('equip_model');
             $choise     =$this->input->post('choise');
@@ -277,7 +263,7 @@
         
         function eq_state_h(){
             $this->load->model('equip_model');
-            $kpi=  $this->uri->segment('3');           
+            $action=  $this->uri->segment('3');           
             $day=  $this->uri->segment('4');
             $date=$this->input->post('date');
 
@@ -289,7 +275,7 @@
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $num=$this->equip_model->get_eq_hour_data($product_id,$kpi,$day,$limit,$start);
+            $num=$this->equip_model->get_eq_hour_data($product_id,$action,$day,$limit,$start);
             
             if($num){
                 $num=$this->_time_format3($num,'updatetime');
@@ -323,6 +309,117 @@
             }
             
             $this->_output_json($data);
-            
         }
+
+        function user_count_d(){
+            $this->load->model('user_model');
+            $action=  $this->uri->segment('3');           
+            $month=  $this->uri->segment('4');
+            if(!empty($this->input->post('date'))){
+                $month=$this->input->post('date');
+            }
+            
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            
+            $pn= explode('-',$month);
+            
+            $month=strtotime($pn[0].'-'.$pn[1]);
+            $month_next=strtotime($pn[0].'-'.($pn[1]+1)); 
+            
+            $num=$this->user_model->get_user_count_d($action,$month,$month_next,$limit,$start);
+            
+            if($num){
+                $num=$this->_time_format1($num,'updatetime');
+                $num=$this->_string2int($num, 'num');
+                $data=json_encode($num);
+            }
+            else{
+                $data='[{"updatetime":"0","num":0}]';
+            }
+            
+            $this->_output_json($data);
+        }
+        
+        function user_agent(){
+            $this->load->model('user_model');
+            $action=$this->uri->segment('3');
+            if(empty($action)){
+                $action='agent';
+            }
+            $res=$this->db->query("SELECT ".$action.",COUNT(".$action.") as num  FROM `yun_users` GROUP BY ".$action);
+            $num_all=$this->db->query("select id from `yun_users`")->num_rows();
+            $i=0;
+            foreach ($res->result() as $row)
+            {
+               $data[$i]['name']= $row->$action;
+               $data[$i]['y']=round(($row->num/$num_all)*100);
+               $data[$i]['z']= (int)$row->num;
+               $i++;
+            }
+            $data=json_encode($data);
+            
+            if($data){
+                $data=$data;
+            }else{
+                $data='[]';
+            }         
+            $this->_output_json($data);
+        }
+        
+        function _get_user_eq_num($data){
+            $this->load->model('equip_model');
+            foreach ($data as $array){
+                $array['num']=$this->equip_model->get_user_eq_num($array['id']);
+                $array_group[]=$array;
+            }
+            return $array_group;    
+        }
+        function _time_format($data,$key){//out the date time like 2014-07-01 14:00
+            foreach ($data as $array){
+                $array[$key]=date('Y-m-d h:i',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }
+        
+        function _time_format1($data,$key){ // out the day number like 7,8,9……
+            foreach ($data as $array){
+                $array[$key]=date('j',$array[$key])-1;
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }
+        
+        function _time_format2($data,$key){ //out the date like 2014-07-01
+            foreach ($data as $array){
+                $array[$key]=date('Y-m-d',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }
+        
+        function _time_format3($data,$key){ // out the hour number like 0~24……
+            foreach ($data as $array){
+                $array[$key]=date('G',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }
+        
+        function _time_format4($data,$key){ // out the month number like 1~12 ……
+            foreach ($data as $array){
+                $array[$key]=date('n',$array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }            
+        
+        function _string2int($data,$key){ // fetch_array the data type default is string,need change
+            foreach ($data as $array){
+                $array[$key]=(int)($array[$key]);
+                $array_group[]=$array;
+            }        
+            return $array_group;            
+        }              
     }

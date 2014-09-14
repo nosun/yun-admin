@@ -95,17 +95,17 @@ class Equipment extends CI_Controller{
         
         //show aera analysis
         function eq_state_h(){
-            $kpi=$this->uri->segment('3');
+            $action=$this->uri->segment('3');
             $day=$this->uri->segment('4');
             if($day){ //search for someday the time format is unix time;
-                $data['dataurl']='../../../data/eq_state_h/'.$kpi.'/'.$day;
+                $data['dataurl']='../../../data/eq_state_h/'.$action.'/'.$day;
                 $data['date']=date('Y-m-d',$day);
             }else{ //set the day today
                 $data['date']=date('Y-m-d',time());
-                $data['dataurl']='../../data/eq_state_h/'.$kpi.'/'.strtotime($data['date']);
+                $data['dataurl']='../../data/eq_state_h/'.$action.'/'.strtotime($data['date']);
             }
-            $data['title']='设备 '.$kpi.' 状态';
-            $data['kpi']=$kpi;
+            $data['title']='设备 '.$action.' 状态';
+            $data['action']=$action;
             $this->load->view('common/header',$data);
             $this->load->view('equip/eq_state_h'); 
             $this->load->view('common/footer');
@@ -125,17 +125,17 @@ class Equipment extends CI_Controller{
         }   
         
         function list_s(){ //alarm eq and filter alarm eq
-            $kpi=$this->uri->segment('3'); //type
+            $action=$this->uri->segment('3'); //type
             $arg1=$this->uri->segment('4'); //arguments 1
             if(!empty($arg1) || $arg1==='0'){ 
                 $data['arg1']=$arg1;
-                $data['dataurl']='../../../data/eq_list_s/'.$kpi.'/'.$arg1;
+                $data['dataurl']='../../../data/eq_list_s/'.$action.'/'.$arg1;
             }else{
-                $data['dataurl']='../../data/eq_list_s/'.$kpi;
+                $data['dataurl']='../../data/eq_list_s/'.$action;
             }
 
-            $data['title']='设备 '.$kpi.' 列表';
-            $data['kpi']=$kpi;
+            $data['title']='设备 '.$action.' 列表';
+            $data['action']=$action;
             $this->load->view('common/header',$data);
             $this->load->view('equip/list_s'); 
             $this->load->view('common/footer');

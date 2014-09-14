@@ -26,7 +26,7 @@
                 <div class="controls">
                     <select name="s_key">
                         <option value="">请选择查询方式</option>                    
-                        <option value="device_location">按省份</option>
+                        <option value="province">按省份</option>
                         <option value="device_sn">按序列号</option>  
                         <option value="device_mac">按mac地址</option>  
                     </select>

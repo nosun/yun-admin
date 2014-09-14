@@ -1,11 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>设备列表页</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="<?php echo base_url() ?>/views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/page-min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="container">
@@ -13,29 +5,29 @@
     <div class="row">
         <form id="searchForm" class="form-horizontal">
         <div class="row">
-            <div class="control-group span4">
+            <div class="control-group span5">
                 <div class="controls">
                     <select name="s_key">
                         <option value="">请选择查询方式</option>                    
-                        <option value="login_name">按用户名</option>
-                        <option value="address">按地区</option>
+                        <option value="user_name">按用户名</option>
+                        <option value="province">按省份</option>
                     </select>
                 </div>
             </div>
-            <div class="control-group span4">
+            <div class="control-group span5">
                 <div class="controls">
                     <input type="text" class="control-text" name="s_value" placeholder="请输入关键字" value="">
                 </div>
             </div>
 
-            <div class="control-group span9">
+            <div class="control-group span10">
                 <div class="controls">
                     <label class="control-label">注册时间时间：</label>
                     <input type="text" class="calendar" name="start_date" value=""><span> - </span>
                     <input name="end_date" type="text" class="calendar" value="">
                 </div>
             </div>
-            <div class="span2 offset2">
+            <div class="span2 offset1">
                 <button type="submit" id="btnSearch" class="button button-primary">查询</button>
             </div>
         </div>
@@ -70,17 +62,17 @@
         triggerCls : 'btn-view'
       }),
     columns = [
-        {title:'用户名',dataIndex:'login_name',width:100},
-        {title:'注册时间',dataIndex:'user_regtime',width:100},
+        {title:'用户名',dataIndex:'user_name',width:100},
+        {title:'注册时间',dataIndex:'user_regtime',width:150},
         {title:'省份',dataIndex:'province',width:100},
         {title:'城市',dataIndex:'city',width:100},
-        {title:'地区',dataIndex:'district',width:100},        
-        {title:'设备数量',dataIndex:'eq_num',width:100},
+        {title:'手机',dataIndex:'user_phone',width:100},
+        {title:'设备数量',dataIndex:'num',width:100},
         {title:'操作',dataIndex:'id',width:80,renderer:function(v){
             return Search.createLink({
             id : 'detail' + v,
             text : '查看详情',
-            href : 'user/user_detail/'+ v
+            href : '<?php echo site_url() ?>/user/user_detail/'+ v
             });
             }},
         ],
@@ -102,6 +94,3 @@
 
   });
 </script>
-
-<body>
-</html>  
