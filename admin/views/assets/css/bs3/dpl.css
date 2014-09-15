@@ -3504,7 +3504,7 @@ input.calendar-time {
   *display: inline;
   /* IE7 inline-block hack */
   *zoom: 1;
-  width: 110px;
+  width: 65px;
 }
 .form-horizontal .control-label s {
   color: red;

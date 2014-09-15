@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
  <head>
-  <title>SkyLink 云平台</title>
+  <title>Skyware 企业云平台</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link href="<?php echo base_url() ?>views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo base_url() ?>views/assets/css/bs3/bui.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
   <div class="header">
     
       <div class="dl-title">
-           <strong>Skyware</strong> 云平台
+           <strong>Skyware</strong> 企业云平台
       </div>
 
     <div class="dl-log">欢迎您，<span class="dl-log-user"><?php echo $this->_admin->username; ?></span>
@@ -107,15 +107,15 @@
             id:'plugin',
             homePage : 'feedback',
             menu:[{
-                text:'留言反馈',
+                text:'用户反馈',
                 items:[
-                  {id:'feedback',text:'留言反馈',href:'<?php echo site_url("feedback/index") ?>'}
+                  {id:'feedback',text:'反馈列表',href:'<?php echo site_url("feedback/index") ?>'}
                 ]
               },
               {
               text : '消息推送',
               items:[
-                  {id:'message',text:'消息管理',href:'<?php echo site_url("message/index") ?>'}              
+                  {id:'notice',text:'消息列表',href:'<?php echo site_url("notice/index") ?>'}              
               ]
             }
             ]

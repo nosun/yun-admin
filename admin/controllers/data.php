@@ -421,5 +421,68 @@
                 $array_group[]=$array;
             }        
             return $array_group;            
-        }              
+        } 
+
+        function feedback(){
+            $this->load->model('feedback_model');
+            $product_id =$this->input->post('product_id');
+            $category   =$this->input->post('category');
+            $status     =$this->input->post('status');
+            $id     =$this->input->post('id');
+            $start_date =strtotime($this->input->post('start_date'));
+            $end_date   =strtotime($this->input->post('end_date'));
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            
+            $list=$this->feedback_model->get_list($product_id,$category,$status,$id,$start_date,$end_date,$limit,$start);
+            $num=$this->feedback_model->get_num($product_id,$category,$status,$id,$start_date,$end_date);   
+            
+            $status=array(1=>'新开',2=>'未解决',3=>'处理中',4=>'已解决',5=>'不处理');
+            $feed_cate=array(1=>'质量问题',2=>'使用疑难',3=>'业务投诉',4=>'产品建议',5=>'业务咨询');
+            if($list){
+                $data=$this->_time_format2($list,'addtime');
+                $data=$this->chword($data,'status', $status);
+                $data=$this->chword($data,'category', $feed_cate);
+                $data=  json_encode($data);
+                $data='{"rows":'.$data.', "results":'.$num.'}';
+            }else{
+                $data='{"rows":[],"results":0}';
+            }
+            $this->_output_json($data);
+        }
+        
+        function notice(){
+            $this->load->model('notice_model');
+            $product_id =$this->input->post('product_id');
+            $category   =$this->input->post('category');
+            $status     =$this->input->post('status');
+            $start_date =strtotime($this->input->post('start_date'));
+            $end_date   =strtotime($this->input->post('end_date'));
+            $limit      =$this->input->post('limit');
+            $start      =$this->input->post('start');
+            $list=$this->notice_model->get_list($product_id,$category,$status,$start_date,$end_date,$limit,$start);
+            $num=$this->notice_model->get_num($product_id,$category,$status,$start_date,$end_date);   
+            $s_status=array(1=>'已发送',2=>'未发送');
+            $class=array(1=>'系统消息',2=>'服务消息');
+            
+            if($list){
+                $data=$this->_time_format2($list,'send_time');
+                $data=$this->chword($data,'status', $s_status);
+                $data=$this->chword($data,'category', $class);
+                $data=  json_encode($data);
+                $data='{"rows":'.$data.', "results":'.$num.'}';
+            }else{
+                $data='{"rows":[],"results":0}';
+            }
+            $this->_output_json($data);
+        }
+        function chword($data,$key,$words){
+            foreach($data as $p){
+                $p[$key]=$words[$p[$key]];
+                $array_group[]=$p;
+            }
+            return $array_group;
+        }
+        
+        
     }

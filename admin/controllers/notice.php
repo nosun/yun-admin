@@ -1,11 +1,11 @@
 <?php
 
-class Feedback extends CI_Controller {
+class Notice extends CI_Controller {
     
     function index(){
-            $data['title']='留言反馈';
+            $data['title']='消息队列';
             $this->load->view('common/header',$data);
-            $this->load->view('tools/feedback');
+            $this->load->view('tools/notice');
             $this->load->view('common/footer');
         }
 }
