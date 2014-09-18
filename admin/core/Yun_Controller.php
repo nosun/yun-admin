@@ -20,10 +20,10 @@ abstract class Yun_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->database();
+                $this->load->database();
 		$this->load->library('session');
-        $this->load->model('admin_model');
-        $this->config->load('setting');
+                $this->load->model('admin_model');
+                $this->config->load('setting');
 		$this->_check_login();
 		//$this->load->library('acl');
 	}

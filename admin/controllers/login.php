@@ -31,7 +31,7 @@ class Login extends CI_Controller
 	{
         if ($this->session->userdata('uid'))
 		{
-            redirect(config_item('backend_access').'/system');
+                        redirect(config_item('backend_access').'/system');
 		}
 		else
 		{       
@@ -62,7 +62,11 @@ class Login extends CI_Controller
      */	
 	public function do_post()
 	{
-        $this->check_captcha();
+            
+        //if ($this->check_captcha() == FALSE) {
+        //    $this->_message("验证码错误", site_url('login/index'), TRUE);
+        //}
+        
         $loginip=$this->input->ip_address();
         $username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
@@ -146,16 +150,57 @@ class Login extends CI_Controller
 	}
         
 	//校验验证码
-	function check_captcha(){
-        @session_start() ;
-        include_once '/securimage/securimage.php';
-        $securimage = new Securimage();
-        if ($securimage->check($_POST['captcha']) == false)
-        {
-            echo "error";
-            echo "<a href='javascript:history.go(-1)'>back</a> and try again.";
-            exit;
-        }
+	public function check_captcha()
+	{
+            
+    
+                @session_start() ;
+		$this->load->library('securimage/securimage');
+		$securimage = new Securimage();	
+		if($securimage->check($this->input->post('captcha'))==false)
+		{
+                    exit("fail");
+                    //return FALSE;
+                }
+		else{
+                    exit("sucess");
+                    //return TRUE;
+                    
+                }
+	}
+        
+	public function securimage()
+	{
+		$this->load->config('securimage');
+		$active = $this->config->item('si_active');		
+		$allsettings = array_merge($this->config->item($active), $this->config->item('si_general'));
+
+		$this->load->library('securimage/securimage');
+		$img = new Securimage($allsettings);
+		
+		$img->captcha_type = Securimage::SI_CAPTCHA_MATHEMATIC;
+		
+		$img->show(APPPATH . 'libraries/securimage/backgrounds/bg6.png');
+	}
+
+        function _message($msg, $goto = '', $auto = TRUE, $fix = '', $pause = 3000)
+	{
+		if($goto == '')
+		{
+			$goto = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : site_url();
+		}
+		else
+		{
+			$goto = strpos($goto, 'http') !== false ? $goto : backend_url($goto);	
+		}
+		$goto .= $fix;
+		
+		$data = array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause);
+                $this->load->view('common/header',$data);
+                $this->load->view('common/message', $data);
+                $this->load->view('common/footer',$data);
+		echo $this->output->get_output();
+		exit();
 	}
 }
 

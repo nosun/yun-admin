@@ -1,7 +1,20 @@
-<?php
+<?php 
 
+function my_define($a){
+    foreach($a as $k => $v)
+    define($k, $v);
+}
 
-           // echo date('Y-m-d h:i',1409974400);
-            //echo date('Y-m-d h:i:s',$this_month);
-            $array=array(1=>'新开',2=>'未解决',3=>'处理中',4=>'已解决',5=>'不处理');
-            //var_dump($array);
+my_define(array(
+    "second" => 1,
+    "minute" => 60,
+    "hour" => 3600,
+    "day" => 86400,
+    "week" => 604800,
+    "month" => 2592000, // 30 days month
+    "year" => 31536000,
+    "year2" => 31622400
+));
+
+echo second;
+?>

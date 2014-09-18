@@ -3,19 +3,6 @@
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
  *---------------------------------------------------------------
- *
- * You can load different configurations depending on your
- * current environment. Setting the environment also influences
- * things like logging and error reporting.
- *
- * This can be set to anything, but default usage is:
- *
- *     development
- *     testing
- *     production
- *
- * NOTE: If you change these, also change the error_reporting() code below
- *
  */
 	define('ENVIRONMENT', 'development');
 /*
@@ -37,7 +24,7 @@ if (defined('ENVIRONMENT'))
 	
 		case 'testing':
 		case 'production':
-			error_reporting(0);
+			error_reporting(E_ALL || ~E_NOTICE);
 		break;
 
 		default:
@@ -50,9 +37,7 @@ if (defined('ENVIRONMENT'))
  * SYSTEM FOLDER NAME
  *---------------------------------------------------------------
  *
- * This variable must contain the name of your "system" folder.
- * Include the path if the folder is not in the same  directory
- * as this file.
+ * system目录
  *
  */
 	$system_path = '../system';
@@ -71,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = '.';
+	$application_folder = 'D:\xampp\htdocs\yun-admin\admin';
 
 /*
  * --------------------------------------------------------------------
@@ -198,6 +183,6 @@ if (defined('ENVIRONMENT'))
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
-
+  
 /* End of file index.php */
 /* Location: ./index.php */
