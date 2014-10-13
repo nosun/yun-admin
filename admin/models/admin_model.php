@@ -69,7 +69,36 @@ class Admin_model extends CI_Model {
                         ->get()
                         ->row();
     }
+    
+    public function get_throttle($admin) {
+        //get the hold info from the sheet of throttle
+        $throttle = $this->db->where('created_at >', date('Y-m-d H:i:s', time() - 7200))
+                ->where('user_id', $admin->uid)
+                ->limit(1)
+                ->get('throttles')
+                ->row();
+        return $throttle;
+    }
 
+    public function insert_throttle($uid,$loginip){
+        $throttle_data['user_id'] = $uid;
+        $throttle_data['type'] = 'login';
+        $throttle_data['ip'] = $loginip;
+        $throttle_data['created_at'] = $throttle_data['updated_at'] = date('Y-m-d H:i:s');
+        $this->db->insert('throttles', $throttle_data);
+    }
+    
+    function insert_log_login($username,$loginip,$password,$status){
+        $log_data = array(
+                            'loginip' => $loginip,
+                            'username' => $username,
+                            'logintime' => time(),
+                            'password' => $password,
+                            'status' => $status
+                        );
+        $this->db->insert("admin_logs",$log_data);
+    }
+    
     // ------------------------------------------------------------------------
     /**
      * 添加管理员

@@ -48,7 +48,7 @@ class Roles extends CI_Controller {
         $data['id'] = $id;
         $data['title'] = '权限设置';
         $data['base_url'] = $this->config->item('base_url');
-        $data['link_url'] = $data['base_url'] . 'index.php/roles/';
+        $data['link_url'] = $data['base_url'] . '/roles/';
         if (!$this->input->post('action')) {
             $data['powers'] = $this->admin_model->get_power();
             $data['roles'] = $this->admin_model->get_roles($id);

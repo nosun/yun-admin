@@ -4,7 +4,7 @@
         <title>思佳维云平台——管理中心</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="<?php echo base_url() ?>views/assets/css/bs3/dpl-min.css" rel="stylesheet">
-        <link href="<?php echo base_url() ?>views/assets/css/bs3/bui-min.css" rel="stylesheet">
+        <link href="<?php echo base_url() ?>views/assets/css/bs3/bui.css" rel="stylesheet">
         <link href="<?php echo base_url() ?>views/assets/css/main.css" rel="stylesheet" type="text/css" />
     </head>
     <body id="login">
@@ -18,7 +18,7 @@
                 <div id="login_box">
                     <h2>管理登录</h2>
                     <div class="login_cont">
-                        <form id="J_Form" action="<?php echo site_url() ?>/login/do_post" class="form-horizontal" method="post" accept-charset="utf-8">
+                        <form id="J_Form" action="<?=site_url('login/check_login')?>" class="form-horizontal" method="post" accept-charset="utf-8">
                             <div class="control-group">
                                 <label class="control-label">用户名：</label>
                                 <div class="controls">
@@ -42,11 +42,14 @@
                                 <div class="controls">
                                     <input id="captcha" name="captcha" type="text" class="input-middle" data-rules="{required : true}">
                                 </div>
-                            </div>     
-                            <a href="#" onclick="document.getElementById('captcha_img').src = '<?php echo site_url('login/securimage') ?>/' + Math.random();
-                                    return false">
-                                <img id="captcha_img" style="cursor:pointer" src="<?php echo site_url('login/securimage') ?>" alt="验证码" />
-                            </a>
+                            </div>
+                            
+                            <div class="control-group">
+                                <a href="#" onclick="document.getElementById('captcha_img').src = '<?php echo site_url('login/securimage') ?>/' + Math.random();
+                                        return false">
+                                    <img id="captcha_img" style="cursor:pointer" src="<?php echo site_url('login/securimage') ?>" alt="验证码" />
+                                </a>
+                            </div>    
                             <div class="control-group">       
                                 <div class="login_submit">
                                     <button id="loginButton" name="loginButton" type="submit" class="button button-primary">登 录</button>
@@ -75,7 +78,7 @@
             $(function() {
                 $("#loginButton").click(function() {
                     if (!check_code()) {
-                        BUI.Message.Alert('验证码错误', 'error');
+                        BUI.Message.Alert('验证码错误','info');
                         return false;
                     }
                 });
