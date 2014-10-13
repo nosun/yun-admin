@@ -1,6 +1,6 @@
 <?php
 
-    class Data extends CI_Controller {
+    class Data extends Yun_Controller {
         public function __construct()
         {
                 parent::__construct();

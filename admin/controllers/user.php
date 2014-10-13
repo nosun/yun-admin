@@ -1,6 +1,6 @@
 <?php
 
-class User extends CI_Controller{
+class User extends Yun_Controller{
     
     function __construct() {
         parent::__construct();

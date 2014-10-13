@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('Access Denied');
 }
 
-class Power extends CI_Controller {
+class Power extends Yun_Controller {
 
     public function __construct() {
         parent::__construct();

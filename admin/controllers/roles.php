@@ -1,6 +1,6 @@
 <?php
 
-class Roles extends CI_Controller {
+class Roles extends Yun_Controller {
 
     public function __construct() {
         parent::__construct();

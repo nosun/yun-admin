@@ -88,7 +88,7 @@ class Admin_model extends CI_Model {
         $this->db->insert('throttles', $throttle_data);
     }
     
-    function insert_log_login($username,$loginip,$password,$status){
+    function _insert_log_login($username,$loginip,$password,$status){
         $log_data = array(
                             'loginip' => $loginip,
                             'username' => $username,
@@ -230,7 +230,7 @@ class Admin_model extends CI_Model {
         }
 
         $query = $this->db->get_where($table_roles, array('id' => $id));
-        return $query->row_array();
+        return $query->row();
     }
 
     public function set_roles($models = NULL, $id = FALSE) {

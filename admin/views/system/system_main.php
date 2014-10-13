@@ -16,7 +16,7 @@
       </div>
 
     <div class="dl-log">欢迎您，<span class="dl-log-user"><?php echo $this->_admin->username; ?></span>
-        <a href="<?php echo site_url()?>/login/quit" title="退出系统" class="dl-log-quit">[退出]</a>
+        <a href="<?php echo site_url()?>login/quit" title="退出系统" class="dl-log-quit">[退出]</a>
     </div>
   </div>
    <div class="content">

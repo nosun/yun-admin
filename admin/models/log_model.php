@@ -8,7 +8,7 @@ class log_Model extends CI_Model{
     }
 
     //logs list many condition search
-    function get_logs_login($start_date=0,$end_date=0,$s_value='',$limit=0,$offset=0){
+    function get_logs_login($start_date=0,$end_date=0,$s_value='',$limit=0,$offset=0,$order='logintime desc'){
         
             $table=$this->db->dbprefix('admin_logs');
             
@@ -29,7 +29,10 @@ class log_Model extends CI_Model{
             {
                 $this->db->offset($offset);
             }
-            $res=$this->db->from($table)->get()->result_array();
+                $this->db->order_by($order);
+                $this->db->from($table);
+                
+            $res=$this->db->get()->result_array();
             //echo $this->db->last_query();
             return($res);
     }

@@ -20,10 +20,7 @@ abstract class Yun_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-                $this->load->database();
-		$this->load->library('session');
                 $this->load->model('admin_model');
-                $this->config->load('setting');
 		$this->_check_login();
 		//$this->load->library('acl');
 	}
@@ -39,15 +36,15 @@ abstract class Yun_Controller extends CI_Controller
 	{
 		if ( ! $this->session->userdata('uid'))
 		{   
-			redirect(config_item('backend_access') . '/login');
+			redirect('login/index');
 		}
 		else
 		{
 			$this->_admin = $this->admin_model->get_full_admin($this->session->userdata('uid'), 'uid');
 			if ($this->_admin->status != 1)
 			{
-				$this->session->set_flashdata('error', "此帐号已被冻结,请联系管理员!");
-				redirect(config_item('backend_access') . '/login');
+				$this->message->set('error','您的账号已被冻结，请联系管理员！');
+				redirect('message/index');
 			}
 		}
 	}
@@ -115,7 +112,7 @@ abstract class Yun_Controller extends CI_Controller
 		$goto .= $fix;
 		//$this->_template('sys_message', array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause));
 		$data = array('msg' => $msg, 'goto' => $goto, 'auto' => $auto, 'pause' => $pause);
-                $this->load->view('common/message', $data);
+                $this->load->view('common/message_1', $data);
 		echo $this->output->get_output();
 		exit();
 	}

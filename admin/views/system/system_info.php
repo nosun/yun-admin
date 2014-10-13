@@ -1,4 +1,6 @@
-        <style type="text/css">
+<?php $this->load->view('common/header'); ?>
+
+<style type="text/css">
             code {
                 padding: 0px 4px;
                 color: #d14;
@@ -12,19 +14,10 @@
     <div class="container">
         <div class="detail-section" id="user_info">
             <h2>基本信息</h2>
-            <p>登陆者：<?php echo $this->_admin->username; ?>  用户组：管理员</p>
-            <p>这是您第100次登录本站，上次登录时间为：2014年5月7日 11:21:29，登录IP为<?php echo $this->input->ip_address(); ?></p>
+            <p>登陆者：<?php echo $this->_admin->username;?> &nbsp;&nbsp; 用户组：<? echo $role->name ?> </p>
+            <p>这是您第<?echo $login_num;?>次登录本站，上次登录时间为：<?echo date('Y-m-d h:i',$last_login[0]['logintime'])?>，登录IP为<?php echo $last_login[0]['loginip'] ?></p>
         </div>
         <div class="detail-section" id="sys_info">
-            <h2>系统信息</h2>
-            <div class="row detail-row">
-                <div class="span12">
-                    <label>平台版本:</label><span class="detail-text"><?php echo SKYLINK_VERSION; ?></span>
-                </div>
-                <div class="span12">
-                    <label>当前系统:</label><span class="detail-text"><?php echo  PHP_OS; ?></span>
-                </div>                
-            </div>
             <div class="detail-section" id="sys_info">
                 <h2>系统信息</h2>
                 <div class="row detail-row">
@@ -55,3 +48,4 @@
             </div>
         </div>
 
+<?php $this->load->view('common/footer'); ?>

@@ -1,6 +1,6 @@
 <?php
 
-class Notice extends CI_Controller {
+class Notice extends Yun_Controller {
     
     function index(){
             $data['title']='消息队列';

@@ -32,7 +32,7 @@ $(document).ready(function(){
         <div id="change_pwd">
                 <h2><?php echo $title ?></h2>
                 <div class="login_cont">
-                    <form id="J_Form" action="<?php echo site_url()?>/admin/change_passwd" class="form-horizontal" method="post" accept-charset="utf-8"> 
+                    <form id="J_Form" action="<?php echo site_url()?>admin/change_passwd" class="form-horizontal" method="post" accept-charset="utf-8"> 
                         <div class="control-group">
                           <label class="control-label">旧密码：</label>
                           <div class="controls">

@@ -7,16 +7,57 @@
         <link href="<?php echo base_url() ?>views/assets/css/bs3/bui.css" rel="stylesheet">
         <link href="<?php echo base_url() ?>views/assets/css/main.css" rel="stylesheet" type="text/css" />
     </head>
+<style type="text/css">
+
+
+#error_msg {
+ background:#FBE6F2 none repeat scroll 0 0;
+ border:1px solid #D893A1;
+}
+#notice_msg {
+ background:#EFF8D9 none repeat scroll 0 0;
+ border:1px solid #B4E04B;
+}
+#error_msg, #notice_msg {
+ color:#333333;
+ padding: 10px;
+ min-height: 26px;
+ overflow: auto; /* need to clear float */
+ margin-bottom:15px;
+ margin-left:38px;
+ width: 300px;
+}
+
+
+#error_msg p, #notice_msg p {
+ font-size: 1.4em;
+ margin-bottom:5px;
+}
+
+#error_msg img, #notice_msg img {
+ float:left;
+}
+
+#error_msg_container, #notice_msg_container {
+ float:left;
+ margin-left:10px;
+}
+
+.message {
+ color: red;
+}        
+        </style>
     <body id="login">
         <div class="wrapper">
             <div id="header_bg">
                 <div id="header">
                     <div id="login_logo"></div>
                 </div>
-            </div><?php $error_msg = ''; ?>
+            </div>
             <div id="login_main" class="clearfix">
                 <div id="login_box">
                     <h2>管理登录</h2>
+                    <?php echo $this->message->display(); ?>
                     <div class="login_cont">
                         <form id="J_Form" action="<?=site_url('login/check_login')?>" class="form-horizontal" method="post" accept-charset="utf-8">
                             <div class="control-group">
@@ -75,32 +116,9 @@
 
         </script>
         <script type="text/javascript">
-            $(function() {
-                $("#loginButton").click(function() {
-                    if (!check_code()) {
-                        BUI.Message.Alert('验证码错误','info');
-                        return false;
-                    }
+            $(document).ready(function(){
+                    $("#error_msg").fadeIn(150).fadeOut(10000);
                 });
-            });
-            //校验验证码，返回true 或者false
-            function check_code() {
-                var status = false;
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo site_url("login/check_captcha"); ?>",
-                    data: {'captcha': $("#captcha").val()},
-                    cache: false,
-                    dataType: "text",
-                    async: false,
-                    success: function(msg) {
-                        if (msg == 'sucess') {
-                            status = true;
-                        }
-                    }
-                });
-                return status;
-            }
         </script>        
     </body>
 </html>

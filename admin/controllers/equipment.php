@@ -1,6 +1,6 @@
 <?php
 
-class Equipment extends CI_Controller{
+class Equipment extends Yun_Controller{
         public function __construct()
         {
                 parent::__construct();

@@ -15,3 +15,7 @@ function flash_message()
     } 
     return $html; 
 }  
+
+function message(){
+    
+}

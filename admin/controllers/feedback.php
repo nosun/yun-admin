@@ -1,6 +1,6 @@
 <?php
 
-class Feedback extends CI_Controller {
+class Feedback extends Yun_Controller {
     
     function index(){
             $data['title']='留言反馈';
