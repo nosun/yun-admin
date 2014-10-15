@@ -592,7 +592,7 @@
   background-color: #fff;
 }
 .bui-message {
-  padding: 30px 40px;
+  padding: 15px 20px;
 }
 .bui-message .bui-stdmod-header {
   padding: 0;
@@ -1169,7 +1169,7 @@ td.x-grid-rownumber {
   _visibility: visible;
 }
 .x-masked-relative {
-  position: relative;
+  //position: relative;
 }
 .lp-el-mask-msg,
 .bui-ext-mask-msg {

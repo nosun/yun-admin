@@ -9,7 +9,7 @@ class Admin extends Yun_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
-        $this->load->library('yun_check');
+        //$this->load->library('yun_check');
         $this->load->helper('msg');        
 
     }
@@ -60,9 +60,9 @@ class Admin extends Yun_Controller {
         $id = $this->input->post('uid');
         $this->admin_model->set_admin($id);
         if($id){
-            $this->yun_check->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
+            //$this->yun_check->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
         }else{
-            $this->yun_check->set_log('admins','添加用户'.$this->input->post('username'));
+            //$this->yun_check->set_log('admins','添加用户'.$this->input->post('username'));
         }
     }
 

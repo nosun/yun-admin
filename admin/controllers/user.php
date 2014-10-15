@@ -71,7 +71,7 @@ class User extends Yun_Controller{
         }else{
             $data['action']='agent';
         }
-        $data['dataurl']=site_url().'/data/user_agent/'.$data['action'];
+        $data['dataurl']=base_url().'data/user_agent/'.$data['action'];
         $this->load->view('common/header',$data);
         $this->load->view('user/agent');
         $this->load->view('common/footer');        

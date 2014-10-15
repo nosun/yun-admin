@@ -5,7 +5,7 @@ class Roles extends Yun_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
-        $this->load->library('Yun_Check');
+        //$this->load->library('Yun_Check');
     }
 
     function index() {
@@ -47,11 +47,11 @@ class Roles extends Yun_Controller {
         $this->load->library('form_validation');
         $data['id'] = $id;
         $data['title'] = '权限设置';
-        $data['base_url'] = $this->config->item('base_url');
-        $data['link_url'] = $data['base_url'] . '/roles/';
         if (!$this->input->post('action')) {
             $data['powers'] = $this->admin_model->get_power();
             $data['roles'] = $this->admin_model->get_roles($id);
+            //var_dump($data['roles']);die;
+            //var_dump($data);die;
             $str_models = $data['roles']['models'];
             $data['models'] = json_decode($str_models, TRUE);
             $this->load->view('common/header', $data);

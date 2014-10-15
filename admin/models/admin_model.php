@@ -230,7 +230,7 @@ class Admin_model extends CI_Model {
         }
 
         $query = $this->db->get_where($table_roles, array('id' => $id));
-        return $query->row();
+        return $query->row_array();
     }
 
     public function set_roles($models = NULL, $id = FALSE) {

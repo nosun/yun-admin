@@ -9,7 +9,7 @@
     <div class="container">
         <h1><?php echo $roles['name'] ?>的权限设置</h1>
         <?php echo validation_errors(); ?>
-        <form action="<?php echo $link_url . 'power/' . $id ?>" method="post">
+        <form action="<?php base_url() . 'roles/power/' . $id ?>" method="post">
             <?php foreach ($powers as $p): ?>
                 <p><input name="models[]" type="checkbox" value="<?php echo $p['id'] ?>"
                     <?php

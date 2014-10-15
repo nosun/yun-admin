@@ -50,7 +50,7 @@
                             id : 'edit' + obj.id,
                             title : '设置权限',
                             text : '设置权限',
-                            href : '<?php echo $link_url?>power/'+obj.id
+                            href : '<?php echo base_url()?>roles/power/'+obj.id
                         }),
                         editStr1 = '<span class="grid-command btn-edit" title="编辑">编辑</span>',
                         delStr = '<span class="grid-command btn-del" title="删除">删除</span>';

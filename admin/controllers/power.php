@@ -9,7 +9,6 @@ class Power extends Yun_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
-        $this->load->library('Yun_Check');
     }
 
     function index($id = FALSE, $pid = FALSE) {

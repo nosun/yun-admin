@@ -14,7 +14,7 @@
     <div class="container">
         <div class="detail-section" id="user_info">
             <h2>基本信息</h2>
-            <p>登陆者：<?php echo $this->_admin->username;?> &nbsp;&nbsp; 用户组：<? echo $role->name ?> </p>
+            <p>登陆者：<?php echo $this->_admin->username;?> &nbsp;&nbsp; 用户组：<? echo $role['name'] ?> </p>
             <p>这是您第<?echo $login_num;?>次登录本站，上次登录时间为：<?echo date('Y-m-d h:i',$last_login[0]['logintime'])?>，登录IP为<?php echo $last_login[0]['loginip'] ?></p>
         </div>
         <div class="detail-section" id="sys_info">

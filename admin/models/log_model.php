@@ -58,11 +58,6 @@ class log_Model extends CI_Model{
 
     }
     
-    function set_logs_login($data){
-            $table=$this->db->dbprefix('admin_logs');
-            
-    }
-    
     
     function get_logs_action($start_date=0,$end_date=0,$s_key='',$s_value='',$limit=0,$offset=0){
         
