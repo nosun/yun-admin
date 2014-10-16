@@ -106,8 +106,7 @@
             <p> 北京思佳维科技有限公司 Copyright (c) 2014-2016 </p>
         </div>
 
-        <script src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
-        <script src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
+    <?php  $this->load->view('common/js'); ?>
         <script type="text/javascript">
                                 var Form = BUI.Form;
                                 new Form.Form({

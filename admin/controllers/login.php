@@ -1,8 +1,4 @@
-<?php
-
-if (!defined('BASEPATH')) {
-    exit('Access Denied');
-}
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * DiliCMS 用户登录/退出控制器

@@ -52,9 +52,7 @@
         </div>
     </div>
     
-    <script src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
-    <script src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
-    
+    <?php  $this->load->view('common/js'); ?>
    <!-- script start-->  
    <script type="text/javascript">
       BUI.use('bui/form',function  (Form) {

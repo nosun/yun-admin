@@ -1,55 +1,30 @@
-<?php
-
-if (!defined('BASEPATH')) {
-    exit('Access Denied');
-}
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Admin extends Yun_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
-        //$this->load->library('yun_check');
-        $this->load->helper('msg');        
-
     }
 
     function index() {
+        $this->load->model('roles_model');
         $data['title'] = '管理员列表';
-        $data['admins'] = $this->admin_model->get_admin();
-        $data['base_url'] = $this->config->item('base_url');
-        $data['link_url'] = $data['base_url'] . 'index.php/admin/';
-        if (empty($data['admins'])) {
-            $ames = array(
-                'str' => '没有数据，请添加！',
-                'url' => $data['link_url'] . 'create'
-            );
-            $this->load->view('common/header', $ames);
-            $this->load->view('common/message');
-            $this->load->view('common/footer');
-        }
-        $data['roles'] = $this->admin_model->get_roles();
-        $this->load->view('common/header', $data);
-        $this->load->view('admin/index');
-        $this->load->view('common/footer');
+        $data['roles'] = $this->roles_model->get_roles();
+        $this->load->view('admin/index', $data);
     }
 
     function passwd(){
-        $data['title'] = '修改密码';        
-        $this->load->view('common/header',$data);
-        $this->load->view('admin/passwd');
-        $this->load->view('common/footer');        
+        $data['title'] = '修改密码';
+        $this->load->helper('msg');
+        $this->load->view('admin/passwd',$data);
     }
-    
     
     function admin_data() {
         $offset = $this->input->post('start');
         $limit = $this->input->post('limit');
-//        var_dump($offset);
-//        var_dump($limit);
-//        die();
-        $data = array();
         $num = $this->admin_model->get_num('admins');
+
         $admins = $this->admin_model->get_admin();   
         $str_json = json_encode($admins);
         $data['str_json']='{"rows":'.$str_json.', "results":'.$num.'}';
@@ -58,11 +33,12 @@ class Admin extends Yun_Controller {
 
     public function create() {
         $id = $this->input->post('uid');
+        $this->load->model('log_model');
         $this->admin_model->set_admin($id);
         if($id){
-            //$this->yun_check->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
+            $this->log_model->set_log('admins','修改用户'.$this->input->post('username').'(id:'. $this->input->post('uid').')');
         }else{
-            //$this->yun_check->set_log('admins','添加用户'.$this->input->post('username'));
+            $this->log_model->set_log('admins','添加用户'.$this->input->post('username'));
         }
     }
 

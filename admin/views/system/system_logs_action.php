@@ -22,7 +22,7 @@
                         </div>
                         <div class="control-group span10">
                             <div class="controls">
-                                <label class="control-label">注册时间时间：</label>
+                                <label class="control-label">注册时间：</label>
                                 <input type="text" class="calendar" name="start_date" value=""><span> - </span>
                                 <input name="end_date" type="text" class="calendar" value="">
                             </div>
@@ -41,9 +41,7 @@
     </div>
 </div>
    
-<script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/config-min.js"></script>
+    <?php  $this->load->view('common/js'); ?>
  <script type="text/javascript">
     BUI.use('bui/calendar',function(Calendar){
         var datepicker = new Calendar.DatePicker({

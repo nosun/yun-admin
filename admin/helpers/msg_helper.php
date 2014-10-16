@@ -14,8 +14,4 @@ function flash_message()
             </div>'; 
     } 
     return $html; 
-}  
-
-function message(){
-    
 }

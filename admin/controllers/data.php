@@ -1,9 +1,45 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
     class Data extends Yun_Controller {
         public function __construct()
         {
                 parent::__construct();
+        }
+        
+        function admin_list(){
+            $this->load->model('equip_model');            
+            $start = $this->input->post('start');
+            $limit = $this->input->post('limit');
+            $num = $this->admin_model->get_num('admins');
+            $admins = $this->admin_model->admin_list($limit,$start);
+
+            $data=json_encode($admins);
+            $data='{"rows":'.$data.', "results":'.$num.'}';
+            $this->_output_json($data);
+        }
+
+        function rights_list(){
+            $this->load->model('rights_model');            
+            $start = $this->input->post('start');
+            $limit = $this->input->post('limit');
+            $num = $this->admin_model->get_num('power');
+            $right = $this->rights_model->rights_list($limit,$start);
+
+            $data=json_encode($right);
+            $data='{"rows":'.$data.', "results":'.$num.'}';
+            $this->_output_json($data);
+        }
+        
+        function roles_list() {
+            $this->load->model('roles_model');   
+            $start = $this->input->post('start');
+            $limit = $this->input->post('limit');
+            $num = $this->roles_model->get_num('roles');
+            $roles = $this->roles_model->get_roles($limit,$start);
+            
+            $data=json_encode($roles);
+            $data='{"rows":'.$data.', "results":'.$num.'}';
+            $this->_output_json($data);
         }
         
         function eq_cat() {
@@ -43,9 +79,7 @@
             }else{
                 $data='{"rows":[],"results":0}';
             }
-            
             $this->_output_json($data);
-            
         }
         
         function eq_aera(){

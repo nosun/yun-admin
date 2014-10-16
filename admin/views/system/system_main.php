@@ -32,9 +32,7 @@
 
     </ul>
    </div>
-  <script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/jquery-1.8.1.min.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/bui.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>views/assets/js/config.js"></script>
+    <?php  $this->load->view('common/js'); ?>
 
   <script>
     BUI.use('common/main',function(){
@@ -54,7 +52,7 @@
               items:[
                 {id:'admin-index',text:'用户管理',href:'<?php echo site_url("admin/index") ?>'},
                 {id:'admin-role',text:'角色管理',href:'<?php echo site_url("roles/index") ?>'},
-                {id:'admin-power',text:'权限管理',href:'<?php echo site_url("power/index") ?>'},                
+                {id:'admin-power',text:'权限管理',href:'<?php echo site_url("rights/index") ?>'},                
               ]
             },{
               text:'日志管理',

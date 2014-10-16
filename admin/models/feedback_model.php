@@ -1,6 +1,6 @@
 <?php
 
-class Feedback_Model extends CI_Model{
+class Feedback_Model extends Yun_Model{
     
     //this is a common function for deal a result object to a array.
     function querylist($sql){

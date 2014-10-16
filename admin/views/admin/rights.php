@@ -1,36 +1,38 @@
-<?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-//var_dump($admins);
-?>
+<?php  $this->load->view('common/header'); ?>
 </head>
 <body>
     <div class="container">
-        <h2><?php echo $title ?></h2>
+          <h2><?php echo $title ?></h2>
         <div class="search-grid-container">
             <div id="grid"></div>
         </div>
         <div id="content" class="hide">
-            <form id="J_Form" class="form-horizontal" method="post" action="<?php echo $link_url ?>create">
-                <input type="hidden" name="a" value="3">
+            <form id="J_Form" class="form-horizontal" method="post" action="<?php echo site_url() ?>create">
+
                 <div class="row">
                     <div class="control-group span8">
-                        <label class="control-label"><s>*</s>角色名</label>
+                        <label class="control-label"><s>*</s>权限名</label>
                         <div class="controls">
                             <input name="name" type="text" data-rules="{required:true}" class="input-normal control-text">
-                            <input name="id" type="hidden" class="input-normal control-text">
+                            <input name="id" type="hidden">
+                            <input name="pid" value="0" type="hidden">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group span8">
+                        <label class="control-label"><s>*</s>地址</label>
+                        <div class="controls">
+                            <input name="controller" type="text" data-rules="{required:true}" class="input-normal control-text">
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/config-min.js"></script>
-
+    
+    <?php  $this->load->view('common/js'); ?>
+    
     <script type="text/javascript">
         BUI.use('common/page');
     </script>
@@ -44,21 +46,16 @@
             }),
             columns = [
                 {title:'ID',dataIndex:'id',width:80,visible:true},
-                {title:'角色名',dataIndex:'name',width:150},
+                {title:'权限名',dataIndex:'name',width:150},
+                {title:'地址',dataIndex:'controller',width:150},
                 {title:'操作',dataIndex:'',width:200,renderer : function(value,obj){
-                        var editStr =  Search.createLink({ //链接使用 此方式
-                            id : 'edit' + obj.id,
-                            title : '设置权限',
-                            text : '设置权限',
-                            href : '<?php echo base_url()?>roles/power/'+obj.id
-                        }),
                         editStr1 = '<span class="grid-command btn-edit" title="编辑">编辑</span>',
                         delStr = '<span class="grid-command btn-del" title="删除">删除</span>';
-                        return editStr + editStr1 + delStr;
+                        return editStr1 + delStr;
                     }
                 }
             ],
-            store = Search.createStore('roles_data',{      
+            store = Search.createStore('../data/rights_list',{      
                 proxy : {
                     save : { //也可以是一个字符串，那么增删改，都会往那个路径提交数据，同时附加参数saveType
                         addUrl : './create',
@@ -129,5 +126,6 @@
             });
         });
     </script>
-
+    
+<?php  $this->load->view('common/footer'); ?>
 

@@ -1,6 +1,6 @@
 <?php
 
-class User_Model extends CI_Model{
+class User_Model extends Yun_Model{
     
     function __construct() {
         parent::__construct();

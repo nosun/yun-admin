@@ -1,20 +1,12 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of Admin_model
- *
- * @author Administrator
- */
-class Admin_model extends CI_Model {
-
+class Admin_Model extends Yun_Model {
+    
+    public $table;
     public function __construct() {
         parent::__construct();
-        $this->load->database();
+        $this->table=$this->db->dbprefix('admins');
     }
 
     /**
@@ -27,10 +19,21 @@ class Admin_model extends CI_Model {
     public function get_admin_by_uid($uid = 0) {
         return $this->db
                         ->where('uid', $uid)
-                        ->get($this->db->dbprefix('admins'))
+                        ->get($this->table)
                         ->row();
     }
 
+    public function get_admin($id) {
+        $query = $this->db->get_where($this->table, array('uid' => $id));
+        $arr = $query->row_array();
+        return $arr;
+    }
+    
+        public function get_rolesid($id) {
+        $query = $this->db->get_where($this->table, array('uid' => $id));
+        $arr = $query->row_array();
+        return intval($arr['role']);
+    }
     // ------------------------------------------------------------------------
     /**
      * 根据管理员name获取管理员object
@@ -42,7 +45,7 @@ class Admin_model extends CI_Model {
     public function get_admin_by_name($name) {
         return $this->db
                         ->where('username', $name)
-                        ->get($this->db->dbprefix('admins'))
+                        ->get($this->table)
                         ->row();
     }
 
@@ -55,7 +58,7 @@ class Admin_model extends CI_Model {
      * @return object
      */
     public function get_full_admin($username = '', $type = 'username') {
-        $table_admins = $this->db->dbprefix('admins');
+        $table_admins = $this->table;
         $table_roles = $this->db->dbprefix('roles');
         if ($type == 'uid') {
             $this->db->where($table_admins . '.uid', $username);
@@ -111,7 +114,7 @@ class Admin_model extends CI_Model {
         $data['salt'] = substr(sha1(time()), -10);
         $data['password'] = sha1($data['password'] . $data['salt']);
         return $this->db
-                        ->insert($this->db->dbprefix('admins'), $data);
+                        ->insert($this->table, $data);
     }
 
     // ------------------------------------------------------------------------
@@ -130,7 +133,7 @@ class Admin_model extends CI_Model {
         }
         return $this->db
                         ->where('uid', $uid)
-                        ->update($this->db->dbprefix('admins'), $data);
+                        ->update($this->table, $data);
     }
 
     // ------------------------------------------------------------------------
@@ -141,10 +144,6 @@ class Admin_model extends CI_Model {
      * @param uid
      * @return bool
      */
-//    public function del_admin($uid) {
-//        return $this->db->where('uid', $uid)->delete($this->db->dbprefix('admins'));
-//    }
-    // ------------------------------------------------------------------------
 
     public function validate() {
         $this->db->where('username', $this->input->post('username'));
@@ -158,33 +157,21 @@ class Admin_model extends CI_Model {
         }
     }
 
-    public function get_admin($id = FALSE, $limit = 0, $offset = 0) {
-        $table_admins = $this->db->dbprefix('admins');
-        if ($id === FALSE) {
+    public function admin_list($limit = 0, $start = 0) {
+            $this->db->from($this->table);
+            $this->db->order_by('uid', 'asc');
             if ($limit) {
                 $this->db->limit($limit);
             }
-            if ($offset) {
-                $this->db->offset($offset);
+            if ($start) {
+                $this->db->offset($start);
             }
-            $query = $this->db->select('*')
-                    ->from($table_admins)
-                    ->order_by('uid', 'asc')
-                    ->get();
-            return $query->result_array();
-        }
-
-        $query = $this->db->get_where($table_admins, array('uid' => $id));
-        return $query->row_array();
-    }
-
-    public function get_num($tablename) {
-        $table = $this->db->dbprefix($tablename);
-        return $this->db->count_all($table);
+            $query = $this->db->get()->result_array();
+            return $query;
     }
 
     public function set_admin($id) {
-        $table_admins = $this->db->dbprefix('admins');
+        $table_admins = $this->table;
         $role = intval($this->input->post('role'));
         $data = array(
             'username' => $this->input->post('username'),
@@ -210,130 +197,13 @@ class Admin_model extends CI_Model {
     }
 
     public function del_admin($ids) {
-        $table_admins = $this->db->dbprefix('admins');
+        $table_admins = $this->table;
         $ids = implode(',', $ids);
 
         $strSql = 'delete from ' . $table_admins . ' where uid in (' . $ids . ')';
 
         $this->db->query($strSql);
         return;
-    }
-
-    public function get_roles($id = FALSE) {
-        $table_roles = $this->db->dbprefix('roles');
-        if ($id === FALSE) {
-            $query = $this->db->select('*')
-                    ->from($table_roles)
-                    ->order_by('id', 'asc')
-                    ->get();
-            return $query->result_array();
-        }
-
-        $query = $this->db->get_where($table_roles, array('id' => $id));
-        return $query->row_array();
-    }
-
-    public function set_roles($models = NULL, $id = FALSE) {
-        $table_roles = $this->db->dbprefix('roles');
-        $data['models'] = $models;
-        if ($this->input->post('name')) {
-            $data['name'] = $this->input->post('name');
-        }
-        if ($id) {
-            $where = array('id' => $id);
-            return $this->db->update($table_roles, $data, $where);
-        } else {
-            return $this->db->insert($table_roles, $data);
-        }
-    }
-
-    public function del_roles($ids) {
-        $table_roles = $this->db->dbprefix('roles');
-        $ids = implode(',', $ids);
-        $strSql = 'delete from ' . $table_roles . ' where id in (' . $ids . ')';
-        $this->db->query($strSql);
-        return;
-    }
-
-    public function get_power($id = FALSE, $pid = FALSE) {
-        $table_power = $this->db->dbprefix('power');
-        if ($id === FALSE) {
-            $arrWhere = array(
-                "pid" => $pid
-            );
-            $query = $this->db->select('*')
-                    ->from($table_power)
-                    ->where($arrWhere)
-                    ->order_by('id', 'asc')
-                    ->get();
-            return $query->result_array();
-        }
-        $query = $this->db->get_where($table_power, array('id' => $id));
-        return $query->row_array();
-    }
-
-    public function set_power($id) {
-        $table_power = $this->db->dbprefix('power');
-        $data = array(
-            'name' => $this->input->post('name'),
-            'pid' => $this->input->post('pid'),
-            'controller' => $this->input->post('controller')
-        );
-        if ($id) {
-            $where = array('id' => $id);
-            return $this->db->update($table_power, $data, $where);
-        } else {
-            $this->db->insert($table_power, $data);
-            $id = mysql_insert_id();
-            $this->change_power($id, 1);
-            return;
-        }
-    }
-
-    public function del_power($ids) {
-        $table_power = $this->db->dbprefix('power');
-        $str_ids = implode(',', $ids);
-        $strSql = 'delete from ' . $table_power . ' where id in (' . $str_ids . ')';
-        $this->db->query($strSql);
-        foreach ($ids as $id) {
-            $this->change_power($id, 0);
-        }
-        return;
-    }
-
-    public function change_power($id, $type) {
-        $table_roles = $this->db->dbprefix('roles');
-        $roles = $this->get_roles();
-        foreach ($roles as $rl) {
-            $models = $rl['models'];
-            $arr_models = json_decode($models, TRUE);
-            if ($type == 1) {
-                $arr_models[$id] = 0;
-            } else {
-                unset($arr_models[$id]);
-            }
-            $models = json_encode($arr_models);
-            $data = array(
-                'models' => $models
-            );
-            $where = array('id' => $rl['id']);
-            $this->db->update($table_roles, $data, $where);
-        }
-        return;
-    }
-
-    public function get_jsonstr_power($id = FALSE) {
-        if ($id) {
-            $arrs = $this->get_roles($id);
-            return $arrs['models'];
-        } else {
-            $arrs = $this->get_power();
-            $arr_pid = array();
-            foreach ($arrs as $arr) {
-                $arr_pid[strval($arr['id'])] = 0;
-            }
-            return json_encode($arr_pid);
-        }
     }
 
 }

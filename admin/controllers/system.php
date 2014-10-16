@@ -1,14 +1,11 @@
-<?php
-
-if (!defined('BASEPATH')) {
-    exit('Access Denied');
-}
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class System extends Yun_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
+
     }
 
     function index() {
@@ -17,12 +14,13 @@ class System extends Yun_Controller {
 
     function info() {
         $this->load->model('log_model');
+        $this->load->model('roles_model');
         $uid=$this->session->userdata('uid');
         $user=$this->admin_model->get_full_admin($uid,'uid');
         $data['title'] = '系统信息';
         $data['login_num']=$this->log_model->get_logs_login_num(0,0,$user->username);
         $data['last_login']=$this->log_model->get_logs_login(0,0,$user->username,1,0,'logintime desc');
-        $data['role'] =$this->admin_model->get_roles($user->role);
+        $data['role'] =$this->roles_model->get_role($user->role);
         $this->load->view('system/system_info',$data);
     }
 

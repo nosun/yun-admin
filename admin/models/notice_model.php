@@ -1,6 +1,6 @@
 <?php
 
-class Notice_model extends CI_Model{
+class Notice_model extends Yun_Model{
     
     //this is a common function for deal a result object to a array.
     function querylist($sql){

@@ -4,7 +4,7 @@
 <title>设备列表页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="<?php echo base_url() ?>/views/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url() ?>/views/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url() ?>/views/assets/css/bui.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url() ?>/views/assets/css/page-min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -14,7 +14,6 @@
     </div>
     <div id="content" class="hide">
       <form id="J_Form" class="form-horizontal" method="post" action="<?php echo site_url() ?>/equipment/eq_cat_update">
-        <input type="hidden" name="a" value="3">
         <div class="row">
           <div class="control-group span8">
             <label class="control-label"><s>*</s>设备型号</label>
@@ -47,9 +46,7 @@
       </form>
     </div>
   </div>
-  <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/jquery-1.8.1.min.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/bui-min.js"></script>
-  <script type="text/javascript" src="<?php echo base_url() ?>/views/assets/js/config-min.js"></script>
+  <?php  $this->load->view('common/js'); ?>
   <script type="text/javascript">
     BUI.use('common/page');
   </script>
