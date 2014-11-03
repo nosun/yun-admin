@@ -101,7 +101,8 @@ class Equipment extends Yun_Controller{
                 $data['dataurl']='../../../data/eq_state_h/'.$action.'/'.$day;
                 $data['date']=date('Y-m-d',$day);
             }else{ //set the day today
-                $data['date']=date('Y-m-d',time());
+                //$data['date']=date('Y-m-d',time());
+				$data['date']='2014-09-12';
                 $data['dataurl']='../../data/eq_state_h/'.$action.'/'.strtotime($data['date']);
             }
             $data['title']='设备 '.$action.' 状态';

@@ -31,14 +31,14 @@
                             }
                         ?>
                         
-                        <a href="<?php echo site_url() ?>/user/count_d/<?=$action?>/<?=$month1?>" ><?=$month1_num?>月</a> |                        
-                        <a href="<?php echo site_url() ?>/user/count_d/<?=$action?>/<?=$month0?>"><?=$pn[1]?>月</a>
+                        <a href="<?php echo site_url() ?>user/count_d/<?=$action?>/<?=$month1?>" ><?=$month1_num?>月</a> |                        
+                        <a href="<?php echo site_url() ?>user/count_d/<?=$action?>/<?=$month0?>"><?=$pn[1]?>月</a>
                         
                         <?php if(date('n',time())==$pn[1]){
                             ;
                         }else{
                         ?>
-                         | <a href="<?php echo site_url() ?>/user/count_d/<?=$action?>/<?=$month2?>" ><?=$month2_num?>月</a>  
+                         | <a href="<?php echo site_url() ?>user/count_d/<?=$action?>/<?=$month2?>" ><?=$month2_num?>月</a>  
                         <?php
                             }
                         ?>

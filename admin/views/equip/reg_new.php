@@ -72,7 +72,7 @@
 
       },
       subTitle : {
-        text : '7月注册设备'
+        text : '<?php echo date('m', (time()-86400*40))?>月注册设备'
       },
       xAxis : {
         type : 'category', //标明分组坐标轴，会通过数据查找分类

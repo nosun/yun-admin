@@ -218,7 +218,7 @@
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $now=time();
+            $now=time()-86400*40;
             $year=  date('Y',$now); //2014
             $month= date('n',$now); //9
             $day=date('j',$now); //1
@@ -260,7 +260,7 @@
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $now=time();
+            $now=time()-86400*40;
             $year=  date('Y',$now); //2014
             $month= date('n',$now); //9
             $day=date('j',$now); //1
