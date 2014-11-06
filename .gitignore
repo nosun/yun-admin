@@ -1,2 +1,6 @@
 /nbproject/private/
 /admin/logs/
+/nbproject
+.project
+/system
+.test.php
