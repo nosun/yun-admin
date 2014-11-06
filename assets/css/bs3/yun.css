@@ -1,0 +1,104 @@
+/*
+    Info        :the stylesheet for skylink common users--the front of the site.
+    Created on  :Nov 3, 2014, 4:34:06 PM
+    Author      :Nosun
+*/
+/* reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.6;
+    background-color: #FFF; 
+}
+a {
+    text-decoration: none;
+    color: #113a68;
+}
+a:hover {
+    color:#ae3724;
+}
+p {
+    font-size: 14px;
+    line-height: 24px;
+}
+img {
+    border: none;
+}
+li {
+    list-style: none;
+    font-size: 14px;
+}
+.left {float: left}
+.right {float: right}
+
+.clearfix:after {clear: both;content: " ";display: block;font-size: 0; height: 0;visibility: hidden; }
+.clearfix { zoom: 1;}
+/*common*/
+.highlight {
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    padding: 9px 14px;
+}
+/* main page*/
+html {min-height: 100%;position: relative;}
+body {padding-top:50px;margin-bottom: 60px;}
+#header{background:none repeat scroll 0 0 #0062ad}
+#header #logo{color:#fff;font-size: 24px;}
+#header .navbar-link{color:#fff}
+#cloud_img img{width:550px;}
+.footer {background-color: #e5e5e5;bottom: 0;height: 50px;position: absolute;width: 100%;}
+.footer p{text-align: center}
+.footer .text-muted{color:#333}
+body > .container {padding: 30px 15px 0;}
+.container .text-muted {margin: 12px 0;}
+.footer > .container {padding-left: 15px;padding-right: 15px;}
+.loginbox{padding:15px;border: 1px solid #ccc}
+.loginbox h3{text-align: center;margin-bottom:20px;color:#0062ad}
+.loginbox #captcha_img{}
+/* ucenter */
+body#ucenter {background: #f4f4f4}
+#u_menu{text-align: center}
+#panelbox{border:1px solid #dcdcdc}
+#u_menu{padding:0px;}
+#ucenter #path{margin:10px auto 20px}
+#u_menu li:first-child {
+    border-top: 1px solid #e0e0e0;
+}
+#u_menu li {
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+}
+#u_menu li a {
+    color: #3f4857;
+    display: block;
+    font-size: 16px;
+    height: 85px;
+    line-height: 120px;
+    text-align: center;
+}
+#u_content{background:#fff;padding:0px;border-left:1px solid #e0e0e0;min-height: 600px;}
+#u_box{padding:20px}
+#u_title{
+    background: none repeat scroll 0 0 #fafafa;
+    border-bottom: 2px solid #0062ad;
+    color: #0062ad;
+    height: 71px;
+    line-height: 71px;
+    text-indent: 24px;
+    margin: 0px;
+    padding:0px
+}
+
+.x-icon-error{display: none}
+
+
+
+
+
+
