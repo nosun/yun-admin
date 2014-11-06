@@ -38,11 +38,9 @@
                 <div class="controls">
                     <select name="status">
                         <option value="0">所有问题</option>       
-                        <option value="1">新开</option>                         
-                        <option value="2">未解决</option>
-                        <option value="3">处理中</option>  
-                        <option value="4">已解决</option>  
-                        <option value="5">不处理</option>   
+                        <option value="1">待处理</option>                         
+                        <option value="2">已回复</option>
+                        <option value="3">已解决</option>  
                     </select>
                 </div>
             </div>            

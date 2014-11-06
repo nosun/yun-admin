@@ -173,7 +173,8 @@ if (defined('ENVIRONMENT'))
 
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
-
+        
+require_once '../shared/config/constants.php';
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
