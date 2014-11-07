@@ -6,11 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="<?php echo base_url() ?>assets/bs33/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url() ?>assets/bs33/css/bootstrapValidator.min.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>assets/css/bs3/yun.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>assets/css/yun.css" rel="stylesheet">
     <script src="<?php echo base_url() ?>assets/bs33/js/jquery.min.js"></script>
     <script src="<?php echo base_url() ?>assets/bs33/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url() ?>assets/bs33/js/bootstrapValidator.min.js"></script>
-    
 </head>
 <body>    
     <nav id="header" class="navbar-default navbar-fixed-top">
@@ -32,7 +31,8 @@
             <div id='sidebar' class='col-xs-6 col-sm-5 sidebar-offcanvas'>
                 <div class="loginbox">
                     <h3 style="font-weight:bold;">登录云平台</h3>
-                    <form class="form-horizontal" role="form" id="login_form" method="post" action="<?php echo site_url('user/check_login')?>">
+                    <?php echo $this->message->display(); ?>                    
+                    <form class="form-horizontal" role="form" id="login_form" method="post" action="<?php echo site_url('login/check_login')?>">
                       <div class="form-group">
                         <label for="username" class="col-sm-3 control-label">用户名</label>
                         <div class="col-sm-6">
@@ -53,8 +53,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-6 col-sm-offset-3">
-                            <a href="#" onclick="document.getElementById('captcha_img').src = '<?php echo site_url('user/securimage') ?>/' + Math.random(); return false">
-                                <img id="captcha_img"  style="cursor:pointer" src="<?php echo site_url('user/securimage') ?>" alt="验证码" />
+                            <a href="#" onclick="document.getElementById('captcha_img').src = '<?php echo site_url('login/securimage') ?>/' + Math.random(); return false">
+                                <img id="captcha_img"  style="cursor:pointer" src="<?php echo site_url('login/securimage') ?>" alt="验证码" />
                             </a>
                         </div>
                     </div>
@@ -110,12 +110,13 @@ $(document).ready(function() {
                     remote: {
                         message: '您输入的验证码不正确！',
                         type:'post',
-                        url: '<?php echo site_url("user/check_captcha")?>',
+                        url: '<?php echo site_url("login/check_captcha")?>',
                     }
                 }
             }            
         }
     });
+    $("#error_msg").fadeIn(150).fadeOut(10000);
 });
 </script>
     <div class="footer">

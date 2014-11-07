@@ -1,0 +1,213 @@
+/*
+    Info        :the stylesheet for skylink common users--the front of the site.
+    Created on  :Nov 3, 2014, 4:34:06 PM
+    Author      :Nosun
+*/
+/* reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.6;
+    background-color: #FFF; 
+}
+a {
+    text-decoration: none;
+    color: #113a68;
+}
+a:hover {
+    color:#ae3724;
+}
+p {
+    font-size: 12px;
+    line-height: 24px;
+}
+span{
+    font-size: 12px;
+}
+img {
+    border: none;
+}
+li {
+    list-style: none;
+    font-size: 14px;
+}
+.left {float: left}
+.right {float: right}
+
+.clearfix:after {clear: both;content: " ";display: block;font-size: 0; height: 0;visibility: hidden; }
+.clearfix { zoom: 1;}
+/*common*/
+.highlight {
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    padding: 9px 14px;
+}
+
+#error_msg {
+ background:#FBE6F2 none repeat scroll 0 0;
+ border:1px solid #D893A1;
+}
+#notice_msg {
+ background:#EFF8D9 none repeat scroll 0 0;
+ border:1px solid #B4E04B;
+}
+#error_msg, #notice_msg {
+ color:#333333;
+ padding: 10px;
+ min-height: 26px;
+ overflow: auto; /* need to clear float */
+ margin-bottom:15px;
+ margin-left:38px;
+ width: 300px;
+}
+
+#error_msg p, #notice_msg p {
+ font-size: 1.4em;
+ margin-bottom:5px;
+}
+
+#error_msg img, #notice_msg img {
+ float:left;
+}
+
+#error_msg_container, #notice_msg_container {
+ float:left;
+ margin-left:10px;
+}
+
+.message {color: red;}
+
+/* main page*/
+html {min-height: 100%;position: relative;}
+body {padding-top:50px;margin-bottom: 60px;}
+#header{background:none repeat scroll 0 0 #0062ad}
+#header #logo{color:#fff;font-size: 24px;}
+#header .navbar-link{color:#fff}
+#cloud_img img{width:550px;}
+.footer {background-color: #e5e5e5;bottom: 0;height: 50px;position: absolute;width: 100%;}
+.footer p{text-align: center}
+.footer .text-muted{color:#333}
+body > .container {padding: 30px 15px 0;}
+.container .text-muted {margin: 12px 0;}
+.footer > .container {padding-left: 15px;padding-right: 15px;}
+.loginbox{padding:15px;border: 1px solid #ccc}
+.loginbox h3{text-align: center;margin-bottom:20px;color:#0062ad}
+.loginbox #captcha_img{}
+/* ucenter */
+body#ucenter {background: #f4f4f4}
+#u_menu{text-align: center}
+#panelbox{border:1px solid #dcdcdc}
+#u_menu{padding:0px;}
+#ucenter #path{margin:10px auto 20px}
+#u_menu li:first-child {
+    border-top: 1px solid #e0e0e0;
+}
+#u_menu li {
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+}
+#u_menu li a {
+    color: #3f4857;
+    display: block;
+    font-size: 16px;
+    height: 85px;
+    line-height: 120px;
+    text-align: center;
+}
+#u_content{background:#fff;padding:0px;border-left:1px solid #e0e0e0;min-height: 600px;}
+.u_box{padding:20px}
+#u_title{
+    background: none repeat scroll 0 0 #fafafa;
+    border-bottom: 2px solid #0062ad;
+    color: #0062ad;
+    height: 71px;
+    line-height: 71px;
+    text-indent: 15px;
+    margin: 0px;
+    padding:0px 20px
+}
+
+.x-icon-error{display: none}
+/* feedback view*/
+.record-hd {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0 25px;
+}
+.record-bd .question-status {
+    padding: 15px 0 40px;
+}
+.record-bd .question-title {
+    color: #262626;
+    font-size: 14px;
+    line-height: 25px;
+}
+.section-title {
+    font-size: 12px;
+    margin: 0;
+    padding: 10px 0;
+}
+.bordersection {
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+    clear: both;
+    padding: 10px;
+}
+.mb20 {
+    margin-bottom: 20px !important;
+}
+.bubble-wrap li {
+    clear: both;
+    color: #999999;
+    overflow: hidden;
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+.bubble-wrap .bubble-main.left {
+    background-color: #f3fbff;
+    background-image: -moz-linear-gradient(center bottom , #e6f7ff, #f3fbff);
+    border: 1px solid #d8e1ea;
+    float: left;
+}
+.bubble-main {
+    background-color: #ffffff;
+    background-image: -moz-linear-gradient(center bottom , #f0f0f0, #ffffff);
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px #e0e0e0;
+    position: relative;
+}
+.bubble-content {
+    height: auto;
+    max-width: 335px;
+    padding: 8px 10px;
+}
+.fb-title{font-size: 14px;font-weight: bold}
+.arrow-left {
+    left: -8px;
+    position: absolute;
+    top: 10px;
+}
+.arrow-left, .arrow-right {
+    background: url("../images/bubble_arrow.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 14px;
+    width: 8px;
+}
+.bubble-wrap li .tips {
+    padding-top: 10px;
+}
+.bubble-wrap li .tips {
+    padding: 15px 10px 0;
+}
+.workorder-comment-block {
+    background: none repeat scroll 0 0 #f8f8f8;
+    border: 1px solid #d7d7d7;
+    padding: 10px 20px;
+}
+#u_title a{display: inline;}
+#cancel-worker{margin-right:5px}

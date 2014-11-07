@@ -53,7 +53,6 @@ class Login extends CI_Controller {
      * @return  void
      */
     public function check_login() {
-        
         if($this->check_captcha()== FALSE){
             $this->message->set('error','您输入的验证码不正确，请重试！');
             redirect("login/index");

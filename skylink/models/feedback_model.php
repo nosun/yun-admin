@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-Class Feedback_Model extends CI_Model{
+Class Feedback_Model extends Yun_Model{
     
     public $tb_feedback;
-    public $tb_comment;
+    public $tb_reply;
     public function __construct() {
         parent::__construct();
         $this->tb_feedback=$this->db->dbprefix('feedback');
-        $this->tb_comment=$this->db->dbprefix('feedback_comments');
+        $this->tb_reply=$this->db->dbprefix('feedback_reply');
     }
     
     public function add_feedback(){
@@ -15,7 +15,7 @@ Class Feedback_Model extends CI_Model{
         $title=$this->input->post('title');
         $content=$this->input->post('content');
         $product=$this->input->post('product');
-        $user_name=$this->input->post('user_name');
+        $user_name=$this->session->userdata('uid');
         $data = array(
                'category' => $category ,
                'title' => $title,
@@ -25,9 +25,31 @@ Class Feedback_Model extends CI_Model{
                'addtime' => time(),
                'status'  => 1
             );
-        exit(0);
         $this->db->insert($this->tb_feedback, $data);
     }
     
+    public function get_feedback($user_name,$limit,$offset){
+        $query = $this->db->get_where($this->tb_feedback, array('user_name' => $user_name), $limit, $offset);
+        return $query->result_array();
+    }
+    
+    public function insert_user_reply($fid,$user_name,$content){
+        $data = array(
+            'fid'       =>$fid,
+            'user_name' =>$user_name,
+            'content'   =>$content,
+            'addtime'   =>time(),
+            'role'      =>1
+        );
+        $this->db->insert($this->tb_reply,$data);
+    }
+    
+    public function get_rely_by_id($id){
+        $this->db->from($this->tb_reply);
+        $this->db->where('fid',$id);
+        $this->db->order_by("id", "asc"); 
+        $query = $this->db->get();
+        return $query;
+    }
     
 }

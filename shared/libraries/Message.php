@@ -158,17 +158,16 @@ class CI_Message {
 		{
 			// was a group set? if so skip all groups that do not match
 			if ($by_group !== FALSE && $group != $by_group) continue;
-
 			// does a view partial exist?
-			if (file_exists(APPPATH.'views/'.$this->message_folder.$group.'_view'.EXT))
+			if (file_exists(YUN_SHARE_PATH.'views/'.$this->message_folder.$group.'_view'.EXT))
 			{
 				$output .= $this->CI->load->view($this->message_folder.$group.'_view', array('messages'=>$messages), TRUE);
 			}
 			// does a default view partial exist?
-			elseif (file_exists(APPPATH.'views/'.$this->message_folder.$this->message_view.'_view'.EXT))
+			elseif (file_exists(YUN_SHARE_PATH.'views/'.$this->message_folder.$this->message_view.'_view'.EXT))
 			{
 				$output .= $this->CI->load->view($this->message_folder.$this->message_view.'_view', array('messages'=>$messages), TRUE);
-			}
+                        }
 			// fallback to default values (possibly set by config)
 			else
 			{

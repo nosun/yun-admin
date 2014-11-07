@@ -8,8 +8,6 @@
         <link href="<?php echo base_url() ?>views/assets/css/main.css" rel="stylesheet" type="text/css" />
     </head>
 <style type="text/css">
-
-
 #error_msg {
  background:#FBE6F2 none repeat scroll 0 0;
  border:1px solid #D893A1;
@@ -46,7 +44,7 @@
 .message {
  color: red;
 }        
-        </style>
+</style>
     <body id="login">
         <div class="wrapper">
             <div id="header_bg">
