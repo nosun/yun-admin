@@ -22,7 +22,7 @@ class User extends CI_Controller {
     }
     
     public function feedback_add() {
-        $data['title'] = '在线反馈';
+        $data['title'] = '增加反馈';
         $this->load->view('feedback_add', $data);
     }
 
@@ -34,9 +34,14 @@ class User extends CI_Controller {
     public function feedback() {
         $data['title'] = '反馈列表';
         $this->load->model('feedback_model');
-        $limit=10;
-        $offset=0;
-        $data['feedback']= $this->feedback_model->get_feedback($this->user_name,$limit,$offset);
+        $limit=$this->input->post('limit');
+        $offset=$this->input->post('offset');
+        $feedback=$this->feedback_model->get_feedback($this->user_name,$limit,$offset);
+        $status=array(1=>'已收到',2=>'处理中',3=>'已解决',4=>'已关闭');
+        $feed_cate= $this->cache->get('feedback_cat');
+        $feedback=$this->chword($feedback,'status', $status);
+        $feedback=$this->chword($feedback,'category', $feed_cate);
+        $data['feedback']= $feedback;
         $this->load->view('feedback', $data);
     }
 
@@ -45,7 +50,12 @@ class User extends CI_Controller {
         $data['title'] = '查看反馈';
         $id=$this->uri->segment(3);
         if(!empty($id)){
-            $data['fb_main']= $this->feedback_model->get_by_id($this->db->dbprefix('feedback'),$id);
+            $feedback= $this->feedback_model->get_by_id($this->db->dbprefix('feedback'),$id);
+            $status=array(1=>'已收到',2=>'处理中',3=>'已解决',4=>'已关闭');
+            $feed_cate= $this->cache->get('feedback_cat');
+            $feedback=$this->chword($feedback,'status', $status);
+            $feedback=$this->chword($feedback,'category', $feed_cate);
+            $data['fb_main']=$feedback[0];
             $fb_reply=$this->feedback_model->get_rely_by_id($id);
             if($fb_reply->result_array()){
                 $data['fb_reply']=$fb_reply->result_array();
@@ -61,7 +71,7 @@ class User extends CI_Controller {
     
     public function feedback_reply() {
         $this->load->model('feedback_model');
-        $data['title'] = '查看反馈';
+        $data['title'] = '增加回复';
         $id=$this->uri->segment(3);
         $content=  $this->input->post('content');
         if(!empty($id) && !empty($content)){
@@ -70,6 +80,14 @@ class User extends CI_Controller {
         redirect(site_url('user/feedback_view/'.$id));
 
     }
+    
+    function chword($data,$key,$words){
+            foreach($data as $p){
+                $p[$key]=$words[$p[$key]];
+                $array_group[]=$p;
+            }
+    return $array_group;
+}
 
 }
 /* End of file User.php */

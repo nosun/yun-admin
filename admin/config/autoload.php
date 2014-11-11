@@ -52,7 +52,7 @@ $autoload['packages'] = array(YUN_SHARE_PATH);
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'session');
+$autoload['libraries'] = array('database', 'session','cache');
 
 
 /*

@@ -31,15 +31,15 @@ $(document).ready(function(){
         <h1><?php echo $roles['name'] ?>的权限设置</h1>
         <?php echo validation_errors(); ?>
         <form action="<?php echo base_url().'roles/set_rights/'.$id ?>" method="post">
-            <?php foreach ($powers as $p): ?>
+            <?php 
+            foreach ($powers as $p): ?>
                 <p><input name="models[]" type="checkbox" value="<?php echo $p['id'] ?>"
                     <?php
                     $id = strval($p['id']);
                     if ($models[$id] == 1) {
                         echo 'checked="checked"';
                     }
-                    ?>              
-                          /><?php echo $p['name'] ?></p>
+                    ?> /><?php echo $p['name']?></p>
                 <?php endforeach ?>
             <input name="action" value="ok" type="hidden"/>
             <input type="submit" value="提交"/>

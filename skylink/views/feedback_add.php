@@ -6,8 +6,13 @@
             <?php include_once 'uleft.php'; ?>
         </section>
         <section class='col-sm-10' id='u_content'>
-            <h3 id="u_title"><i class="account_icon"></i>个人中心</h3>
-            <div id="u_box">
+            <div id="u_title">
+                <h3 class="left"><i class="account_icon"></i><?php echo $title ?></h3>
+                <span class="right">
+                    <a class="btn btn-primary" href="<?php echo site_url('user/feedback_add') ?>" target="_self">增加反馈</a>
+                </span>    
+            </div>
+            <div class="u_box">
                 <form class="form-horizontal" role="form" method="post" id='J_Form'  action="<?php echo site_url('user/add_feedback') ?>">
                    <input type="hidden" name='user_name' id="user_name" value='1'>
                   <div class="form-group" id="product_div">

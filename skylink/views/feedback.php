@@ -6,9 +6,13 @@
             <?php include_once 'uleft.php'; ?>
         </section>
         <section class='col-sm-10' id='u_content'>
-            <h3 id="u_title"><i class="account_icon"></i>个人中心</h3>
+            <div id="u_title">
+                <h3 class="left"><i class="account_icon"></i><?php echo $title ?></h3>
+                <span class="right">
+                    <a class="btn btn-primary" href="<?php echo site_url('user/feedback_add') ?>" target="_self">增加反馈</a>
+                </span>    
+            </div>
             <div class="u_box" id="fb_list">
-                <div><h2>反馈列表</h2><a href="<?php echo site_url('user/feedback_add') ?>" target="_self">增加反馈</a></div>
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>

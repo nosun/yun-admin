@@ -44,8 +44,8 @@
               items:[
                 {id:'index',text:'后台首页',href:'<?php echo site_url("system/info") ?>',closeable : false},
                 {id:'setting',text:'站点设置',href:'<?php echo site_url("system/setting") ?>'},
-                {id:'passwd',text:'修改密码',href:'<?php echo site_url("admin/passwd") ?>'}                
-        
+                {id:'cache',text:'缓存清理',href:'<?php echo site_url("system/cache") ?>'},
+                {id:'passwd',text:'修改密码',href:'<?php echo site_url("admin/passwd") ?>'}
               ]
             },{
               text:'权限设置',

@@ -7,7 +7,7 @@
     </h5>
     <ul class="mye_nav_lists" style="position: static; top: 10px;">
         <li>
-            <a class="mye_icon iaManage " id="device_li" href="/device/">我的设备</a>
+            <a class="mye_icon iaManage " id="link_feedback" href="<?php echo site_url('user/feedback')?>">我的反馈</a>
         </li>
         <li>
             <a class="mye_icon msgManage " href="/check/">设备自检</a>

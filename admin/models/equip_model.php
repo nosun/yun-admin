@@ -67,7 +67,7 @@ class Equip_Model extends Yun_Model{
 
     }
     
-    function get_eq_cat($limit='',$start=0){
+    function get_eq_cat($limit=10,$start=0){
         $table  =   $this->db->dbprefix('device_class');
         if ($limit)
         {
@@ -79,7 +79,7 @@ class Equip_Model extends Yun_Model{
         }
         $this->db->from($table);
         $this->db->order_by("id asc");
-        $res=$this->db->get()->result();
+        $res=$this->db->get()->result_array();
         
         return($res);
     }   

@@ -32,6 +32,10 @@ class System extends Yun_Controller {
         $this->load->view('common/footer');
     }
 
+    function cache(){
+        $data['title'] = '更新缓存';
+        $this->load->view('system/system_cache', $data);
+    }
     function logs_login() {
         $data['title'] = '登陆日志';
         $this->load->view('common/header', $data);

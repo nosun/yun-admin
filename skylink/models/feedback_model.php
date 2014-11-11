@@ -28,9 +28,20 @@ Class Feedback_Model extends Yun_Model{
         $this->db->insert($this->tb_feedback, $data);
     }
     
-    public function get_feedback($user_name,$limit,$offset){
-        $query = $this->db->get_where($this->tb_feedback, array('user_name' => $user_name), $limit, $offset);
-        return $query->result_array();
+    public function get_feedback($user_name,$limit=10,$offset=0){
+        $this->db->from($this->tb_feedback);
+        $this->db->where('user_name',$user_name);
+        $this->db->order_by('id','desc');
+        if ($limit)
+        {
+            $this->db->limit($limit);
+        }
+        if ($offset)
+        {
+            $this->db->offset($offset);
+        }
+        $res=$this->db->get()->result_array();
+        return $res;
     }
     
     public function insert_user_reply($fid,$user_name,$content){

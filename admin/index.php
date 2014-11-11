@@ -56,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'D:\xampp\htdocs\yun-admin\admin';
+	$application_folder = 'E:\xampp\htdocs\yun-admin\admin';
 
 /*
  * --------------------------------------------------------------------

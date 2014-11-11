@@ -10,7 +10,7 @@ class Yun_Model extends CI_Model {
         $query = $this->db->get_where($tablename, array('id' => $id), 1);
         if ($query->num_rows() > 0)
         {
-            $row = $query->row_array();
+            $row = $query->result_array();
         } 
         return $row;
     }
