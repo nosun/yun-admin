@@ -10,7 +10,14 @@ class Yun_Model extends CI_Model{
         $table = $this->db->dbprefix($tablename);
         return $this->db->count_all($table);
     }
-    
-    
+
+    public function get_by_id($tablename,$id) {
+        $query = $this->db->get_where($tablename, array('id' => $id), 1);
+        if ($query->num_rows() > 0)
+        {
+            $row = $query->result_array();
+        }
+        return $row;
+    }
     
 }

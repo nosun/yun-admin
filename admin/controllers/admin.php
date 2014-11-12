@@ -20,17 +20,6 @@ class Admin extends Yun_Controller {
         $this->load->view('admin/passwd',$data);
     }
     
-    function admin_data() {
-        $offset = $this->input->post('start');
-        $limit = $this->input->post('limit');
-        $num = $this->admin_model->get_num('admins');
-
-        $admins = $this->admin_model->get_admin();   
-        $str_json = json_encode($admins);
-        $data['str_json']='{"rows":'.$str_json.', "results":'.$num.'}';
-        $this->load->view('admin/admin_data', $data);
-    }
-
     public function create() {
         $id = $this->input->post('uid');
         $this->load->model('log_model');

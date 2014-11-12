@@ -471,8 +471,8 @@
             $list=$this->feedback_model->get_list($product_id,$category,$status,$id,$start_date,$end_date,$limit,$start);
             $num=$this->feedback_model->get_num($product_id,$category,$status,$id,$start_date,$end_date);   
             
-            $status=array(1=>'新开',2=>'未解决',3=>'处理中',4=>'已解决',5=>'不处理');
-            $feed_cate=array(1=>'质量问题',2=>'使用疑难',3=>'业务投诉',4=>'产品建议',5=>'业务咨询');
+            $status=$this->config->item('feedback_status');
+            $feed_cate=$this->cache->get('feedback_cat');
             if($list){
                 $data=$this->_time_format2($list,'addtime');
                 $data=$this->chword($data,'status', $status);

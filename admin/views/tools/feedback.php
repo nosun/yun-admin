@@ -16,7 +16,9 @@
                 <div class="controls" >
                     <select name="product" id="product_id" selected="">
                         <option value="0">所有型号</option>
-                        <option value="skyware001">skyware001</option>
+                        <?php foreach($equip_cat as $key=>$value){
+                            echo '<option value="'.$key.'">'.$value.'</option>';
+                        }?>
                     </select>
                 </div>
             </div>
@@ -24,12 +26,10 @@
                 <label class="control-label">问题分类</label>                
                 <div class="controls">
                     <select name="category">
-                        <option value="0">所有类别</option>                    
-                        <option value="1">质量问题</option>
-                        <option value="2">使用疑难</option>  
-                        <option value="3">业务投诉</option>  
-                        <option value="4">产品建议</option>  
-                        <option value="5">业务咨询</option>  
+                        <option value="0">所有类别</option>
+                        <?php foreach($feedback_cat as $key=>$value){
+                            echo '<option value="'.$key.'">'.$value.'</option>';
+                        }?>
                     </select>
                 </div>
             </div>
@@ -37,10 +37,10 @@
                 <label class="control-label">问题状态</label>                
                 <div class="controls">
                     <select name="status">
-                        <option value="0">所有问题</option>       
-                        <option value="1">待处理</option>                         
-                        <option value="2">已回复</option>
-                        <option value="3">已解决</option>  
+                        <option value="0">所有问题</option>
+                        <?php foreach($feedback_status as $key=>$value){
+                            echo '<option value="'.$key.'">'.$value.'</option>';
+                        }?>
                     </select>
                 </div>
             </div>            
@@ -92,18 +92,16 @@
   BUI.use('common/search',function (Search) {
     
     columns = [
-        {title:'反馈id',dataIndex:'id',width:60},
-        {title:'设备型号',dataIndex:'product',width:100},    
-        {title:'问题内容',dataIndex:'title',width:160},
-        {title:'反馈时间',dataIndex:'content',width:300},
-        {title:'问题分类',dataIndex:'category',width:80},        
-        {title:'状态',dataIndex:'status',width:80}, 
-        {title:'操作',dataIndex:'',width:160,renderer : function(value,obj){
-          var viewStr = '<span class="grid-command btn-view" title="查看">查看</span>',
-              replyStr = '<span class="grid-command btn-reply" title="回复">回复</span>',
-              delStr = '<span class="grid-command btn-del" title="删除">删除</span>';
-          return viewStr+replyStr + delStr;
-        }}
+        {title:'id',dataIndex:'id',width:100},
+        {title:'用户',dataIndex:'user_name',width:100},
+        {title:'产品',dataIndex:'product',width:100},
+        {title:'标题',dataIndex:'title',width:300,renderer:function(value,obj){
+            return '<a href="'+ '<?php echo site_url('feedback/show')?>/' + obj.id +'" ' +
+                'title="查看内容" class="show_fb" >' + value +'</a>';
+        }},
+        {title:'时间',dataIndex:'addtime',width:100},
+        {title:'分类',dataIndex:'category',width:100},
+        {title:'状态',dataIndex:'status',width:100}
         ],
       store = Search.createStore('../data/feedback',{
         proxy : {
@@ -112,7 +110,8 @@
         pageSize:15
       }),
       gridCfg = Search.createGridCfg(columns,{
-        plugins : [] // 插件形式引入多选表格
+        plugins : [], // 插件形式引入多选表格
+        forceFit: true
       });
 
     var  search = new Search({

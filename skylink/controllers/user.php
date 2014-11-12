@@ -37,7 +37,7 @@ class User extends CI_Controller {
         $limit=$this->input->post('limit');
         $offset=$this->input->post('offset');
         $feedback=$this->feedback_model->get_feedback($this->user_name,$limit,$offset);
-        $status=array(1=>'已收到',2=>'处理中',3=>'已解决',4=>'已关闭');
+        $status=$this->cache->get('feedback_status');
         $feed_cate= $this->cache->get('feedback_cat');
         $feedback=$this->chword($feedback,'status', $status);
         $feedback=$this->chword($feedback,'category', $feed_cate);
@@ -51,7 +51,7 @@ class User extends CI_Controller {
         $id=$this->uri->segment(3);
         if(!empty($id)){
             $feedback= $this->feedback_model->get_by_id($this->db->dbprefix('feedback'),$id);
-            $status=array(1=>'已收到',2=>'处理中',3=>'已解决',4=>'已关闭');
+            $status=$this->cache->get('feedback_status');
             $feed_cate= $this->cache->get('feedback_cat');
             $feedback=$this->chword($feedback,'status', $status);
             $feedback=$this->chword($feedback,'category', $feed_cate);

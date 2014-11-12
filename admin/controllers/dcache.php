@@ -10,7 +10,7 @@ class Dcache extends Yun_Controller {
         $this->load->model('equip_model');
         $result=$this->equip_model->get_eq_cat(10,0);
         foreach($result as $row){
-            $data[$row['id']]=$row['name'];
+            $data[$row['id']]=$row['model'];
         }
         $this->cache->write($data, 'equip_cat');
         redirect('system/cache');
