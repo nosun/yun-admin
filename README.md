@@ -1,4 +1,4 @@
 yun-admin
 =========
 
-this is a admin-site powered by codeiginator
+this is a site powered by codeiginator
