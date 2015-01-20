@@ -26,7 +26,7 @@ class System extends Yun_Controller {
 
     function setting() {
         $data['title'] = '系统设置';
-        $data['settings'] = $this->db->get($this->db->dbprefix('settings'))->row();
+        $data['settings'] = $this->db->get($this->db->dbprefix('admin_setting'))->row();
         $this->load->view('common/header');
         $this->load->view('system/system_setting', $data);
         $this->load->view('common/footer');

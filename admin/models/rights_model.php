@@ -4,34 +4,35 @@ class Rights_Model extends Yun_Model{
 
     public function __construct() {
         parent::__construct();
-        $this->table=$this->db->dbprefix('power');
+        $this->tb_auth=$this->db->dbprefix('admin_auth');
+        $this->tb_role=$this->db->dbprefix('admin_role');
+
     }
 
-    
+
     public function rights_list($limit = 0, $start = 0) {
-            $this->db->from($this->table);
-            $this->db->order_by('id', 'asc');
-            if ($limit) {
-                $this->db->limit($limit);
-            }
-            if ($start) {
-                $this->db->offset($start);
-            }
-            $query = $this->db->get()->result_array();
-            return $query;
+        $this->db->from($this->tb_auth);
+        $this->db->order_by('id', 'asc');
+        if ($limit) {
+            $this->db->limit($limit);
+        }
+        if ($start) {
+            $this->db->offset($start);
+        }
+        $query = $this->db->get()->result_array();
+        return $query;
     }
 
-    
+
     public function get_array_power($rid) {
-        $table_roles = $this->db->dbprefix('roles');
-        $query = $this->db->get_where($table_roles, array('id' => $rid));
+        $query = $this->db->get_where($this->tb_role, array('id' => $rid));
         $rs = $query->row_array();
         $str = $rs['models'];
         return json_decode($str, true);
-    }    
+    }
 
     public function get_powerid($str) {
-        $query = $this->db->query('select id,controller from ' . $this->table);
+        $query = $this->db->query('select id,controller from ' . $this->tb_auth);
         foreach ($query->result_array() as $row) {
             if (strchr($str, $row['controller'])) {
                 return $row['id'];
@@ -39,9 +40,8 @@ class Rights_Model extends Yun_Model{
             };
         }
     }
-    
+
     public function set_power($id) {
-        $table_power = $this->db->dbprefix('power');
         $data = array(
             'name' => $this->input->post('name'),
             'pid' => $this->input->post('pid'),
@@ -49,9 +49,9 @@ class Rights_Model extends Yun_Model{
         );
         if ($id) {
             $where = array('id' => $id);
-            return $this->db->update($table_power, $data, $where);
+            return $this->db->update($this->tb_auth, $data, $where);
         } else {
-            $this->db->insert($table_power, $data);
+            $this->db->insert($this->tb_auth, $data);
             $id = mysql_insert_id();
             $this->change_power($id, 1);
             return;
@@ -59,9 +59,8 @@ class Rights_Model extends Yun_Model{
     }
 
     public function del_power($ids) {
-        $table_power = $this->db->dbprefix('power');
         $str_ids = implode(',', $ids);
-        $strSql = 'delete from ' . $table_power . ' where id in (' . $str_ids . ')';
+        $strSql = 'delete from ' . $this->tb_auth . ' where id in (' . $str_ids . ')';
         $this->db->query($strSql);
         foreach ($ids as $id) {
             $this->change_power($id, 0);
@@ -70,7 +69,6 @@ class Rights_Model extends Yun_Model{
     }
 
     public function change_power($id, $type) {
-        $table_roles = $this->db->dbprefix('roles');
         $roles = $this->get_roles();
         foreach ($roles as $rl) {
             $models = $rl['models'];
@@ -85,7 +83,7 @@ class Rights_Model extends Yun_Model{
                 'models' => $models
             );
             $where = array('id' => $rl['id']);
-            $this->db->update($table_roles, $data, $where);
+            $this->db->update($this->tb_role, $data, $where);
         }
         return;
     }

@@ -8,8 +8,9 @@
                             if(!empty($date)){
                                 $month=$date;
                             }else{
-                                $month= date('Y-n',now());
+                                $month= date('Y-n',time());
                             }
+
                             $pn=explode('-',$month);
                             $month0=$pn[0].'-'.$pn[1];// this month
                             $month1=$pn[0].'-'.($pn[1]-1);//last month

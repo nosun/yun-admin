@@ -1,16 +1,18 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
     class Data extends Yun_Controller {
+        public $timeSet;
         public function __construct()
         {
-                parent::__construct();
+            parent::__construct();
+            $this->timeSet = time()-86400*100;
         }
         
         function admin_list(){
             $this->load->model('equip_model');            
             $start = $this->input->post('start');
             $limit = $this->input->post('limit');
-            $num = $this->admin_model->get_num('admins');
+            $num = $this->admin_model->get_num('admin');
             $admins = $this->admin_model->admin_list($limit,$start);
 
             $data=json_encode($admins);
@@ -22,7 +24,7 @@
             $this->load->model('rights_model');            
             $start = $this->input->post('start');
             $limit = $this->input->post('limit');
-            $num = $this->admin_model->get_num('power');
+            $num = $this->admin_model->get_num('admin_auth');
             $right = $this->rights_model->rights_list($limit,$start);
 
             $data=json_encode($right);
@@ -34,7 +36,7 @@
             $this->load->model('roles_model');   
             $start = $this->input->post('start');
             $limit = $this->input->post('limit');
-            $num = $this->roles_model->get_num('roles');
+            $num = $this->roles_model->get_num('admin_role');
             $roles = $this->roles_model->get_roles($limit,$start);
             
             $data=json_encode($roles);
@@ -218,7 +220,7 @@
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $now=time()-86400*40;
+            $now=$this->timeSet;
             $year=  date('Y',$now); //2014
             $month= date('n',$now); //9
             $day=date('j',$now); //1
@@ -260,7 +262,7 @@
             $limit      =$this->input->post('limit');
             $start      =$this->input->post('start');
             
-            $now=time()-86400*40;
+            $now=$this->timeSet;
             $year=  date('Y',$now); //2014
             $month= date('n',$now); //9
             $day=date('j',$now); //1
@@ -349,7 +351,8 @@
             $this->load->model('user_model');
             $action=  $this->uri->segment('3');           
             $month=  $this->uri->segment('4');
-            if(!empty($this->input->post('date'))){
+            $date=$this->input->post('date');
+            if(!empty($date)){
                 $month=$this->input->post('date');
             }
             

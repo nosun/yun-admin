@@ -1,10 +1,12 @@
 <?php
 
 class User extends Yun_Controller{
-    
+
+    public $timeSet;
     function __construct() {
         parent::__construct();
         $this->load->model('user_model');
+        $this->timeSet=time()-86400*100;
     }
     
     // the users info main, index page
@@ -15,7 +17,7 @@ class User extends Yun_Controller{
             $data['dataurl']='../../../data/user_count_d/'.$action.'/'.$day;
             $data['date']=$day;
         }else{ //set the day today
-            $data['date']=date('Y-n',time());
+            $data['date']=date('Y-n',$this->timeSet);
             $data['dataurl']='../../data/user_count_d/'.$action.'/'.$data['date'];
         }
         if($action=='reg_all'){

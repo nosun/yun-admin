@@ -2,11 +2,14 @@
 
 
 class Admin_Model extends Yun_Model {
-    
+
     public $table;
     public function __construct() {
         parent::__construct();
-        $this->table=$this->db->dbprefix('admins');
+        $this->tb_admin=$this->db->dbprefix('admin');
+        $this->tb_role=$this->db->dbprefix('admin_role');
+        $this->tb_hold=$this->db->dbprefix('admin_hold');
+        $this->tb_admin_log=$this->db->dbprefix('admin_log_login');
     }
 
     /**
@@ -18,19 +21,19 @@ class Admin_Model extends Yun_Model {
      */
     public function get_admin_by_uid($uid = 0) {
         return $this->db
-                        ->where('uid', $uid)
-                        ->get($this->table)
-                        ->row();
+            ->where('uid', $uid)
+            ->get($this->tb_admin)
+            ->row();
     }
 
     public function get_admin($id) {
-        $query = $this->db->get_where($this->table, array('uid' => $id));
+        $query = $this->db->get_where($this->tb_admin, array('uid' => $id));
         $arr = $query->row_array();
         return $arr;
     }
-    
-        public function get_rolesid($id) {
-        $query = $this->db->get_where($this->table, array('uid' => $id));
+
+    public function get_rolesid($id) {
+        $query = $this->db->get_where($this->tb_admin, array('uid' => $id));
         $arr = $query->row_array();
         return intval($arr['role']);
     }
@@ -44,9 +47,9 @@ class Admin_Model extends Yun_Model {
      */
     public function get_admin_by_name($name) {
         return $this->db
-                        ->where('username', $name)
-                        ->get($this->table)
-                        ->row();
+            ->where('username', $name)
+            ->get($this->tb_admin)
+            ->row();
     }
 
     // ------------------------------------------------------------------------
@@ -58,28 +61,27 @@ class Admin_Model extends Yun_Model {
      * @return object
      */
     public function get_full_admin($username = '', $type = 'username') {
-        $table_admins = $this->table;
-        $table_roles = $this->db->dbprefix('roles');
         if ($type == 'uid') {
-            $this->db->where($table_admins . '.uid', $username);
+            $this->db->where($this->tb_admin . '.uid', $username);
         } else {
-            $this->db->where($table_admins . '.username', $username);
+            $this->db->where($this->tb_admin . '.username', $username);
         }
         return $this->db
-                        ->select("$table_admins.uid, $table_admins.username, $table_admins.password, $table_admins.salt, $table_admins.role, $table_roles.name, $table_admins.status")
-                        ->from($table_admins)
-                        ->join($table_roles, "$table_roles.id = $table_admins.role")
-                        ->get()
-                        ->row();
+            ->select("$this->tb_admin.uid, $this->tb_admin.username, $this->tb_admin.password, $this->tb_admin.salt,
+                        $this->tb_admin.role, $this->tb_role.name, $this->tb_admin.status")
+            ->from($this->tb_admin)
+            ->join($this->tb_role, "$this->tb_role.id = $this->tb_admin.role")
+            ->get()
+            ->row();
     }
-    
+
     public function get_throttle($admin) {
         //get the hold info from the sheet of throttle
         $throttle = $this->db->where('created_at >', date('Y-m-d H:i:s', time() - 7200))
-                ->where('user_id', $admin->uid)
-                ->limit(1)
-                ->get('throttles')
-                ->row();
+            ->where('user_id', $admin->uid)
+            ->limit(1)
+            ->get($this->tb_hold)
+            ->row();
         return $throttle;
     }
 
@@ -88,20 +90,20 @@ class Admin_Model extends Yun_Model {
         $throttle_data['type'] = 'login';
         $throttle_data['ip'] = $loginip;
         $throttle_data['created_at'] = $throttle_data['updated_at'] = date('Y-m-d H:i:s');
-        $this->db->insert('throttles', $throttle_data);
+        $this->db->insert($this->tb_hold, $throttle_data);
     }
-    
+
     function _insert_log_login($username,$loginip,$password,$status){
         $log_data = array(
-                            'loginip' => $loginip,
-                            'username' => $username,
-                            'logintime' => time(),
-                            'password' => $password,
-                            'status' => $status
-                        );
-        $this->db->insert("admin_logs",$log_data);
+            'loginip' => $loginip,
+            'username' => $username,
+            'logintime' => time(),
+            'password' => $password,
+            'status' => $status
+        );
+        $this->db->insert($this->tb_admin_log,$log_data);
     }
-    
+
     // ------------------------------------------------------------------------
     /**
      * 添加管理员
@@ -114,7 +116,7 @@ class Admin_Model extends Yun_Model {
         $data['salt'] = substr(sha1(time()), -10);
         $data['password'] = sha1($data['password'] . $data['salt']);
         return $this->db
-                        ->insert($this->table, $data);
+            ->insert($this->tb_admin, $data);
     }
 
     // ------------------------------------------------------------------------
@@ -132,8 +134,8 @@ class Admin_Model extends Yun_Model {
             $data['password'] = sha1($data['password'] . $data['salt']);
         }
         return $this->db
-                        ->where('uid', $uid)
-                        ->update($this->table, $data);
+            ->where('uid', $uid)
+            ->update($this->tb_admin, $data);
     }
 
     // ------------------------------------------------------------------------
@@ -148,7 +150,7 @@ class Admin_Model extends Yun_Model {
     public function validate() {
         $this->db->where('username', $this->input->post('username'));
         $this->db->where('password', md5($this->input->post('password')));
-        $query = $this->db->get('yun_admins');
+        $query = $this->db->get($this->tb_admin);
 
         if ($query->num_rows == 1) {
             return true;
@@ -158,20 +160,19 @@ class Admin_Model extends Yun_Model {
     }
 
     public function admin_list($limit = 0, $start = 0) {
-            $this->db->from($this->table);
-            $this->db->order_by('uid', 'asc');
-            if ($limit) {
-                $this->db->limit($limit);
-            }
-            if ($start) {
-                $this->db->offset($start);
-            }
-            $query = $this->db->get()->result_array();
-            return $query;
+        $this->db->from($this->tb_admin);
+        $this->db->order_by('uid', 'asc');
+        if ($limit) {
+            $this->db->limit($limit);
+        }
+        if ($start) {
+            $this->db->offset($start);
+        }
+        $query = $this->db->get()->result_array();
+        return $query;
     }
 
     public function set_admin($id) {
-        $table_admins = $this->table;
         $role = intval($this->input->post('role'));
         $data = array(
             'username' => $this->input->post('username'),
@@ -187,20 +188,19 @@ class Admin_Model extends Yun_Model {
                 $data['password'] = sha1($password . $data['salt']);
             }
             $where = array('uid' => $id);
-            return $this->db->update($table_admins, $data, $where);
+            return $this->db->update($this->tb_admin, $data, $where);
         } else {
             $password = $this->input->post('password');
             $data['salt'] = substr(sha1(time()), -10);
             $data['password'] = sha1($password . $data['salt']);
-            return $this->db->insert($table_admins, $data);
+            return $this->db->insert($this->tb_admin, $data);
         }
     }
 
     public function del_admin($ids) {
-        $table_admins = $this->table;
         $ids = implode(',', $ids);
 
-        $strSql = 'delete from ' . $table_admins . ' where uid in (' . $ids . ')';
+        $strSql = 'delete from ' . $this->tb_admin . ' where uid in (' . $ids . ')';
 
         $this->db->query($strSql);
         return;

@@ -40,7 +40,7 @@ if (defined('ENVIRONMENT'))
  * system目录
  *
  */
-	$system_path = '../system';
+	$system_path = '/www/system/';
 
 /*
  *---------------------------------------------------------------
@@ -56,7 +56,7 @@ if (defined('ENVIRONMENT'))
  * NO TRAILING SLASH!
  *
  */
-	$application_folder = 'E:\xampp\htdocs\yun-admin\admin';
+	$application_folder = '/www/yun-admin/admin/';
 
 /*
  * --------------------------------------------------------------------
